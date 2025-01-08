@@ -4,12 +4,14 @@ import Input, {Variant} from "../Input";
 import {convertText} from "@/utils";
 
 interface SelectInterface {
+    leftIcon?: any;
+    rightIcon?: any;
     placeholder?: string;
     selected?: {id: number; value: string} | null;
     iconSelect?: any;
     inputSearch?: boolean;
     onChange?: any;
-    options?: {id: number; value: string}[];
+    options?: {id: number; value: string; leftIcon?: any; rightIcon?: any}[];
     className?: string;
     classOption?: string;
 }
@@ -22,6 +24,8 @@ function Select({
     iconSelect = <ArrowDown className="text-text w-6 h-6" />,
     options,
     className,
+    leftIcon,
+    rightIcon,
     classOption
 }: SelectInterface) {
     const [textSearch, setTextSearch] = useState("");
@@ -29,7 +33,12 @@ function Select({
     const refInput = useRef<HTMLDivElement | null>(null);
     const refSearch = useRef<HTMLDivElement | null>(null);
     const refSelect = useRef<HTMLDivElement | null>(null);
-    const handleChangeValue = (item: {id: number; value: string}) => {
+    const handleChangeValue = (item: {
+        id: number;
+        value: string;
+        leftIcon?: any;
+        rightIcon?: any;
+    }) => {
         onChange(item);
         setTimeout(() => {
             setOpenOption(false);
@@ -56,7 +65,6 @@ function Select({
             !refSelect.current.contains(e.target)
         ) {
             if (openOption !== "") {
-                console.log("cloose");
                 setOpenOption(false);
             }
         }
@@ -88,25 +96,26 @@ function Select({
     );
 
     return (
-        <div
-            className={`relative  border-green w-full min-w-[400px] ${className}`}>
+        <div className={`relative  border-green w-full  ${className}`}>
             <div
                 tabIndex={0}
-                className="w-full  flex justify-between items-center gap-[10px]  border-b-[1px]"
+                className="w-full flex justify-between items-center gap-[10px] border-b-[1px]"
                 ref={refSelect}
                 onClick={() => handleOpenOption(openOption)}>
-                <div className="text-[13px] text-text leading-[31px] capitalize ">
-                    {!selected ? placeholder : selected.value}
+                <div className="flex items-center gap-1 flex-grow overflow-hidden">
+                    {leftIcon && leftIcon}
+                    <div className="text-[13px] text-text leading-[31px] capitalize truncate w-full">
+                        {!selected ? placeholder : selected.value}
+                    </div>
                 </div>
                 <div
-                    className={`
-                ${openOption && "animate-rotate"}
-                ${
-                    !openOption && "animate-rotateContrary"
-                }                                `}>
+                    className={`${
+                        openOption ? "animate-rotate" : "animate-rotateContrary"
+                    }`}>
                     {iconSelect}
                 </div>
             </div>
+
             <div
                 className={` absolute z-10 mt-1 w-full h-auto invisible bg-white shadow-md top-auto left-0 rounded-md border-[1px] 
                     
@@ -121,7 +130,7 @@ function Select({
                          "animate-uptown"
                      }`}>
                 {inputSearch && (
-                    <div className="p-2 sticky top-0 bg-white">
+                    <div className=" w-full p-2 sticky top-0 bg-white">
                         <Input
                             refInput={refInput}
                             placeholder="Tìm kiếm mặt hàng"
@@ -133,18 +142,19 @@ function Select({
                         />
                     </div>
                 )}
-                <div className={`max-h-[150px] overflow-y-scroll   `}>
+                <div className={`w-full max-h-[150px] overflow-y-scroll `}>
                     {optionSearch?.map((item) => (
                         <div
                             key={item.value}
                             onClick={() => handleChangeValue(item)}
-                            className=" flex items-center justify-between pr-2  hover:bg-grey cursor-pointer">
-                            <div className="px-[15px] py-[10px]  text-[13px] text-text capitalize">
-                                {item.value}
+                            className="w-full flex  items-center justify-between pr-2 hover:bg-grey cursor-pointer ">
+                            <div className="w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize">
+                                {item.leftIcon && item.leftIcon}
+                                <div className="flex-grow text-[13px] text-text capitalize truncate w-0 overflow-hidden whitespace-nowrap text-ellipsis">
+                                    {item.value}
+                                </div>
+                                {item.rightIcon && item.rightIcon}
                             </div>
-                            {selected && item.id === selected?.id && (
-                                <TickSelectedIcon className="text-blue-300" />
-                            )}
                         </div>
                     ))}
                 </div>

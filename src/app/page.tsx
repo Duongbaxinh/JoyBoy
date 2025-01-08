@@ -32,13 +32,13 @@ export default function Home() {
                 <Header />
             </div>
             <Select
-                className="max-w-[500px]  px-2"
-                // inputSearch
+                className="max-w-[200px]  px-2"
+                leftIcon={<EyeIcon />}
                 selected={valueSelect}
                 onChange={(item: any) => setValueSelect(item)}
                 placeholder="Chon san pham muon tao"
                 options={[
-                    {id: 1, value: "Sửa rửa mặt"},
+                    {id: 1, value: "Sửa rửa mặt", leftIcon: <EyeIcon />},
                     {id: 2, value: "kem chống nắng1"},
                     {id: 3, value: "kem chống nắng2"},
                     {id: 4, value: "kem chống nắng3"},
