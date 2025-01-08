@@ -9,6 +9,21 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            extend: {
+                screens: {
+                    sm: "640px",
+                    md: "768px",
+                    lg: "1024px",
+                    xl: "1280px"
+                }
+            },
+            maxWidth: {
+                sm: "600px",
+                md: "720px",
+                lg: "960px",
+                xl: "1200px",
+                "2xl": "1550px"
+            },
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",

@@ -1,10 +1,10 @@
 "use client";
 
 import {EyeIcon} from "@/assets/icons";
-import Checkbox from "@/components/atoms/Checkbox";
 import Input, {Variant} from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
+import Header from "@/components/modecules/Header";
 import {useState} from "react";
 
 export default function Home() {
@@ -27,6 +27,10 @@ export default function Home() {
             <h1 className="text-red-300">
                 Welcome to JoyBoy App {valueSelect?.value}
             </h1>
+            <div>
+                {" "}
+                <Header />
+            </div>
             <Select
                 className="max-w-[500px]  px-2"
                 // inputSearch
@@ -44,7 +48,7 @@ export default function Home() {
                     {id: 8, value: "kem chống nắng7"}
                 ]}
             />
-            <Checkbox />
+
             <Input
                 className="w-[200px]"
                 placeholder="Hello..."
