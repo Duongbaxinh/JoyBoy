@@ -11,6 +11,7 @@ const config: Config = {
         extend: {
             extend: {
                 screens: {
+                    xs: "500px",
                     sm: "640px",
                     md: "768px",
                     lg: "1024px",
@@ -19,7 +20,7 @@ const config: Config = {
             },
             maxWidth: {
                 sm: "600px",
-                md: "720px",
+                md: "768px",
                 lg: "960px",
                 xl: "1200px",
                 "2xl": "1550px"
@@ -28,7 +29,7 @@ const config: Config = {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
                 primaryColor: "#0070F4",
-                secondColor: "#12509A",
+                secondColor: "#005AC3",
                 grey: "#EEEFF1",
                 dark_grey: "#EEEFF1",
                 lightBlue: "#CCE2FD",
