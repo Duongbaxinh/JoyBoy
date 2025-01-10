@@ -7,8 +7,19 @@ interface SelectInterface {
     leftIcon?: any;
     rightIcon?: any;
     placeholder?: string;
-    selected?: {id: number; value: string} | null;
+    selected?: {
+        id: number;
+        value: string;
+        leftIcon?: any;
+        rightIcon?: any;
+    } | null;
     iconSelect?: any;
+    customIcon?: string;
+    customOption?: string;
+    customSelected?: string;
+    customTextOption?: string;
+    customTextSelected?: string;
+    customItemOption?: string;
     inputSearch?: boolean;
     onChange?: any;
     options?: {id: number; value: string; leftIcon?: any; rightIcon?: any}[];
@@ -21,7 +32,13 @@ function Select({
     selected = null,
     inputSearch = false,
     onChange,
-    iconSelect = <ArrowDown className="text-text w-6 h-6" />,
+    customIcon,
+    customTextSelected,
+    customTextOption,
+    customSelected,
+    customOption,
+    customItemOption,
+    iconSelect = <ArrowDown className="text-text w-full h-full" />,
     options,
     className,
     leftIcon,
@@ -39,6 +56,7 @@ function Select({
         leftIcon?: any;
         rightIcon?: any;
     }) => {
+        console.log("run at here", item);
         onChange(item);
         setTimeout(() => {
             setOpenOption(false);
@@ -56,7 +74,9 @@ function Select({
             !refInput.current.contains(e.target)
         ) {
             if (openOption !== "") {
-                setOpenOption(false);
+                setTimeout(() => {
+                    setOpenOption(false);
+                }, 200);
             }
         }
         if (
@@ -65,7 +85,9 @@ function Select({
             !refSelect.current.contains(e.target)
         ) {
             if (openOption !== "") {
-                setOpenOption(false);
+                setTimeout(() => {
+                    setOpenOption(false);
+                }, 200);
             }
         }
     };
@@ -99,17 +121,19 @@ function Select({
         <div className={`relative  border-green w-full  ${className}`}>
             <div
                 tabIndex={0}
-                className="w-full flex justify-between items-center gap-[10px] border-b-[1px]"
+                className="w-full flex justify-between items-center gap-[6px] border-b-[1px]"
                 ref={refSelect}
                 onClick={() => handleOpenOption(openOption)}>
-                <div className="flex items-center gap-1 flex-grow overflow-hidden">
+                <div
+                    className={`flex items-center gap-1 flex-grow overflow-hidden ${customSelected}`}>
                     {leftIcon && leftIcon}
-                    <div className="text-[13px] text-text leading-[31px] capitalize truncate w-full">
+                    <div
+                        className={`text-[13px] text-text leading-[31px] capitalize truncate w-full ${customTextSelected}`}>
                         {!selected ? placeholder : selected.value}
                     </div>
                 </div>
                 <div
-                    className={`${
+                    className={` ${customIcon} ${
                         openOption ? "animate-rotate" : "animate-rotateContrary"
                     }`}>
                     {iconSelect}
@@ -128,7 +152,7 @@ function Select({
                          openOption !== null &&
                          openOption === false &&
                          "animate-uptown"
-                     }`}>
+                     } ${customOption} `}>
                 {inputSearch && (
                     <div className=" w-full p-2 sticky top-0 bg-white">
                         <Input
@@ -142,19 +166,24 @@ function Select({
                         />
                     </div>
                 )}
-                <div className={`w-full max-h-[150px] overflow-y-scroll `}>
+                <div className={`w-full max-h-[150px] overflow-auto `}>
                     {optionSearch?.map((item) => (
                         <div
                             key={item.value}
                             onClick={() => handleChangeValue(item)}
                             className="w-full flex  items-center justify-between pr-2 hover:bg-grey cursor-pointer ">
-                            <div className="w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize">
+                            <div
+                                className={`w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize ${customItemOption}`}>
                                 {item.leftIcon && item.leftIcon}
-                                <div className="flex-grow text-[13px] text-text capitalize truncate w-0 overflow-hidden whitespace-nowrap text-ellipsis">
+                                <div
+                                    className={`flex-grow text-[13px] text-text capitalize truncate w-0 overflow-hidden whitespace-nowrap text-ellipsis ${customTextOption}`}>
                                     {item.value}
                                 </div>
                                 {item.rightIcon && item.rightIcon}
                             </div>
+                            {selected && item.id === selected?.id && (
+                                <TickSelectedIcon className="text-blue-300" />
+                            )}
                         </div>
                     ))}
                 </div>

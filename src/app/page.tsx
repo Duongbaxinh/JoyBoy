@@ -5,6 +5,9 @@ import Input, {Variant} from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Header from "@/components/modecules/Header";
+
+import {motion} from "framer-motion";
+import Image from "next/image";
 import {useState} from "react";
 
 export default function Home() {
@@ -27,12 +30,9 @@ export default function Home() {
             <h1 className="text-red-300">
                 Welcome to JoyBoy App {valueSelect?.value}
             </h1>
-            <div>
-                {" "}
-                <Header />
-            </div>
+
             <Select
-                className="max-w-[200px]  px-2"
+                className="max-w-[500px]  px-2"
                 leftIcon={<EyeIcon />}
                 selected={valueSelect}
                 onChange={(item: any) => setValueSelect(item)}
