@@ -52,8 +52,15 @@ const options = [
 interface HeaderInterface {
     pageParent: pageType[];
     pageChildren: {[key: string]: pageType[]};
+    isOpenMenu: boolean | null;
+    onOpenMenu: () => void;
 }
-function Header({pageParent, pageChildren}: HeaderInterface) {
+function Header({
+    pageParent,
+    isOpenMenu,
+    onOpenMenu,
+    pageChildren
+}: HeaderInterface) {
     const [pageOption, setPageOption] = useState("");
     const [valueSelect, setValueSelect] = useState<{
         id: number;
@@ -68,27 +75,26 @@ function Header({pageParent, pageChildren}: HeaderInterface) {
     };
     return (
         <>
-            <div className="w-full flex justify-center items-center sticky top-0">
+            <div className="w-full flex justify-center items-center bg-white ">
                 <div className="w-full max-w-2xl md:px-[30px] px-[10px]">
                     {/* Start Top Header */}
                     <div className="w-full p-2 flex justify-between items-center ">
-                        <div className="  flex gap-[10px] w-full h-full">
+                        <div className="  flex justify-start gap-[10px] min-w-[150px] flex-grow">
                             <IconButton
-                                className="md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[5px] !py-[5px]"
+                                className={`md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[8px] !py-[5px] ${
+                                    isOpenMenu && "invisible"
+                                }`}
                                 icon={
                                     <MenuIcon className="w-6 h-6 text-primaryColor" />
                                 }
-                                onFC={() => {}}
+                                onFC={onOpenMenu}
                             />
-                            <>
-                                <Image
-                                    src={Logo}
-                                    alt="logo"
-                                    width={100}
-                                    height={100}
-                                    priority
-                                />
-                            </>
+
+                            <img
+                                src={Logo}
+                                alt="logo"
+                                className="w-[100px] h-[40px]"
+                            />
                         </div>
                         <div className=" flex gap-[5px] items-center">
                             <Select

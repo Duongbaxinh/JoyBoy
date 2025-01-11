@@ -44,9 +44,34 @@ const config: Config = {
                 dropdown: "dropdown 0.2s ease-in-out forwards",
                 uptown: "uptown 0.2s ease-in-out forwards",
                 rotate: "rotate 0.2s ease-in-out forwards",
-                rotateContrary: "rotateContrary 0.2s ease-in-out forwards"
+                rotateContrary: "rotateContrary 0.2s ease-in-out forwards",
+                appearanceLeft: "appearanceLeft 0.2s ease-in-out forwards",
+                hiddenLeft: "hiddenLeft 0.2s ease-in-out forwards"
             },
             keyframes: {
+                appearanceLeft: {
+                    "0%": {
+                        width: "0",
+                        display: "hidden"
+                    },
+                    "100%": {
+                        width: "250px",
+                        minWidth: "250px",
+                        display: "block !important",
+                        background: "blue"
+                    }
+                },
+                hiddenLeft: {
+                    "100%": {
+                        width: "0",
+                        visibility: "hidden"
+                    },
+                    "0%": {
+                        width: "250px",
+                        visibility: "visible",
+                        background: "blue"
+                    }
+                },
                 dropdown: {
                     "0%": {opacity: "0", transform: "translateY(-10px)"},
                     "100%": {
