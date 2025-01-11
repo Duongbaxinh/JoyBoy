@@ -81,7 +81,7 @@ function Header({
                     <div className="w-full p-2 flex justify-between items-center ">
                         <div className="  flex justify-start gap-[10px] min-w-[150px] flex-grow">
                             <IconButton
-                                className={`md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[5px] !py-[5px] ${
+                                className={`md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[8px] !py-[5px] ${
                                     isOpenMenu && "invisible"
                                 }`}
                                 icon={

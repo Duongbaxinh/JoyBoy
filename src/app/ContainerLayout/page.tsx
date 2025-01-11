@@ -70,10 +70,12 @@ function ContainerLayout({
                         className={`absolute w-full h-full top-0 left-0 bg-text opacity-[0.2] ${
                             isOpen ? "block" : "hidden"
                         }`}>
-                        <EyeIcon
-                            className="w-6 h-6 "
-                            onClick={() => setIsOpen(!isOpen)}
-                        />
+                        <div className="h-[48px] ml-[20px] flex items-center">
+                            <BackIcon
+                                className="w-6 h-6  "
+                                onClick={() => setIsOpen(!isOpen)}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
