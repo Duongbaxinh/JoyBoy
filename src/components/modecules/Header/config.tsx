@@ -23,20 +23,18 @@ import {
     SaleIcon,
     SettingCommissionIcon,
     SettingEmployeeIcon,
+    SettingIcon,
     SupplyIcon,
     SwitchIcon,
     TagIcon,
     TimeKeepingIcon
 } from "@/assets/icons";
+import {AccountType, pageType, SettingType} from "@/interfaces";
 import {report} from "process";
+import {BiLogOut} from "react-icons/bi";
+import {MdManageHistory} from "react-icons/md";
+import {RiProfileFill} from "react-icons/ri";
 
-export type pageType = {
-    id: string;
-    title: string;
-    url: string;
-    icon: JSX.Element;
-    type?: string;
-};
 export const pages: pageType[] = [
     {
         id: "dashboard",
@@ -307,3 +305,57 @@ export const pageChildren: {[key: string]: pageType[]} = {
         }
     ]
 };
+
+export const setting: SettingType[] = [
+    {
+        id: 1,
+        url: "StoreSettings",
+        title: "Store Settings",
+        icon: <SettingIcon />
+    },
+    {
+        id: 2,
+        url: "TemplateManagement",
+        title: "Template Management",
+        icon: <MdManageHistory />
+    },
+    {
+        id: 3,
+        url: "UserManagement",
+        title: "User Management",
+        icon: <AccountIcon />
+    },
+    {
+        id: 4,
+        url: "BranchManagement",
+        title: "Branch Management",
+        icon: <AccountIcon />
+    },
+    {
+        id: 5,
+        url: "ActionHistory",
+        title: "Action History",
+        icon: <ReturnIcon />
+    }
+];
+
+export const account: AccountType[] = [
+    {
+        id: 1,
+        url: "Account",
+        title: "Account",
+        icon: <AccountIcon />
+    },
+    {
+        id: 2,
+        url: "StoreProfile",
+        title: "Store Profile",
+        icon: <RiProfileFill />
+    },
+    {
+        id: 3,
+        url: "Logout",
+        title: "Logout",
+        icon: <BiLogOut />
+    }
+];
