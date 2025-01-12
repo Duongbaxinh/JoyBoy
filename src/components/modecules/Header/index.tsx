@@ -11,84 +11,62 @@ import IconButton from "@/components/atoms/IconButton";
 import Select from "@/components/atoms/Select";
 import Image from "next/image";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useState} from "react";
-import {pageChildren, pageParent, pageType} from "./config";
+import {Children, useState} from "react";
 import {flagEl, flagVn, Logo} from "@/assets/images";
+import {HeaderInterface, pageType} from "@/interfaces/header";
+import OptionButton from "./OptionButton";
 
 const options = [
     {
         id: 1,
         value: "Việt Nam",
         leftIcon: (
-            <>
-                {" "}
-                <Image
-                    src={flagVn}
-                    alt="flagVn"
-                    width={20}
-                    height={20}
-                    priority
-                />
-            </>
+            <Image src={flagVn} alt="flagVn" width={20} height={20} priority />
         )
     },
     {
         id: 2,
         value: "English",
         leftIcon: (
-            <>
-                <Image
-                    src={flagEl}
-                    alt="flagEl"
-                    width={20}
-                    height={20}
-                    priority
-                />
-            </>
+            <Image src={flagEl} alt="flagEl" width={20} height={20} priority />
         )
     }
 ];
 
-interface HeaderInterface {
-    pageParent: pageType[];
-    pageChildren: {[key: string]: pageType[]};
-}
-function Header({pageParent, pageChildren}: HeaderInterface) {
-    const [pageOption, setPageOption] = useState("");
+function Header({
+    pageParent,
+    isOpenMenu,
+    onOpenMenu,
+    pageChildren
+}: HeaderInterface) {
     const [valueSelect, setValueSelect] = useState<{
         id: number;
         value: string;
         leftIcon?: any;
     }>(() => options[0]);
-    const pathParam = usePathname();
-    const parentPath = pathParam.split("/");
 
-    const handleHover = (type: string) => {
-        setPageOption(() => type);
-    };
     return (
         <>
-            <div className="w-full flex justify-center items-center sticky top-0">
+            <div className="w-full flex justify-center items-center bg-white ">
                 <div className="w-full max-w-2xl md:px-[30px] px-[10px]">
                     {/* Start Top Header */}
                     <div className="w-full p-2 flex justify-between items-center ">
-                        <div className="  flex gap-[10px] w-full h-full">
+                        <div className="  flex justify-start gap-[10px] min-w-[150px] flex-grow">
                             <IconButton
-                                className="md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[5px] !py-[5px]"
+                                className={`md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[8px] !py-[5px] ${
+                                    isOpenMenu && "invisible"
+                                }`}
                                 icon={
                                     <MenuIcon className="w-6 h-6 text-primaryColor" />
                                 }
-                                onFC={() => {}}
+                                onFC={onOpenMenu}
                             />
-                            <>
-                                <Image
-                                    src={Logo}
-                                    alt="logo"
-                                    width={100}
-                                    height={100}
-                                    priority
-                                />
-                            </>
+
+                            <img
+                                src={Logo}
+                                alt="logo"
+                                className="w-[100px] h-[40px]"
+                            />
                         </div>
                         <div className=" flex gap-[5px] items-center">
                             <Select
@@ -136,71 +114,17 @@ function Header({pageParent, pageChildren}: HeaderInterface) {
                 <div className="flex flex-1 items-center justify-between max-w-2xl  md:px-[30px] px-[10px]">
                     <div className="flex-grow flex items-center">
                         {pageParent.map((item: pageType) => (
-                            <div
-                                className="relative"
-                                onMouseMove={() => handleHover(item.id)}
-                                onMouseOut={() => handleHover("")}>
-                                <IconButton
-                                    key={item.id}
-                                    variant={
-                                        item.type as
-                                            | "link"
-                                            | "button"
-                                            | undefined
-                                    }
-                                    url={item.url}
-                                    customLabel="whitespace-nowrap"
-                                    className={`${
-                                        pathParam.toString().toLowerCase() ===
-                                            item.url ||
-                                        item.id === pageOption ||
-                                        `/${parentPath[1]}` === item.url
-                                            ? "bg-secondColor text-white"
-                                            : "text-white bg-transparent"
-                                    }  !py-[10px] !px-[15px]  hover:bg-secondColor `}
-                                    icon={item.icon}
-                                    customIcon="hidden md:block w-5 h-5"
-                                    label={item.title}
-                                />
-
-                                {pageOption === item.id && item.id !== "#" && (
-                                    <div className="w-[250px] bg-secondColor py-[10px] rounded-md absolute top-auto left-0">
-                                        {pageChildren[
-                                            item.id as keyof typeof pageChildren
-                                        ].map((item: pageType) => (
-                                            <IconButton
-                                                customIcon="w-5 h-5"
-                                                variant="link"
-                                                icon={item.icon}
-                                                label={item.title}
-                                                customLabel="whitespace-nowrap"
-                                                url={item.url}
-                                                className={` ${
-                                                    pathParam
-                                                        .toString()
-                                                        .toLowerCase() ===
-                                                    item.url
-                                                        ? "bg-primaryColor text-white"
-                                                        : "text-white bg-transparent"
-                                                } w-full !rounded-[0px] !justify-start !gap-[20px]
-                                                 !py-[12px] !px-[30px]
-                                                  hover:bg-primaryColor`}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                            <OptionButton
+                                parentItem={item}
+                                childrenItem={pageChildren[item.id]}
+                            />
                         ))}
                     </div>
                     <div className="flex items-center justify-end">
                         <IconButton
                             variant="link"
                             url="sale"
-                            className={`${
-                                pathParam.toString().toLowerCase() === "sale"
-                                    ? "bg-secondColor text-white"
-                                    : "text-white bg-transparent"
-                            }  !py-[10px] !px-[15px]  hover:bg-secondColor`}
+                            className={`bg-secondColor text-white !py-[10px] !px-[15px]  hover:bg-secondColor`}
                             icon={<SaleIcon className="w-4 h-4" />}
                             label={"Bán hàng"}
                         />

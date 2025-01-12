@@ -4,7 +4,7 @@ import Input, {Variant} from "../Input";
 import {convertText} from "@/utils";
 
 interface SelectInterface {
-    leftIcon?: any;
+    leftIcon?: React.ReactNode;
     rightIcon?: any;
     placeholder?: string;
     selected?: {
@@ -118,22 +118,29 @@ function Select({
     );
 
     return (
-        <div className={`relative  border-green w-full  ${className}`}>
+        <div
+            className={`relative  border-green w-full  ${
+                className && className
+            }`}>
             <div
                 tabIndex={0}
                 className="w-full flex justify-between items-center gap-[6px] border-b-[1px]"
                 ref={refSelect}
                 onClick={() => handleOpenOption(openOption)}>
                 <div
-                    className={`flex items-center gap-1 flex-grow overflow-hidden ${customSelected}`}>
+                    className={`flex items-center gap-1 flex-grow overflow-hidden ${
+                        customSelected && customSelected
+                    }`}>
                     {leftIcon && leftIcon}
                     <div
-                        className={`text-[13px] text-text leading-[31px] capitalize truncate w-full ${customTextSelected}`}>
+                        className={`text-[13px] text-text leading-[31px] capitalize truncate w-full ${
+                            customTextSelected && customTextSelected
+                        }`}>
                         {!selected ? placeholder : selected.value}
                     </div>
                 </div>
                 <div
-                    className={` ${customIcon} ${
+                    className={` ${customIcon && customIcon} ${
                         openOption ? "animate-rotate" : "animate-rotateContrary"
                     }`}>
                     {iconSelect}
@@ -148,11 +155,12 @@ function Select({
                         openOption === true &&
                         "animate-dropdown !visible"
                     }
+
                      ${
                          openOption !== null &&
                          openOption === false &&
                          "animate-uptown"
-                     } ${customOption} `}>
+                     }  ${customOption && customOption} `}>
                 {inputSearch && (
                     <div className=" w-full p-2 sticky top-0 bg-white">
                         <Input
@@ -173,10 +181,14 @@ function Select({
                             onClick={() => handleChangeValue(item)}
                             className="w-full flex  items-center justify-between pr-2 hover:bg-grey cursor-pointer ">
                             <div
-                                className={`w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize ${customItemOption}`}>
+                                className={`w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize ${
+                                    customItemOption && customItemOption
+                                }`}>
                                 {item.leftIcon && item.leftIcon}
                                 <div
-                                    className={`flex-grow text-[13px] text-text capitalize truncate w-0 overflow-hidden whitespace-nowrap text-ellipsis ${customTextOption}`}>
+                                    className={`flex-grow text-[13px] text-text capitalize truncate w-0 overflow-hidden whitespace-nowrap text-ellipsis ${
+                                        customTextOption && customTextOption
+                                    }`}>
                                     {item.value}
                                 </div>
                                 {item.rightIcon && item.rightIcon}

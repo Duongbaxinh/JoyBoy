@@ -1,8 +1,7 @@
-import {BackIcon, EyeIcon} from "@/assets/icons";
 import Header from "@/components/modecules/Header";
 import {pageChildren, pageParent} from "@/components/modecules/Header/config";
 import Sidebar from "@/components/modecules/Sidebar";
-import React, {ReactNode, useState} from "react";
+import {ReactNode, useState} from "react";
 
 interface TypeContainer {
     isHeader?: boolean;
@@ -69,13 +68,7 @@ function ContainerLayout({
                         onClick={handleOpenMenu}
                         className={`absolute w-full h-full top-0 left-0 bg-text opacity-[0.2] ${
                             isOpen ? "block" : "hidden"
-                        }`}>
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className=" flex items-center p-2 h-[48px]">
-                            <BackIcon className="w-6 h-6" />
-                        </button>
-                    </div>
+                        }`}></div>
                 </div>
             </div>
         </>

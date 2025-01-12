@@ -38,10 +38,12 @@ import {MdOutlineFactCheck as TimeKeepingIcon} from "react-icons/md";
 import {AiFillPayCircle as PayRollIcon} from "react-icons/ai";
 import {MdOutlinePermDataSetting as SettingCommissionIcon} from "react-icons/md";
 import {MdOutlineSettingsAccessibility as SettingEmployeeIcon} from "react-icons/md";
+import {IoArrowBack as BackIcon} from "react-icons/io5";
 export {
     EyeIcon,
     SearchIcon,
     PayRollIcon,
+    BackIcon,
     SettingCommissionIcon,
     SettingEmployeeIcon,
     TickedIcon,
