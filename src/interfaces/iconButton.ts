@@ -4,6 +4,7 @@ export interface IconButtonProps {
     variant?: "button" | "link";
     url?: string;
     icon?: ReactNode;
+    badge?: boolean;
     className?: string;
     customLabel?: string;
     customIcon?: string;

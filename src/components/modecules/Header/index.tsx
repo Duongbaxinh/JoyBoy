@@ -11,9 +11,11 @@ import IconButton from "@/components/atoms/IconButton";
 import Select from "@/components/atoms/Select";
 import Image from "next/image";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useState} from "react";
-import {pageChildren, pageParent, pageType} from "./config";
+import {Children, useState} from "react";
 import {flagEl, flagVn, Logo} from "@/assets/images";
+import {HeaderInterface, pageType} from "@/interfaces/header";
+import OptionButton from "./OptionButton";
+import {account, setting} from "./config";
 
 const options = [
     {
@@ -49,30 +51,18 @@ const options = [
     }
 ];
 
-interface HeaderInterface {
-    pageParent: pageType[];
-    pageChildren: {[key: string]: pageType[]};
-    isOpenMenu: boolean | null;
-    onOpenMenu: () => void;
-}
 function Header({
     pageParent,
     isOpenMenu,
     onOpenMenu,
     pageChildren
 }: HeaderInterface) {
-    const [pageOption, setPageOption] = useState("");
     const [valueSelect, setValueSelect] = useState<{
         id: number;
         value: string;
         leftIcon?: any;
     }>(() => options[0]);
-    const pathParam = usePathname();
-    const parentPath = pathParam.split("/");
 
-    const handleHover = (type: string) => {
-        setPageOption(() => type);
-    };
     return (
         <>
             <div className="w-full flex justify-center items-center bg-white ">
@@ -110,26 +100,43 @@ function Header({
                             />
                             <IconButton
                                 onFC={() => {}}
+                                badge
                                 icon={
                                     <MailIcon className="text-gray-950 w-4 h-4" />
                                 }
                                 className="max-w-[50px] rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px]"
                             />
-                            <IconButton
-                                onFC={() => {}}
-                                icon={
-                                    <SettingIcon className="text-gray-950 w-4 h-4" />
-                                }
-                                className="sm:block hidden max-w-[50px] rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px]"
+                            <OptionButton
+                                childrenItem={setting}
+                                parentItem={{
+                                    id: "1",
+                                    url: "",
+                                    icon: (
+                                        <SettingIcon className="text-gray-950 w-4 h-4" />
+                                    )
+                                }}
+                                customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
+                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customChildrenLabel="text-text"
+                                customChildrenIcon="text-text"
+                                customChildrenContainer="left-[-220px] bg-white shadow-md rounded-[3px]  "
                             />
-                            <IconButton
-                                onFC={() => {}}
-                                label="0378700030"
-                                customLabel="sm:block hidden text-[12px] text-gray-950 "
-                                rightIcon={
-                                    <AccountIcon className="text-gray-950 w-4 h-4" />
-                                }
-                                className="rounded-sm bg-transparent hover:bg-gray-300 px-[7px] py-[7px]"
+                            <OptionButton
+                                childrenItem={account}
+                                parentItem={{
+                                    id: "1",
+                                    url: "",
+                                    title: "0378700020",
+                                    icon: (
+                                        <AccountIcon className="text-gray-950 w-4 h-4" />
+                                    )
+                                }}
+                                customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
+                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customParentLabel="text-text"
+                                customChildrenLabel="text-text"
+                                customChildrenIcon="text-text"
+                                customChildrenContainer="left-[-130px] bg-white shadow-md rounded-[3px]  "
                             />
                         </div>
                     </div>
@@ -142,71 +149,21 @@ function Header({
                 <div className="flex flex-1 items-center justify-between max-w-2xl  md:px-[30px] px-[10px]">
                     <div className="flex-grow flex items-center">
                         {pageParent.map((item: pageType) => (
-                            <div
-                                className="relative"
-                                onMouseMove={() => handleHover(item.id)}
-                                onMouseOut={() => handleHover("")}>
-                                <IconButton
-                                    key={item.id}
-                                    variant={
-                                        item.type as
-                                            | "link"
-                                            | "button"
-                                            | undefined
-                                    }
-                                    url={item.url}
-                                    customLabel="whitespace-nowrap"
-                                    className={`${
-                                        pathParam.toString().toLowerCase() ===
-                                            item.url ||
-                                        item.id === pageOption ||
-                                        `/${parentPath[1]}` === item.url
-                                            ? "bg-secondColor text-white"
-                                            : "text-white bg-transparent"
-                                    }  !py-[10px] !px-[15px]  hover:bg-secondColor `}
-                                    icon={item.icon}
-                                    customIcon="hidden md:block w-5 h-5"
-                                    label={item.title}
-                                />
-
-                                {pageOption === item.id && item.id !== "#" && (
-                                    <div className="w-[250px] bg-secondColor py-[10px] rounded-md absolute top-auto left-0">
-                                        {pageChildren[
-                                            item.id as keyof typeof pageChildren
-                                        ].map((item: pageType) => (
-                                            <IconButton
-                                                customIcon="w-5 h-5"
-                                                variant="link"
-                                                icon={item.icon}
-                                                label={item.title}
-                                                customLabel="whitespace-nowrap"
-                                                url={item.url}
-                                                className={` ${
-                                                    pathParam
-                                                        .toString()
-                                                        .toLowerCase() ===
-                                                    item.url
-                                                        ? "bg-primaryColor text-white"
-                                                        : "text-white bg-transparent"
-                                                } w-full !rounded-[0px] !justify-start !gap-[20px]
-                                                 !py-[12px] !px-[30px]
-                                                  hover:bg-primaryColor`}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                            <OptionButton
+                                hoverStyle=" bg-secondColor text-white"
+                                customParenItem=" !py-[10px] !px-[15px]  hover:bg-secondColor"
+                                customChildrenItem="w-full !rounded-[0px] !justify-start !gap-[20px] !py-[12px] !px-[30px] hover:bg-primaryColor"
+                                customParentIcon="hidden lg:block w-5 h-5"
+                                parentItem={item}
+                                childrenItem={pageChildren[item.id]}
+                            />
                         ))}
                     </div>
                     <div className="flex items-center justify-end">
                         <IconButton
                             variant="link"
                             url="sale"
-                            className={`${
-                                pathParam.toString().toLowerCase() === "sale"
-                                    ? "bg-secondColor text-white"
-                                    : "text-white bg-transparent"
-                            }  !py-[10px] !px-[15px]  hover:bg-secondColor`}
+                            className={`bg-secondColor text-white !py-[10px] !px-[15px]  hover:bg-secondColor`}
                             icon={<SaleIcon className="w-4 h-4" />}
                             label={"Bán hàng"}
                         />

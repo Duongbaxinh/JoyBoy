@@ -1,7 +1,10 @@
-import React from "react";
-
+import StackedBarChart from "@/components/atoms/BarChart";
 function DashBoard(props: any) {
-    return <div>Dash Board</div>;
+    return (
+        <div>
+            <StackedBarChart />
+        </div>
+    );
 }
 
 export default DashBoard;

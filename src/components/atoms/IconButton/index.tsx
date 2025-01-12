@@ -4,23 +4,33 @@ import Link from "next/link";
 import React from "react";
 
 const button = (props: IconButtonProps) => (
-    <button
-        onMouseMove={() => {}}
-        onClick={() => props.onFC()}
-        className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-md border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px] ${props.className}`}>
-        {props.icon && (
-            <div className={`${props.customIcon}`}>{props.icon}</div>
+    <div className="relative">
+        <button
+            onMouseMove={() => {}}
+            onClick={() => props.onFC()}
+            className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-md border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px] ${props.className}`}>
+            {props.icon && (
+                <div className={`${props.customIcon}`}>{props.icon}</div>
+            )}
+            {props.label && (
+                <p className={`${props.customLabel}`}>{props.label}</p>
+            )}
+            {props.rightIcon && props.rightIcon}
+        </button>
+        {props.badge && (
+            <div className="absolute w-[10px] h-[10px] bg-orange rounded-full top-0 right-0"></div>
         )}
-        {props.label && <p className={`${props.customLabel}`}>{props.label}</p>}
-        {props.rightIcon && props.rightIcon}
-    </button>
+    </div>
 );
 const link = (props: IconButtonProps) => (
     <Link
         href={props.url ? props.url.toString() : "#"}
-        className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-[4px] border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px]  ${props.className}`}>
+        className={`flex px-[10px] py-[8px] items-center justify-start gap-2 rounded-[4px] border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px]  ${props.className}`}>
         {props.icon && (
-            <div className={`${props.customIcon}`}>{props.icon}</div>
+            <div
+                className={`${props.customIcon} flex items-center justify-center`}>
+                {props.icon}
+            </div>
         )}
         {props.label && <p className={`${props.customLabel}`}>{props.label}</p>}
         {props.rightIcon && props.rightIcon}
