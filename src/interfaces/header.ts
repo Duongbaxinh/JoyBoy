@@ -1,5 +1,3 @@
-import {ReactNode} from "react";
-
 export interface HeaderInterface {
     pageParent: pageType[];
     pageChildren: {[key: string]: pageType[]};
@@ -13,6 +11,7 @@ export interface ButtonOption {
 
 export type pageType = {
     id: string;
+
     title?: string;
     url: string;
     icon: JSX.Element;
