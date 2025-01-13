@@ -136,7 +136,7 @@ function Header({
                                 customParentLabel="text-text"
                                 customChildrenLabel="text-text"
                                 customChildrenIcon="text-text"
-                                customChildrenContainer="left-[-130px] bg-white shadow-md rounded-[3px]  "
+                                customChildrenContainer="left-[-100px] bg-white shadow-md rounded-[3px]  "
                             />
                         </div>
                     </div>
