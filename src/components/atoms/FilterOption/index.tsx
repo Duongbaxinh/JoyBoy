@@ -1,5 +1,5 @@
-import {ArrowDown} from "@/assets/icons";
-import {memo, ReactNode, useRef, useState} from "react";
+import {DropIcon} from "@/assets/icons";
+import {memo, ReactNode, useState} from "react";
 import ContainerShadow from "../ContainerShadow";
 
 interface FilterOptionInterface {
@@ -28,7 +28,7 @@ function FilterOption({
     customSelected,
     customOption,
     title,
-    iconSelect = <ArrowDown className="text-text w-full h-full" />,
+    iconSelect = <DropIcon className="text-text w-full h-full" />,
     options,
     className,
     children,
@@ -43,7 +43,8 @@ function FilterOption({
         }
     };
     return (
-        <ContainerShadow className={className}>
+        <ContainerShadow
+            className={`${className} flex flex-col justify-start items-start`}>
             <div
                 onClick={handleOpenOption}
                 className="w-full flex justify-between items-center gap-[6px] ">
