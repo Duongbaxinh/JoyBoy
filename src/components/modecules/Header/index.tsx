@@ -22,31 +22,14 @@ const options = [
         id: 1,
         value: "Việt Nam",
         leftIcon: (
-            <>
-                {" "}
-                <Image
-                    src={flagVn}
-                    alt="flagVn"
-                    width={20}
-                    height={20}
-                    priority
-                />
-            </>
+            <Image src={flagVn} alt="flagVn" width={20} height={20} priority />
         )
     },
     {
         id: 2,
         value: "English",
         leftIcon: (
-            <>
-                <Image
-                    src={flagEl}
-                    alt="flagEl"
-                    width={20}
-                    height={20}
-                    priority
-                />
-            </>
+            <Image src={flagEl} alt="flagEl" width={20} height={20} priority />
         )
     }
 ];
