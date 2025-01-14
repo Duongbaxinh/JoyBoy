@@ -52,7 +52,7 @@ function FilterOption({
                     className={`flex items-center gap-1 flex-grow overflow-hidden ${customSelected}`}>
                     {leftIcon && leftIcon}
                     <div
-                        className={`text-[13px] text-text leading-[31px] capitalize truncate w-full ${customTextSelected}`}>
+                        className={`text-[13px] font-[700] text-text  leading-[31px] capitalize truncate w-full ${customTextSelected}`}>
                         {title}
                     </div>
                 </div>

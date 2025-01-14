@@ -40,7 +40,7 @@ interface InputInterface {
     borderRadius?: string;
     className?: string;
     classInput?: string;
-    variant?: Variant;
+    variant?: "underline" | "outline";
 }
 
 function Input({

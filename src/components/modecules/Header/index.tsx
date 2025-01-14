@@ -1,19 +1,16 @@
 "use client";
 import {
     AccountIcon,
-    CartIcon,
     MailIcon,
     MenuIcon,
     SaleIcon,
     SettingIcon
 } from "@/assets/icons";
+import {Logo} from "@/assets/images";
 import IconButton from "@/components/atoms/IconButton";
 import Select from "@/components/atoms/Select";
-import Image from "next/image";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {Children, useState} from "react";
-import {flagEl, flagVn, Logo} from "@/assets/images";
 import {HeaderInterface, pageType} from "@/interfaces/header";
+import {useState} from "react";
 import OptionButton from "./OptionButton";
 import {account, setting} from "./config";
 
@@ -21,16 +18,14 @@ const options = [
     {
         id: 1,
         value: "Việt Nam",
-        leftIcon: (
-            <Image src={flagVn} alt="flagVn" width={20} height={20} priority />
-        )
+        leftIcon: ""
+        // <Image src={flagVn} alt="flagVn" width={20} height={20} priority />
     },
     {
         id: 2,
         value: "English",
-        leftIcon: (
-            <Image src={flagEl} alt="flagEl" width={20} height={20} priority />
-        )
+        leftIcon: ""
+        // <Image src={flagEl} alt="flagEl" width={20} height={20} priority />
     }
 ];
 

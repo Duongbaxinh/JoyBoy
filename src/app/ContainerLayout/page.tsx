@@ -48,7 +48,7 @@ function ContainerLayout({
                 </div>
 
                 <div className=" w-full h-[100vh] relative">
-                    <div className="sticky top-0">
+                    <div className="sticky top-0 z-[99]">
                         <Header
                             isOpenMenu={isOpen}
                             onOpenMenu={handleOpenMenu}
@@ -56,12 +56,7 @@ function ContainerLayout({
                             pageParent={pageParent}
                         />
                     </div>
-                    <div className={`w-full `}>
-                        <button onClick={() => setIsOpen(!isOpen)}>
-                            Switch
-                        </button>
-                        {children}
-                    </div>
+                    <div className={`w-full `}>{children}</div>
 
                     <div className="">Footer</div>
 
