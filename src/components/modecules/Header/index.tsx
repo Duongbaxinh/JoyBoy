@@ -1,18 +1,21 @@
 "use client";
 import {
     AccountIcon,
+    CartIcon,
     MailIcon,
     MenuIcon,
     SaleIcon,
     SettingIcon
 } from "@/assets/icons";
-import {flagEl, flagVn, Logo} from "@/assets/images";
 import IconButton from "@/components/atoms/IconButton";
 import Select from "@/components/atoms/Select";
-import {HeaderInterface, pageType} from "@/interfaces/header";
 import Image from "next/image";
-import {useState} from "react";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {Children, useState} from "react";
+import {flagEl, flagVn, Logo} from "@/assets/images";
+import {HeaderInterface, pageType} from "@/interfaces/header";
 import OptionButton from "./OptionButton";
+import {account, setting} from "./config";
 
 const options = [
     {
@@ -80,26 +83,43 @@ function Header({
                             />
                             <IconButton
                                 onFC={() => {}}
+                                badge
                                 icon={
                                     <MailIcon className="text-gray-950 w-4 h-4" />
                                 }
                                 className="max-w-[50px] rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px]"
                             />
-                            <IconButton
-                                onFC={() => {}}
-                                icon={
-                                    <SettingIcon className="text-gray-950 w-4 h-4" />
-                                }
-                                className="sm:block hidden max-w-[50px] rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px]"
+                            <OptionButton
+                                childrenItem={setting}
+                                parentItem={{
+                                    id: "1",
+                                    url: "",
+                                    icon: (
+                                        <SettingIcon className="text-gray-950 w-4 h-4" />
+                                    )
+                                }}
+                                customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
+                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customChildrenLabel="text-text"
+                                customChildrenIcon="text-text"
+                                customChildrenContainer="left-[-220px] bg-white shadow-md rounded-[3px]  "
                             />
-                            <IconButton
-                                onFC={() => {}}
-                                label="0378700030"
-                                customLabel="sm:block hidden text-[12px] text-gray-950 "
-                                rightIcon={
-                                    <AccountIcon className="text-gray-950 w-4 h-4" />
-                                }
-                                className="rounded-sm bg-transparent hover:bg-gray-300 px-[7px] py-[7px]"
+                            <OptionButton
+                                childrenItem={account}
+                                parentItem={{
+                                    id: "1",
+                                    url: "",
+                                    title: "0378700020",
+                                    icon: (
+                                        <AccountIcon className="text-gray-950 w-4 h-4" />
+                                    )
+                                }}
+                                customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
+                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customParentLabel="text-text"
+                                customChildrenLabel="text-text"
+                                customChildrenIcon="text-text"
+                                customChildrenContainer="left-[-100px] bg-white shadow-md rounded-[3px]  "
                             />
                         </div>
                     </div>
@@ -113,6 +133,10 @@ function Header({
                     <div className="flex-grow flex items-center">
                         {pageParent.map((item: pageType) => (
                             <OptionButton
+                                hoverStyle=" bg-secondColor text-white"
+                                customParenItem=" !py-[10px] !px-[15px]  hover:bg-secondColor"
+                                customChildrenItem="w-full !rounded-[0px] !justify-start !gap-[20px] !py-[12px] !px-[30px] hover:bg-primaryColor"
+                                customParentIcon="hidden lg:block w-5 h-5"
                                 parentItem={item}
                                 childrenItem={pageChildren[item.id]}
                             />
