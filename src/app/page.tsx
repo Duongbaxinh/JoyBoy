@@ -10,6 +10,7 @@ import {useState} from "react";
 import ContainerLayout from "./ContainerLayout/page";
 import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
+import Popup from "@/components/atoms/Popup";
 
 export default function Home() {
     const [value, setValue] = useState("");
@@ -27,8 +28,51 @@ export default function Home() {
     const handleClick = () => {
         alert("click me !!!");
     };
+    const handleOpen = () => {
+        setIsOpen(!isOpen);
+    };
     return (
         <ContainerLayout>
+            <Popup
+                title="Danh muc"
+                isOpen={isOpen}
+                onClose={handleOpen}
+                className="w-[500px]">
+                <div className=" w-[900px] bg-white ">
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                    <div className="h1">heelo</div>
+                </div>
+            </Popup>
             <div className="">
                 <button onClick={() => setIsOpen(!isOpen)}>OPEN</button>
 
