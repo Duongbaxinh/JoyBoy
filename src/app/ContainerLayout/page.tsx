@@ -35,7 +35,7 @@ function ContainerLayout({
             <div
                 className={`flex  w-full ${
                     isOpen ? "overflow-hidden h-[100vh]" : "overflow-x-hidden"
-                }`}>
+                } bg-gray-400`}>
                 <div
                     className={` h-[100vh] ${
                         isOpen !== null
@@ -48,17 +48,17 @@ function ContainerLayout({
                 </div>
 
                 <div className=" w-full h-[100vh] relative">
-                    <div className="sticky top-0 z-[99]">
-                        <Header
-                            isOpenMenu={isOpen}
-                            onOpenMenu={handleOpenMenu}
-                            pageChildren={pageChildren}
-                            pageParent={pageParent}
-                        />
-                    </div>
+                    {/* <div className="sticky top-0 z-[99]"> */}
+                    <Header
+                        isOpenMenu={isOpen}
+                        onOpenMenu={handleOpenMenu}
+                        pageChildren={pageChildren}
+                        pageParent={pageParent}
+                    />
+                    {/* </div> */}
                     <div className={`w-full `}>{children}</div>
 
-                    <div className="h-[500px]">Footer</div>
+                    {/* <div className="h-[500px]">Footer</div> */}
 
                     <div
                         onClick={handleOpenMenu}

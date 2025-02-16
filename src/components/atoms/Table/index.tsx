@@ -36,7 +36,7 @@ const Table = ({
 
     return (
         <table className=" text-text w-full ">
-            <thead className="sticky z-10 top-0 w-full bg-lightSkyBlue">
+            <thead className="sticky z-2 top-0 w-full bg-lightSkyBlue">
                 <tr className="bg-lightBlue w-full">
                     <th
                         className={` text-[13px] font-[700] p-0 ${customHeader}`}>

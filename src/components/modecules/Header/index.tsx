@@ -44,7 +44,7 @@ function Header({
 
     return (
         <>
-            <div className="w-full flex justify-center items-center bg-white ">
+            <div className="w-full flex flex-col justify-center items-center bg-white ">
                 <Container>
                     {/* Start Top Header */}
                     <div className="w-full p-2 flex justify-between items-center ">
@@ -120,9 +120,11 @@ function Header({
                         </div>
                     </div>
                     {/* End Top Header */}
+                </Container>
 
-                    {/* Start Bottom Header */}
-                    <div className=" md:flex hidden w-full items-center bg-primaryColor text-white h-[44px]">
+                {/* Start Bottom Header */}
+                <div className=" md:flex hidden w-full items-center bg-primaryColor text-white h-[44px]">
+                    <Container>
                         <div className="flex flex-1 items-center justify-between max-w-2xl  md:px-[30px] px-[10px]">
                             <div className="flex-grow flex items-center">
                                 {pageParent.map((item: pageType) => (
@@ -146,9 +148,9 @@ function Header({
                                 />
                             </div>
                         </div>
-                    </div>
-                    {/* End Bottom Header */}
-                </Container>
+                    </Container>
+                </div>
+                {/* End Bottom Header */}
             </div>
         </>
     );
