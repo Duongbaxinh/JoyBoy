@@ -11,12 +11,30 @@ import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select";
+import Table from "@/components/atoms/Table";
+import {body, titles} from "@/fake";
+import {useState} from "react";
 import {BiPlus} from "react-icons/bi";
 
 function Category(props: any) {
+    const [itemChecked, setItemChecked] = useState<(string | number)[]>([]);
+    const handleSelected = ({
+        type,
+        id,
+        e
+    }: {
+        type: "all" | "item";
+        id: string | number;
+        e: any;
+    }): void => {
+        console.log("check run " + type, id, e);
+        const newItemChecked = [...itemChecked];
+        newItemChecked.push(id);
+        setItemChecked(newItemChecked);
+    };
     return (
         <ContainerLayout>
-            <div className="flex px-[30px] bg-grey pt-[15px]">
+            <div className="flex gap-3 px-[30px] bg-grey pt-[15px]">
                 <div className="w-[234px] relative">
                     <div className="sticky z-20 top-[100px] h-[50px] px-[10px]  bg-grey text-[25px] font-[700] text-text ">
                         Hàng Hóa
@@ -106,7 +124,7 @@ function Category(props: any) {
                     </div>
                 </div>
                 <div className="flex-1">
-                    <div className="flex justify-between items-center">
+                    <div className=" sticky top-[100px] h-[50px] bg-grey flex justify-between items-center">
                         <Input
                             className="max-w-[450px] w-full bg-white"
                             leadingIcon={<SearchIcon />}
@@ -129,7 +147,14 @@ function Category(props: any) {
                             />
                         </div>
                     </div>
-                    <div className=""></div>
+                    <div className="max-h-[500px]    max-w-[958px] overflow-auto">
+                        <Table
+                            onSelect={handleSelected}
+                            itemChecked={itemChecked}
+                            title={titles}
+                            body={body}
+                        />
+                    </div>
                 </div>
             </div>
         </ContainerLayout>

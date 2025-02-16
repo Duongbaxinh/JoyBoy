@@ -58,7 +58,7 @@ function ContainerLayout({
                     </div>
                     <div className={`w-full `}>{children}</div>
 
-                    <div className="">Footer</div>
+                    <div className="h-[500px]">Footer</div>
 
                     <div
                         onClick={handleOpenMenu}

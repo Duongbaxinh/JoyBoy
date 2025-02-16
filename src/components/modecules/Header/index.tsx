@@ -13,6 +13,7 @@ import {HeaderInterface, pageType} from "@/interfaces/header";
 import {useState} from "react";
 import OptionButton from "./OptionButton";
 import {account, setting} from "./config";
+import Container from "@/components/atoms/Container";
 
 const options = [
     {
@@ -44,7 +45,7 @@ function Header({
     return (
         <>
             <div className="w-full flex justify-center items-center bg-white ">
-                <div className="w-full max-w-2xl md:px-[30px] px-[10px]">
+                <Container>
                     {/* Start Top Header */}
                     <div className="w-full p-2 flex justify-between items-center ">
                         <div className="  flex justify-start gap-[10px] min-w-[150px] flex-grow">
@@ -119,36 +120,36 @@ function Header({
                         </div>
                     </div>
                     {/* End Top Header */}
-                </div>
-            </div>
 
-            {/* Start Bottom Header */}
-            <div className=" md:flex hidden w-full items-center bg-primaryColor text-white h-[44px]">
-                <div className="flex flex-1 items-center justify-between max-w-2xl  md:px-[30px] px-[10px]">
-                    <div className="flex-grow flex items-center">
-                        {pageParent.map((item: pageType) => (
-                            <OptionButton
-                                hoverStyle=" bg-secondColor text-white"
-                                customParenItem=" !py-[10px] !px-[15px]  hover:bg-secondColor"
-                                customChildrenItem="w-full !rounded-[0px] !justify-start !gap-[20px] !py-[12px] !px-[30px] hover:bg-primaryColor"
-                                customParentIcon="hidden lg:block w-5 h-5"
-                                parentItem={item}
-                                childrenItem={pageChildren[item.id]}
-                            />
-                        ))}
+                    {/* Start Bottom Header */}
+                    <div className=" md:flex hidden w-full items-center bg-primaryColor text-white h-[44px]">
+                        <div className="flex flex-1 items-center justify-between max-w-2xl  md:px-[30px] px-[10px]">
+                            <div className="flex-grow flex items-center">
+                                {pageParent.map((item: pageType) => (
+                                    <OptionButton
+                                        hoverStyle=" bg-secondColor text-white"
+                                        customParenItem=" !py-[10px] !px-[15px]  hover:bg-secondColor"
+                                        customChildrenItem="w-full !rounded-[0px] !justify-start !gap-[20px] !py-[12px] !px-[30px] hover:bg-primaryColor"
+                                        customParentIcon="hidden lg:block w-5 h-5"
+                                        parentItem={item}
+                                        childrenItem={pageChildren[item.id]}
+                                    />
+                                ))}
+                            </div>
+                            <div className="flex items-center justify-end">
+                                <IconButton
+                                    variant="link"
+                                    url="sale"
+                                    className={`bg-secondColor text-white !py-[10px] !px-[15px]  hover:bg-secondColor`}
+                                    icon={<SaleIcon className="w-4 h-4" />}
+                                    label={"Bán hàng"}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex items-center justify-end">
-                        <IconButton
-                            variant="link"
-                            url="sale"
-                            className={`bg-secondColor text-white !py-[10px] !px-[15px]  hover:bg-secondColor`}
-                            icon={<SaleIcon className="w-4 h-4" />}
-                            label={"Bán hàng"}
-                        />
-                    </div>
-                </div>
+                    {/* End Bottom Header */}
+                </Container>
             </div>
-            {/* End Bottom Header */}
         </>
     );
 }

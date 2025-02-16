@@ -25,6 +25,7 @@ const Table = ({
     }) => void;
 }) => {
     const [selectAll, setSelectAll] = useState();
+    console.log("table run" + itemChecked);
     if (!title || !body || title.length === 0 || body.length === 0) {
         return <p>No data available</p>;
     }
@@ -34,10 +35,11 @@ const Table = ({
     };
 
     return (
-        <table className=" text-text ">
-            <thead className="sticky top-0 bg-lightSkyBlue">
-                <tr>
-                    <th className={` text-[13px] font-[700] ${customHeader}`}>
+        <table className=" text-text w-full ">
+            <thead className="sticky z-10 top-0 w-full bg-lightSkyBlue">
+                <tr className="bg-lightBlue w-full">
+                    <th
+                        className={` text-[13px] font-[700] p-0 ${customHeader}`}>
                         <input
                             type="checkbox"
                             onChange={(e) =>
@@ -54,21 +56,15 @@ const Table = ({
                     ))}
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="w-full">
                 {body.map((row, rowIndex) => (
                     <tr
                         key={rowIndex}
                         className="odd:bg-gray-100 even:bg-white">
                         <td
-                            className={`p-2 whitespace-nowrap text-[13px] ${customBody}`}>
+                            className={`px-[15px] py-[8px] whitespace-nowrap text-[13px] ${customBody}`}>
                             <input
-                                checked={
-                                    (selectAll &&
-                                        itemChecked.some(
-                                            (item) => item === row.id
-                                        )) ||
-                                    itemChecked.some((item) => item === row.id)
-                                }
+                                checked={itemChecked.includes(row.id)}
                                 type="checkbox"
                                 onChange={(e) =>
                                     onSelect({type: "item", id: row.id, e})
@@ -79,7 +75,7 @@ const Table = ({
                         {Object.keys(row).map((col, colIndex) => (
                             <td
                                 key={colIndex}
-                                className={`p-2 whitespace-nowrap text-[13px] ${customBody}`}>
+                                className={`px-[15px] py-[8px]  whitespace-nowrap text-[13px] ${customBody}`}>
                                 {row[col] || "-"}
                             </td>
                         ))}

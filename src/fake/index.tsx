@@ -8,6 +8,12 @@ export const titles = [
     "rating",
     "description",
     "created_at",
+    "updated_at",
+    "updated_at",
+    "updated_at",
+    "updated_at",
+    "updated_at",
+    "updated_at",
     "updated_at"
 ];
 
@@ -61,13 +67,13 @@ export const body = [
         updated_at: "2025-01-10"
     },
     ...Array.from({length: 11}, (_, i) => ({
-        id: 5 + i, // ID tăng dần từ 5 trở đi
+        id: 5 + i,
         title: `product${5 + i}`,
-        price: 150 + i * 10, // Giá tăng dần
-        option: `Option ${String.fromCharCode(69 + i)}`, // Option từ E trở đi
+        price: 150 + i * 10,
+        option: `Option ${String.fromCharCode(69 + i)}`,
         category: "Accessories",
-        stock: 100 - i * 5, // Số lượng giảm dần
-        rating: (4.8 - i * 0.1).toFixed(1), // Rating giảm dần
+        stock: 100 - i * 5,
+        rating: (4.8 - i * 0.1).toFixed(1),
         description: `Stylish and durable product ${5 + i}.`,
         created_at: `2024-12-${25 + i}`,
         updated_at: `2025-01-${10 + i}`
