@@ -1,4 +1,6 @@
 "use client";
+import {useState, useCallback} from "react";
+import {BiPlus} from "react-icons/bi";
 import ContainerLayout from "@/app/ContainerLayout/page";
 import {
     ArrowDown,
@@ -11,163 +13,160 @@ import Container from "@/components/atoms/Container";
 import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
+import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Table from "@/components/atoms/Table";
-import {body, titles} from "@/fake";
-import {useState} from "react";
-import {BiPlus} from "react-icons/bi";
-page.propTypes = {};
+import {body, showPropertiesTable} from "@/fake";
 
-function page() {
+const categories = [
+    {id: "goods", label: "Hàng Hóa"},
+    {id: "service", label: "Dịch vụ"},
+    {id: "combo", label: "Combo - đóng gói"}
+];
+
+function ProductPage() {
+    const [active, setActive] = useState(1);
     const [itemChecked, setItemChecked] = useState<(string | number)[]>([]);
-    const handleSelected = ({
-        type,
-        id,
-        e
-    }: {
-        type: "all" | "item";
-        id: string | number;
-        e: any;
-    }): void => {
-        console.log("check run " + type, id, e);
-        const newItemChecked = [...itemChecked];
-        newItemChecked.push(id);
-        setItemChecked(newItemChecked);
-    };
+    const numberDisplay = 10;
+
+    const handleSelected = useCallback(({id}: {id: string | number}) => {
+        setItemChecked((prev) => [...prev, id]);
+    }, []);
+
     return (
         <ContainerLayout>
             <Container>
-                <div className=" relative grid grid-cols-5 gap-x-4 ">
-                    <div className="col-span-1 h-full  sticky left-0 top-[0px] overflow-scroll">
-                        <div className=" flex items-center h-[50px]  text-[25px] font-[700] text-text ">
+                <div className="grid grid-cols-5 gap-x-4">
+                    {/* Sidebar */}
+                    <div className="col-span-1 sticky left-0 top-0 overflow-auto">
+                        <h2 className="h-20 flex items-center text-2xl font-bold text-text">
                             Hàng Hóa
-                        </div>
+                        </h2>
                         <div className="flex flex-col gap-3">
-                            <FilterOption title="Loại Hàng" className="p-3">
-                                <div className="mt-[10px] flex flex-col gap-[15px]">
-                                    <div className="flex items-center gap-2 text-text ">
-                                        <input type="checkbox" />
-                                        <p className="text-[13px]">Hàng Hóa</p>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-text ">
-                                        <input type="checkbox" />
-                                        <p className="text-[13px]">Dịch vụ</p>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-text ">
-                                        <input type="checkbox" />
-                                        <p className="text-[13px]">
-                                            Combo - đóng gói
-                                        </p>
-                                    </div>
+                            <FilterOption
+                                title="Loại Hàng"
+                                className="p-3">
+                                <div className="mt-2 flex flex-col gap-3">
+                                    {categories.map(({id, label}) => (
+                                        <label
+                                            key={id}
+                                            className="flex items-center gap-2 text-text">
+                                            <input type="checkbox" />
+                                            <p className="text-sm">{label}</p>
+                                        </label>
+                                    ))}
                                 </div>
                             </FilterOption>
 
-                            <FilterOption title="Nhóm hàng" className="p-3">
-                                <div className="mt-[10px] flex flex-col gap-[15px]">
+                            <FilterOption
+                                title="Nhóm hàng"
+                                className="p-3">
+                                <div className="mt-2 flex flex-col gap-3">
                                     <Input
                                         leadingIcon={<SearchIcon />}
                                         variant="underline"
                                         placeholder="Tìm kiếm nhóm hàng"
                                     />
-                                    <div className="flex items-center gap-2 text-text ">
-                                        <input type="checkbox" />
-                                        <p className="text-[13px]">Dịch vụ</p>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-text ">
-                                        <input type="checkbox" />
-                                        <p className="text-[13px]">
-                                            Combo - đóng gói
-                                        </p>
-                                    </div>
+                                    {categories.slice(1).map(({id, label}) => (
+                                        <label
+                                            key={id}
+                                            className="flex items-center gap-2 text-text">
+                                            <input type="checkbox" />
+                                            <p className="text-sm">{label}</p>
+                                        </label>
+                                    ))}
                                 </div>
                             </FilterOption>
-                            <FilterOption title="Tồn kho" className="p-3">
-                                <div className="mt-[10px] flex flex-col gap-[15px]">
-                                    <div className="flex items-center gap-2 text-text">
-                                        <input
-                                            type="radio"
-                                            name="productType"
-                                            id="goods"
-                                        />
+
+                            <FilterOption
+                                title="Tồn kho"
+                                className="p-3">
+                                <div className="mt-2 flex flex-col gap-3">
+                                    {categories.map(({id, label}) => (
                                         <label
-                                            htmlFor="goods"
-                                            className="text-[13px]">
-                                            Hàng Hóa
+                                            key={id}
+                                            className="flex items-center gap-2 text-text">
+                                            <input
+                                                type="radio"
+                                                name="productType"
+                                                id={id}
+                                            />
+                                            <span className="text-sm">
+                                                {label}
+                                            </span>
                                         </label>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-text">
-                                        <input
-                                            type="radio"
-                                            name="productType"
-                                            id="service"
-                                        />
-                                        <label
-                                            htmlFor="service"
-                                            className="text-[13px]">
-                                            Dịch vụ
-                                        </label>
-                                    </div>
-                                    <div className="flex items-center gap-2 text-text">
-                                        <input
-                                            type="radio"
-                                            name="productType"
-                                            id="combo"
-                                        />
-                                        <label
-                                            htmlFor="combo"
-                                            className="text-[13px]">
-                                            Combo - đóng gói
-                                        </label>
-                                    </div>
+                                    ))}
                                 </div>
                             </FilterOption>
-                            <FilterOption title="Tồn kho" className="p-3">
+
+                            <FilterOption
+                                title="Thương hiệu"
+                                className="p-3">
                                 <Select placeholder="Chọn thương hiệu" />
                             </FilterOption>
                         </div>
                     </div>
 
-                    <div className="col-span-4 w-full ">
-                        <div className="w-full sticky top-0">
-                            <div className=" h-[50px]  flex justify-between items-center">
+                    {/* Main Content */}
+                    <div className="col-span-4 w-full">
+                        <div className="sticky top-0">
+                            <div className="flex justify-between items-center h-20">
                                 <Input
-                                    className="max-w-[450px] w-full bg-white"
+                                    className="max-w-[450px] w-full bg-white !py-2"
                                     leadingIcon={<SearchIcon />}
-                                    placeholder="Theo ma, ten hang"
+                                    placeholder="Theo mã, tên hàng"
                                 />
                                 <div className="flex gap-2">
                                     <IconButton
-                                        icon={<BiPlus className="w-4 h-4" />}
+                                        icon={<BiPlus className="w-5 h-5" />}
                                         rightIcon={
-                                            <ArrowDown className="w-4 h-4" />
+                                            <ArrowDown className="w-5 h-5" />
                                         }
                                     />
                                     <IconButton
                                         icon={
-                                            <ImportIcon className="w-4 h-4" />
+                                            <ImportIcon className="w-5 h-5" />
                                         }
                                     />
                                     <IconButton
                                         icon={
-                                            <ExportIcon className="w-4 h-4" />
+                                            <ExportIcon className="w-5 h-5" />
                                         }
                                     />
                                     <IconButton
-                                        icon={<MenuIcon className="w-4 h-4" />}
+                                        icon={<MenuIcon className="w-5 h-5" />}
                                         rightIcon={
-                                            <ArrowDown className="w-4 h-4" />
+                                            <ArrowDown className="w-5 h-5" />
                                         }
                                     />
                                 </div>
                             </div>
+
+                            {/* Table */}
                             <div className="relative max-h-[500px] w-full overflow-auto">
                                 <Table
+                                    detailItem
+                                    checked
                                     onSelect={handleSelected}
                                     itemChecked={itemChecked}
-                                    title={titles}
+                                    customTitle={showPropertiesTable}
                                     body={body}
                                 />
                             </div>
+
+                            {/* Pagination */}
+                            {body.length > numberDisplay && (
+                                <div className="text-text flex gap-2 items-center">
+                                    <Pagination
+                                        active={active}
+                                        setActive={setActive}
+                                        totalPage={Math.ceil(
+                                            body.length / numberDisplay
+                                        )}
+                                    />
+                                    <p>{`Hiển thị 1 - ${numberDisplay} / Tổng số ${body.length} hàng hóa`}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -176,4 +175,4 @@ function page() {
     );
 }
 
-export default page;
+export default ProductPage;

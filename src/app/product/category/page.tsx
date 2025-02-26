@@ -34,9 +34,9 @@ function Category(props: any) {
     };
     return (
         <ContainerLayout>
-            <div className="flex gap-3 px-[30px] bg-grey pt-[15px]">
+            <div className="flex gap-3 px-[30px] bg-gray pt-[15px]">
                 <div className="w-[234px] relative">
-                    <div className="sticky z-20 top-[100px] h-[50px] px-[10px]  bg-grey text-[25px] font-[700] text-text ">
+                    <div className="sticky z-20 top-[100px] h-[50px] px-[10px]  bg-gray text-[25px] font-[700] text-text ">
                         Hàng Hóa
                     </div>
                     <div className="flex flex-col gap-3">
@@ -124,7 +124,7 @@ function Category(props: any) {
                     </div>
                 </div>
                 <div className="flex-1">
-                    <div className=" sticky top-[100px] h-[50px] bg-grey flex justify-between items-center">
+                    <div className=" sticky top-[100px] h-[50px] bg-gray flex justify-between items-center">
                         <Input
                             className="max-w-[450px] w-full bg-white"
                             leadingIcon={<SearchIcon />}

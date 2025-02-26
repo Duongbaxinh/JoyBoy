@@ -81,7 +81,7 @@ function Input({
                 ref={refInput}
                 className={`border-0 outline-none w-full h-full p-0 m-0 text-[13px] leading-[18px] text-text truncate ${classInput} `}
                 placeholder={`${placeholder}`}
-                value={value}
+                // value={value}
                 onChange={onChange}
                 type={`${type ? type : "text"}`}
                 onFocus={onHandleFocus}

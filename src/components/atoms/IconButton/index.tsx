@@ -8,7 +8,7 @@ const button = (props: IconButtonProps) => (
         <button
             onMouseMove={() => {}}
             onClick={() => props.onFC()}
-            className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-md border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px] ${props.className}`}>
+            className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-md border-0 outline-none bg-green hover:bg-darkGreen text-white text-[14px] ${props.className}`}>
             {props.icon && (
                 <div className={`${props.customIcon}`}>{props.icon}</div>
             )}
@@ -25,7 +25,7 @@ const button = (props: IconButtonProps) => (
 const link = (props: IconButtonProps) => (
     <Link
         href={props.url ? props.url.toString() : "#"}
-        className={`flex px-[10px] py-[8px] items-center justify-start gap-2 rounded-[4px] border-0 outline-none bg-green hover:bg-dark_green text-white text-[14px]  ${props.className}`}>
+        className={`flex px-[10px] py-[8px] items-center justify-start gap-2 rounded-[4px] border-0 outline-none bg-green hover:bg-darkGreen text-white text-[14px]  ${props.className}`}>
         {props.icon && (
             <div
                 className={`${props.customIcon} flex items-center justify-center`}>

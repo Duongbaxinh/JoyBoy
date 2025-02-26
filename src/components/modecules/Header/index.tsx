@@ -50,7 +50,7 @@ function Header({
                     <div className="w-full p-2 flex justify-between items-center ">
                         <div className="  flex justify-start gap-[10px] min-w-[150px] flex-grow">
                             <IconButton
-                                className={`md:hidden block bg-transparent hover:bg-grey text-primaryColor !px-[8px] !py-[5px] ${
+                                className={`md:hidden block bg-transparent hover:bg-gray text-primaryColor !px-[8px] !py-[5px] ${
                                     isOpenMenu && "invisible"
                                 }`}
                                 icon={
@@ -58,19 +58,19 @@ function Header({
                                 }
                                 onFC={onOpenMenu}
                             />
-
-                            <img
+                            <h1>Logo</h1>
+                            {/* <img
                                 src={Logo}
                                 alt="logo"
                                 className="w-[100px] h-[40px]"
-                            />
+                            /> */}
                         </div>
                         <div className=" flex gap-[5px] items-center">
                             <Select
                                 customTextSelected="text-[12px]"
                                 customItemOption="py-[6px]"
                                 customOption="mt-[0px] min-w-[150px] bg-white rounded-sm py-[10px] "
-                                className="max-w-[150px] min-w-[121px] w-[121px]  px-2 border-0 bg-grey rounded-sm"
+                                className="max-w-[150px] min-w-[121px] w-[121px]  px-2 border-0 bg-gray rounded-sm"
                                 leftIcon={valueSelect.leftIcon}
                                 selected={valueSelect}
                                 onChange={(item: any) => setValueSelect(item)}
@@ -81,9 +81,10 @@ function Header({
                                 onFC={() => {}}
                                 badge
                                 icon={
-                                    <MailIcon className="text-gray-950 w-4 h-4" />
+                                    <MailIcon className="text-text w-4 h-4 " />
                                 }
-                                className="max-w-[50px] rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px]"
+                                variant="button"
+                                className="max-w-[50px] rounded-sm !bg-transparent hover:!bg-lightGray  px-[7px] py-[7px]"
                             />
                             <OptionButton
                                 childrenItem={setting}
@@ -91,14 +92,15 @@ function Header({
                                     id: "1",
                                     url: "",
                                     icon: (
-                                        <SettingIcon className="text-gray-950 w-4 h-4" />
+                                        <SettingIcon className="text-text w-4 h-4" />
                                     )
                                 }}
-                                customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
-                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customParenItem="p-2 rounded-sm  px-[7px] py-[7px] text-text "
+                                customChildrenItem="hover:bg-gray !px-[20px]"
                                 customChildrenLabel="text-text"
                                 customChildrenIcon="text-text"
                                 customChildrenContainer="left-[-220px] bg-white shadow-md rounded-[3px]  "
+                                hoverStyle="hover:bg-lightGray"
                             />
                             <OptionButton
                                 childrenItem={account}
@@ -107,15 +109,16 @@ function Header({
                                     url: "",
                                     title: "0378700020",
                                     icon: (
-                                        <AccountIcon className="text-gray-950 w-4 h-4" />
+                                        <AccountIcon className="text-text w-4 h-4" />
                                     )
                                 }}
                                 customParenItem="p-2 rounded-sm bg-transparent hover:bg-gray-300  px-[7px] py-[7px] text-text "
-                                customChildrenItem="hover:bg-grey !px-[20px]"
+                                customChildrenItem="hover:bg-gray !px-[20px]"
                                 customParentLabel="text-text"
                                 customChildrenLabel="text-text"
                                 customChildrenIcon="text-text"
                                 customChildrenContainer="left-[-100px] bg-white shadow-md rounded-[3px]  "
+                                hoverStyle="hover:bg-lightGray"
                             />
                         </div>
                     </div>

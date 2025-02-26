@@ -11,7 +11,6 @@ export interface ButtonOption {
 
 export type pageType = {
     id: string;
-
     title?: string;
     url: string;
     icon: JSX.Element;
@@ -24,4 +23,5 @@ export interface SettingType {
     url: string;
     icon: JSX.Element;
 }
+
 export interface AccountType extends SettingType {}

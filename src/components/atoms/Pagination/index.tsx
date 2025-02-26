@@ -79,7 +79,7 @@ function Pagination({active, setActive, totalPage}: PaginationInterface) {
         }
     };
     return (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 text-text">
             <button
                 disabled={1 === active}
                 className="w-6 h-6 rounded-1 bg-gray-100 flex items-center justify-center"

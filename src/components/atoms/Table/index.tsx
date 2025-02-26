@@ -1,88 +1,141 @@
 "use client";
-import React, {useState} from "react";
+import {dataStoreCard, showPropertiesTable, titles} from "@/fake";
+import {useState} from "react";
+import DetailItem from "./DetailItem";
+import {TableProps} from "@/interfaces";
+import StoreCard from "@/components/modecules/StoreCard";
 
-const Table = ({
-    title,
+const Table: React.FC<TableProps> = ({
+    defineTitle,
+    className,
+    styleTitle,
+    checked = false,
+    customTitle,
     body,
+    detailItem = false,
     itemChecked,
-    customHeader = "",
-    customBody = "",
     onSelect
-}: {
-    title: string[];
-    body: any[];
-    customHeader?: string;
-    customBody?: string;
-    itemChecked: (string | number)[];
-    onSelect: ({
-        type,
-        id,
-        e
-    }: {
-        type: "all" | "item";
-        id: number | string;
-        e: any;
-    }) => void;
 }) => {
-    const [selectAll, setSelectAll] = useState();
-    console.log("table run" + itemChecked);
-    if (!title || !body || title.length === 0 || body.length === 0) {
-        return <p>No data available</p>;
-    }
-    const handleSelectAll = ({e}: {type: "all"; id: ""; e: any}) => {
-        setSelectAll(e.target.checked);
-        onSelect({type: "all", id: "", e});
+    const [openItem, setOpenItem] = useState<{
+        item: number | null | string;
+        open: boolean;
+    }>({item: null, open: false});
+
+    const [showInfo, setInfo] = useState<string | number>(1);
+    // if (!customTitle?.length || !body?.length) return <p>No data available</p>;
+
+    const displayedColumns =
+        customTitle &&
+        customTitle.filter(
+            (item: any) => titles.includes(item.id) && item.show
+        );
+
+    const colorDefine = (index: number): string => {
+        if (index !== openItem.item && index % 2 !== 0) return "bg-fadeGray";
+        if (index === openItem.item && openItem.open) return "bg-lightGreen";
+        return "bg-white";
     };
 
+    const showDetailItem = (id: string | number) => {
+        const newStatus = id === openItem.item ? !openItem.open : true;
+        setOpenItem(() => ({item: id, open: newStatus}));
+    };
+
+    const handleShowInfo = (id: string | number) => {
+        setInfo(id);
+    };
+
+    const titleTable = defineTitle ? defineTitle : displayedColumns;
+
+    console.log("title table ::: ", titleTable);
     return (
-        <table className=" text-text w-full ">
-            <thead className="sticky z-2 top-0 w-full bg-lightSkyBlue">
-                <tr className="bg-lightBlue w-full">
-                    <th
-                        className={` text-[13px] font-[700] p-0 ${customHeader}`}>
-                        <input
-                            type="checkbox"
-                            onChange={(e) =>
-                                handleSelectAll({type: "all", id: "", e})
-                            }
-                        />
-                    </th>
-                    {title.map((col, index) => (
-                        <th
-                            className={`px-[15px] py-[8px] text-[13px] font-[700] ${customHeader}`}
-                            key={index}>
-                            {col}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody className="w-full">
-                {body.map((row, rowIndex) => (
-                    <tr
-                        key={rowIndex}
-                        className="odd:bg-gray-100 even:bg-white">
-                        <td
-                            className={`px-[15px] py-[8px] whitespace-nowrap text-[13px] ${customBody}`}>
+        <div className={`relative bg-white text-text text-[13px] ${className}`}>
+            <div
+                className={`flex gap-5 sticky top-0 z-99 px-4 bg-fadeBlue text-text font-bold text-[13px] h-[50px] items-center w-max ${styleTitle}`}>
+                {checked && (
+                    <input
+                        type="checkbox"
+                        className="min-w-[40px]"
+                        onChange={(e) => onSelect({type: "all", id: "", e})}
+                    />
+                )}
+                {titleTable.map((item: any) => (
+                    <div
+                        key={item.id}
+                        style={{width: item.width}}
+                        className="text-center">
+                        {item.name}
+                    </div>
+                ))}
+            </div>
+
+            {/* BODY TABLE  */}
+            {body.map((row, index) => (
+                <div
+                    key={index}
+                    className={`w-max h-full  ${colorDefine(
+                        index
+                    )} hover:bg-lightGreen`}>
+                    <div
+                        className={`flex gap-5 items-center h-full px-4 py-2  ${
+                            openItem.item === index &&
+                            openItem.open &&
+                            "font-bold"
+                        }`}
+                        onClick={() => showDetailItem(index)}>
+                        {checked && (
                             <input
-                                checked={itemChecked.includes(row.id)}
                                 type="checkbox"
+                                className="min-w-[40px]"
+                                // checked={itemChecked.includes(row.id)}
                                 onChange={(e) =>
                                     onSelect({type: "item", id: row.id, e})
                                 }
                             />
-                        </td>
-
-                        {Object.keys(row).map((col, colIndex) => (
-                            <td
-                                key={colIndex}
-                                className={`px-[15px] py-[8px]  whitespace-nowrap text-[13px] ${customBody}`}>
-                                {row[col] || "-"}
-                            </td>
+                        )}
+                        {titleTable.map((col: any) => (
+                            <div
+                                key={col.id}
+                                style={{width: col.width}}
+                                className="py-3 text-center">
+                                {row[col.id] ?? "-"}
+                            </div>
                         ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                    </div>
+
+                    {/* DETAIL ITEM */}
+                    {openItem.item === index && openItem.open && detailItem && (
+                        <div className="w-full bg-white text-text border border-lightBlue ">
+                            <div className=" w-full bg-lightGreen">
+                                <div className=" pl-10  flex gap-3 text-center">
+                                    {[
+                                        "Thông tin",
+                                        "Thẻ kho",
+                                        "Tồn kho",
+                                        "Hàng hóa cùng loại"
+                                    ].map((text, i) => (
+                                        <div
+                                            key={i}
+                                            className={`min-w-[100px] p-2 rounded-t-sm text-[13px] font-bold ${
+                                                showInfo === i + 1 && "bg-white"
+                                            }`}
+                                            onClick={() =>
+                                                handleShowInfo(i + 1)
+                                            }>
+                                            {text}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            {showInfo === 1 && <DetailItem />}
+                            {showInfo === 2 && (
+                                <StoreCard data={dataStoreCard} />
+                            )}
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
     );
 };
 

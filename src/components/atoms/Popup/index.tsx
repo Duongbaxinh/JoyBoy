@@ -35,7 +35,7 @@ export default function Popup({
                                 {title}
                             </p>
                             <IconButton
-                                className="bg-transparent hover:bg-grey px-2"
+                                className="bg-transparent hover:bg-gray px-2"
                                 customIcon="text-text"
                                 onFC={onClose}
                                 icon={

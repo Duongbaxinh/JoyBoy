@@ -33,9 +33,9 @@ function ContainerLayout({
     return (
         <>
             <div
-                className={`flex  w-full ${
+                className={`flex  w-full bg-lightGray ${
                     isOpen ? "overflow-hidden h-[100vh]" : "overflow-x-hidden"
-                } bg-gray-400`}>
+                } `}>
                 <div
                     className={` h-[100vh] ${
                         isOpen !== null
@@ -47,7 +47,7 @@ function ContainerLayout({
                     <Sidebar onClose={handleCloseMenu} />
                 </div>
 
-                <div className=" w-full h-[100vh] relative">
+                <div className=" w-full h-[100vh] relative z-40">
                     {/* <div className="sticky top-0 z-[99]"> */}
                     <Header
                         isOpenMenu={isOpen}

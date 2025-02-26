@@ -1,6 +1,5 @@
 import {CancelIcon} from "@/assets/icons";
 import {ReactNode} from "react";
-import {twMerge} from "tailwind-merge";
 import "./style.css";
 
 interface Props {
@@ -21,9 +20,9 @@ const positionClasses = {
 };
 
 const translateClasses = {
-    Top_Left: "translate-x-[-100%]",
+    Top_Left: "-translate-x-full",
     Top_Right: "translate-x-full",
-    Top: "translate-y-[-100%]",
+    Top: "-translate-y-full",
     Bottom: "translate-y-full"
 };
 
@@ -36,7 +35,7 @@ const openTranslateClasses = {
 
 export default function Drawer({
     children,
-    isOpen,
+    isOpen = false,
     name,
     subName,
     onClose,
@@ -46,32 +45,29 @@ export default function Drawer({
     return (
         <div
             onClick={onClose}
-            className={twMerge(
-                "drawer w-full bg-[rgba(0,0,0,0.3)] fixed inset-0 z-50 transition",
+            className={`drawer w-full bg-black/30 fixed inset-0 z-50 transition ${
                 isOpen ? "show" : ""
-            )}>
+            }`}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={twMerge(
-                    "max-w-[448px] w-full transition duration-300 bg-white min-h-screen h-full absolute !z-auto",
-                    customClassName,
+                className={`max-w-[448px] w-full transition duration-300 bg-white min-h-screen h-full absolute z-auto ${customClassName} ${
                     isOpen
                         ? openTranslateClasses[positionContent]
-                        : translateClasses[positionContent],
-                    positionClasses[positionContent],
-                    positionContent === "Bottom" || positionContent === "Top"
-                        ? `w-full max-w-[100%] max-h-[448px] min-h-[0px] ${customClassName}`
+                        : translateClasses[positionContent]
+                } ${positionClasses[positionContent]} ${
+                    ["Bottom", "Top"].includes(positionContent)
+                        ? `w-full max-w-full max-h-[448px] min-h-0 ${customClassName}`
                         : ""
-                )}>
+                }`}>
                 <div className="py-5 px-4 flex justify-between items-center">
                     <div>
-                        <p className="text-primary font-medium text-[16px] leading-[19.09px] mb-1">
+                        <p className="text-primary font-medium text-lg leading-5 mb-1">
                             {name}
                         </p>
                         <p>{subName}</p>
                     </div>
                     <CancelIcon
-                        className="text-[#3A3B3C] cursor-pointer w-8 h-8 p-2 inline-block"
+                        className="text-gray-700 cursor-pointer w-8 h-8 p-2"
                         onClick={onClose}
                     />
                 </div>

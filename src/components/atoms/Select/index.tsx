@@ -171,7 +171,7 @@ function Select({
                         <div
                             key={item.value}
                             onClick={() => handleChangeValue(item)}
-                            className="w-full flex  items-center justify-between pr-2 hover:bg-grey cursor-pointer ">
+                            className="w-full flex  items-center justify-between pr-2 hover:bg-gray cursor-pointer ">
                             <div
                                 className={`w-full flex items-center gap-2 px-[15px] py-[10px] text-[13px] text-text capitalize ${customItemOption}`}>
                                 {item.leftIcon && item.leftIcon}
