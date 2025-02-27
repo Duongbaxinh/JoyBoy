@@ -4,7 +4,7 @@ import {EyeIcon} from "@/assets/icons";
 import Input, {Variant} from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
-import Drawer from "@/components/modecules/Drawer";
+import Drawer from "@/components/molecules/Drawer";
 
 import {useState} from "react";
 import ContainerLayout from "./ContainerLayout/page";
@@ -86,8 +86,13 @@ export default function Home() {
                 <h1 className="text-red-300">
                     Welcome to JoyBoy App {valueSelect?.value}
                 </h1>
-                <FilterOption className="w-[200px] p-0" title="Filter Option">
-                    <IconButton label="Option" className="w-full" />
+                <FilterOption
+                    className="w-[200px] p-0"
+                    title="Filter Option">
+                    <IconButton
+                        label="Option"
+                        className="w-full"
+                    />
                 </FilterOption>
                 <Select
                     className="max-w-[500px]  px-2"

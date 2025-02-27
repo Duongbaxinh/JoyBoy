@@ -16,7 +16,7 @@ import Input from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Table from "@/components/atoms/Table";
-import {body, showPropertiesTable} from "@/fake";
+import {body, dataPrice, showPropertiesTable} from "@/fake";
 import {calculateMonthsLeft, convertText} from "@/utils";
 import useSaveLocalStorage from "@/hooks/useLocalstorage";
 import {displayOptions, expirations, categories, stocks, types} from "@/consts";
@@ -303,8 +303,8 @@ function ProductPage() {
                             checked
                             onSelect={(id) => {}}
                             itemChecked={itemChecked}
-                            customTitle={showPropertiesTable}
-                            body={filteredBody}
+                            customTitle={dataPrice}
+                            body={dataPrice}
                         />
 
                         {filteredBody.length > numberDisplay && (

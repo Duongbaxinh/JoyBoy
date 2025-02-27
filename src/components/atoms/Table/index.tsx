@@ -3,7 +3,7 @@ import {dataStoreCard, showPropertiesTable, titles} from "@/fake";
 import {useState} from "react";
 import DetailItem from "./DetailItem";
 import {TableProps} from "@/interfaces";
-import StoreCard from "@/components/modecules/StoreCard";
+import StoreCard from "@/components/molecules/StoreCard";
 
 const Table: React.FC<TableProps> = ({
     defineTitle,

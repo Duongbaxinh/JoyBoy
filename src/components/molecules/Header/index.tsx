@@ -6,27 +6,43 @@ import {
     SaleIcon,
     SettingIcon
 } from "@/assets/icons";
-import {Logo} from "@/assets/images";
+import {flagEl, flagVn, Logo} from "@/assets/images";
 import IconButton from "@/components/atoms/IconButton";
 import Select from "@/components/atoms/Select";
 import {HeaderInterface, pageType} from "@/interfaces/header";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import OptionButton from "./OptionButton";
 import {account, setting} from "./config";
 import Container from "@/components/atoms/Container";
+import Image from "next/image";
 
 const options = [
     {
         id: 1,
         value: "Việt Nam",
-        leftIcon: ""
-        // <Image src={flagVn} alt="flagVn" width={20} height={20} priority />
+
+        leftIcon: (
+            <Image
+                src={flagVn}
+                alt="flagVn"
+                width={20}
+                height={20}
+                priority
+            />
+        )
     },
     {
         id: 2,
         value: "English",
-        leftIcon: ""
-        // <Image src={flagEl} alt="flagEl" width={20} height={20} priority />
+        leftIcon: (
+            <Image
+                src={flagEl}
+                alt="flagEl"
+                width={20}
+                height={20}
+                priority
+            />
+        )
     }
 ];
 
@@ -41,7 +57,15 @@ function Header({
         value: string;
         leftIcon?: any;
     }>(() => options[0]);
+    const [hasMounted, setHasMounted] = useState(false);
 
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    if (!hasMounted) {
+        return null; // Hoặc một loading component
+    }
     return (
         <>
             <div className="w-full flex flex-col justify-center items-center bg-white ">
@@ -58,12 +82,12 @@ function Header({
                                 }
                                 onFC={onOpenMenu}
                             />
-                            <h1>Logo</h1>
-                            {/* <img
+
+                            <img
                                 src={Logo}
                                 alt="logo"
                                 className="w-[100px] h-[40px]"
-                            /> */}
+                            />
                         </div>
                         <div className=" flex gap-[5px] items-center">
                             <Select
