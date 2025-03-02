@@ -1,27 +1,13 @@
-export const titles = [
-    "image",
-    "code",
-    "barcode",
-    "name",
-    "category",
-    "type",
-    "linkedChannel",
-    "sellingPrice",
-    "costPrice",
-    "brand",
-    "stock",
-    "location",
-    "ordered",
-    "createdAt",
-    "expectedOutOfStock",
-    "minStock",
-    "maxStock",
-    "status",
-    "warranty",
-    "maintenance"
-];
+import {IProduct} from "@/interfaces";
 
-export const showPropertiesTable = [
+export interface showFieldInterface {
+    id: keyof IProduct;
+    name: string;
+    show: boolean;
+    width: any;
+}
+
+export const showPropertiesTable: showFieldInterface[] = [
     {
         id: "image",
         name: "Hình ảnh",
@@ -47,13 +33,13 @@ export const showPropertiesTable = [
         width: "150px"
     },
     {
-        id: "category",
+        id: "category", // ✅ Matches API response
         name: "Nhóm hàng",
         show: true,
         width: "120px"
     },
     {
-        id: "type",
+        id: "type", // ✅ Matches API response
         name: "Loại hàng",
         show: true,
         width: "120px"
@@ -65,7 +51,7 @@ export const showPropertiesTable = [
         width: "150px"
     },
     {
-        id: "sellingPrice",
+        id: "price", // ✅ Matches API response
         name: "Giá bán",
         show: true,
         width: "120px"
@@ -101,14 +87,8 @@ export const showPropertiesTable = [
         width: "120px"
     },
     {
-        id: "createdAt",
+        id: "createdAt", // ✅ Matches API response
         name: "Thời gian tạo",
-        show: true,
-        width: "150px"
-    },
-    {
-        id: "expectedOutOfStock",
-        name: "Dự kiến hết hàng",
         show: true,
         width: "150px"
     },
@@ -141,6 +121,18 @@ export const showPropertiesTable = [
         name: "Bảo trì",
         show: true,
         width: "120px"
+    },
+    {
+        id: "businessStatus",
+        name: "Trạng thái kinh doanh",
+        show: true,
+        width: "120px"
+    },
+    {
+        id: "id", // ✅ This is what appears in the API response instead of `_id`
+        name: "ID",
+        show: false, // Hide if not necessary
+        width: "150px"
     }
 ];
 
@@ -187,13 +179,14 @@ export const body = [
     {
         id: 1,
         image: "image1.jpg",
+        images: [],
         code: "mh001",
         barcode: "1234567890123",
-        name: "product 1",
+        name: "product 1sooooooo",
         category: "perfume",
         type: "product",
         linkedChannel: "shopee",
-        sellingPrice: 200000,
+        price: 200000,
         costPrice: 150000,
         brand: "brand a",
         stock: 50,
@@ -213,13 +206,14 @@ export const body = [
     {
         id: 2,
         image: "image2.jpg",
+        images: [],
         code: "mh002",
         barcode: "1234567890124",
         name: "product 2",
         category: "skincare",
         type: "service",
         linkedChannel: "lazada",
-        sellingPrice: 300000,
+        price: 300000,
         costPrice: 220000,
         brand: "brand b",
         stock: 30,
@@ -239,13 +233,14 @@ export const body = [
     ...Array.from({length: 11}, (_, i) => ({
         id: 3 + i,
         image: `image${3 + i}.jpg`,
+        images: [],
         code: `mh00${3 + i}`,
         barcode: `12345678901${25 + i}`,
         name: `product ${3 + i}`,
         category: ["perfume", "skincare", "haircare"][i % 3],
         type: ["product", "service", "combo"][i % 3],
         linkedChannel: "shopee",
-        sellingPrice: 150000 + i * 10000,
+        price: 150000 + i * 10000,
         costPrice: 120000 + i * 8000,
         brand: "brand e",
         stock: 100 - i * 5,
@@ -306,78 +301,119 @@ export const dataStoreCard = [
 
 export const priceLabels = [
     {
-        id: "ma_hang",
-        name: "Mã hàng",
+        id: "id",
+        name: "Product ID",
         show: true,
         width: "120px"
     },
     {
-        id: "ten_hang",
-        name: "Tên hàng",
+        id: "name",
+        name: "Product Name",
         show: true,
         width: "300px"
     },
     {
-        id: "gia_von",
-        name: "Giá vốn",
+        id: "costPrice",
+        name: "Cost Price",
         show: true,
         width: "150px"
     },
     {
-        id: "gia_nhap_cuoi",
-        name: "Giá nhập cuối",
+        id: "lastPurchasePrice",
+        name: "Last Purchase Price",
         show: true,
         width: "150px"
     },
     {
-        id: "bang_gia_chung",
-        name: "Bảng giá chung",
+        id: "price",
+        name: "General Price",
+        show: true,
+        width: "150px"
+    },
+    {
+        id: "expirationDate",
+        name: "Expiration Date",
         show: true,
         width: "150px"
     }
 ];
-
 export const dataPrice = [
     {
-        ma_hang: "SP000022",
-        ten_hang: "Kem Chong nang chai 35ml",
-        gia_von: 1377500,
-        gia_nhap_cuoi: 1377500,
-        bang_gia_chung: 1450000
+        id: "SP000022",
+        code: "mh022",
+        name: "Kem Chong nang chai 35ml",
+        category: "skincare",
+        costPrice: 1377500,
+        lastPurchasePrice: 1377500,
+        price: 1450000,
+        stock: 50,
+        expectedOutOfStock: "2025-12-20",
+        expiryDate: "2025-12-01",
+        status: "in stock"
     },
     {
-        ma_hang: "SP000021",
-        ten_hang: "Mineral Kem duong da chai 35ml",
-        gia_von: 902500,
-        gia_nhap_cuoi: 902500,
-        bang_gia_chung: 950000
+        id: "SP000021",
+        code: "mh021",
+        name: "Mineral Kem duong da chai 35ml",
+        category: "skincare",
+        costPrice: 902500,
+        lastPurchasePrice: 902500,
+        price: 950000,
+        stock: 30,
+        expectedOutOfStock: "2025-11-25",
+        expiryDate: "2025-11-15",
+        status: "in stock"
     },
     {
-        ma_hang: "SP000020",
-        ten_hang: "Nước hoa nam BVLGari Pour Homme Eau De Toilette",
-        gia_von: 817000,
-        gia_nhap_cuoi: 817000,
-        bang_gia_chung: 860000
+        id: "SP000020",
+        code: "mh020",
+        name: "Nước hoa nam BVLGari Pour Homme Eau De Toilette",
+        category: "perfume",
+        costPrice: 817000,
+        lastPurchasePrice: 817000,
+        price: 860000,
+        stock: 20,
+        expectedOutOfStock: "2026-02-05",
+        expiryDate: "2026-01-20",
+        status: "low stock"
     },
     {
-        ma_hang: "SP000019",
-        ten_hang: "Calvin Klein for her collection",
-        gia_von: 949050,
-        gia_nhap_cuoi: 949050,
-        bang_gia_chung: 999000
+        id: "SP000019",
+        code: "mh019",
+        name: "Calvin Klein for her collection",
+        category: "perfume",
+        costPrice: 949050,
+        lastPurchasePrice: 949050,
+        price: 999000,
+        stock: 40,
+        expectedOutOfStock: "2025-10-15",
+        expiryDate: "2025-09-30",
+        status: "expired"
     },
     {
-        ma_hang: "SP000018",
-        ten_hang: "Nước hoa Ange ou demon le secret",
-        gia_von: 2042500,
-        gia_nhap_cuoi: 2042500,
-        bang_gia_chung: 2150000
+        id: "SP000018",
+        code: "mh018",
+        name: "Nước hoa Ange ou demon le secret",
+        category: "perfume",
+        costPrice: 2042500,
+        lastPurchasePrice: 2042500,
+        price: 2150000,
+        stock: 25,
+        expectedOutOfStock: "2026-03-25",
+        expiryDate: "2026-03-10",
+        status: "in stock"
     },
     {
-        ma_hang: "SP000017",
-        ten_hang: "Nước hoa Amarige",
-        gia_von: 1187500,
-        gia_nhap_cuoi: 1187500,
-        bang_gia_chung: 1250000
+        id: "SP000017",
+        code: "mh017",
+        name: "Nước hoa Amarige",
+        category: "perfume",
+        costPrice: 1187500,
+        lastPurchasePrice: 1187500,
+        price: 1250000,
+        stock: 35,
+        expectedOutOfStock: "2025-10-20",
+        expiryDate: "2025-10-05",
+        status: "expired"
     }
 ];

@@ -3,17 +3,17 @@ import React from "react";
 
 function Button({
     label,
-    bgColor,
+    className,
     onAction
 }: {
     label: string;
-    bgColor: string;
+    className?: string;
     onAction: () => void;
 }) {
     return (
         <div>
             <button
-                className="text-red-500 border border-orange-400 rounded-md py-2 px-4 text-lg"
+                className={`text-white border text-[13px]  border-orange-400 rounded-md bg-green ${className}`}
                 onClick={onAction}>
                 {label}
             </button>

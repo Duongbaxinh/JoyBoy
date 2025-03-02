@@ -1,6 +1,4 @@
 "use client";
-import {useState, useCallback, useMemo, useEffect} from "react";
-import {BiPlus} from "react-icons/bi";
 import ContainerLayout from "@/app/ContainerLayout/page";
 import {
     ArrowDown,
@@ -9,6 +7,7 @@ import {
     MenuIcon,
     SearchIcon
 } from "@/assets/icons";
+import ButtonOption from "@/components/atoms/ButtonOption";
 import Container from "@/components/atoms/Container";
 import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
@@ -16,10 +15,17 @@ import Input from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Table from "@/components/atoms/Table";
-import {body, showPropertiesTable} from "@/fake";
-import {calculateMonthsLeft, convertText} from "@/utils";
+import {categories, displayOptions, expirations, stocks, types} from "@/consts";
+import {body, dataPrice, showPropertiesTable} from "@/fake";
 import useSaveLocalStorage from "@/hooks/useLocalstorage";
-import {displayOptions, expirations, categories, stocks, types} from "@/consts";
+import {IProduct} from "@/interfaces";
+import {fetchProducts} from "@/store/slices/product.slice";
+import {AppDispatch, RootState} from "@/store/store";
+import {convertText} from "@/utils";
+import exportToExcel from "@/utils/exportFile";
+import {useEffect, useState} from "react";
+import {BiPlus} from "react-icons/bi";
+import {useDispatch, useSelector} from "react-redux";
 
 type Filters = {
     typeProduct: string[];
@@ -31,7 +37,19 @@ type Filters = {
 };
 
 function ProductPage() {
+    const dispatch = useDispatch<AppDispatch>();
+    const {products, loading, error} = useSelector(
+        (state: RootState) => state.product
+    );
+    const [openItem, setOpenItem] = useState<{
+        item: number | string | null;
+        open: boolean;
+    }>({item: null, open: false});
     const [active, setActive] = useSaveLocalStorage("active", 1);
+    const [fieldShow, setFieldShow] = useSaveLocalStorage(
+        "fieldShow",
+        showPropertiesTable
+    );
     const [itemChecked, setItemChecked] = useState<string[]>([]);
     const [numberDisplay, setNumberDisplay] = useSaveLocalStorage(
         "numberDisplay",
@@ -57,9 +75,11 @@ function ProductPage() {
         }));
     };
 
-    const handleRadioChange = (field: keyof Filters, value: string) => {
-        setFilters((prev: any) => ({...prev, [field]: value}));
-    };
+    const handleDetailItem = (id: number | string) =>
+        setOpenItem((prev) => ({
+            item: id,
+            open: prev.item === id ? !prev.open : true
+        }));
 
     const handleTextSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters((prev: any) => ({...prev, textSearch: e.target.value}));
@@ -73,48 +93,50 @@ function ProductPage() {
         return numberOfDate > min && numberOfDate < max;
     };
 
-    const filteredBody = useMemo(
-        () =>
-            body.filter((item) => {
-                return (
-                    (filters.typeProduct.length === 0 ||
-                        filters.typeProduct.includes(item.type)) &&
-                    (filters.categories.length === 0 ||
-                        filters.categories.includes(item.category)) &&
-                    (filters.stock === "all" ||
-                        filters.stock === item.status) &&
-                    (filters.businessStatus === "all" ||
-                        filters.businessStatus === item.businessStatus) &&
-                    (filters.expiration === "all" ||
-                        checkExpiration(
-                            filters.expiration,
-                            calculateMonthsLeft(item.expiryDate)
-                        )) &&
-                    (filters.textSearch === "" ||
-                        convertText(item.code).includes(
-                            convertText(filters.textSearch)
-                        ) ||
-                        convertText(item.name).includes(
-                            convertText(filters.textSearch)
-                        ))
-                );
-            }),
-        [filters]
-    );
-    const [hasMounted, setHasMounted] = useState(false);
+    const handleFieldShow = (id: string) => {
+        setFieldShow((prev: any[]) =>
+            prev.map((item) =>
+                item.id === id ? {...item, show: !item.show} : item
+            )
+        );
+    };
 
     useEffect(() => {
-        setHasMounted(true);
-    }, []);
+        const accessToken = "";
+        dispatch(fetchProducts(accessToken));
+    }, [dispatch]);
 
-    if (!hasMounted) {
-        return null; // Hoặc một loading component
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    const filteredBody = (): IProduct[] => {
+        if (!products) return [];
+
+        return products.filter((item) => {
+            const {typeProduct, categories, stock, businessStatus, textSearch} =
+                filters;
+            return (
+                // Kiểm tra điều kiện lọc chính
+                ((typeProduct.length === 0 ||
+                    typeProduct.includes(item.type)) &&
+                    (categories.length === 0 ||
+                        categories.includes(item.category)) &&
+                    (stock === "all" || stock === item.status) &&
+                    (businessStatus === "all" ||
+                        businessStatus === item.businessStatus) &&
+                    textSearch === "") ||
+                // Kiểm tra nếu code hoặc name có chứa textSearch
+                convertText(item.code).includes(convertText(textSearch)) ||
+                convertText(item.name).includes(convertText(textSearch))
+            );
+        });
+    };
+
+    console.log("check product", filteredBody);
     return (
         <ContainerLayout>
             <Container>
-                <div className="grid grid-cols-5 gap-x-4">
-                    <div className="col-span-1 sticky left-0 top-0 overflow-auto">
+                <div className="grid grid-cols-5 gap-x-4 h-[600px]  ">
+                    <div className="col-span-1 ">
                         <h2 className="h-20 flex items-center text-2xl font-bold text-text">
                             Hàng Hóa
                         </h2>
@@ -267,7 +289,10 @@ function ProductPage() {
                             </FilterOption>
                         </div>
                     </div>
-                    <div className="col-span-4 w-full">
+                    <div
+                        className={`col-span-4 w-full ${
+                            openItem.open ? "h-full" : "h-[20px]"
+                        } sticky top-0 left-0  `}>
                         <div className="flex justify-between items-center h-20">
                             <Input
                                 className="max-w-[450px] w-full bg-white !py-2"
@@ -287,28 +312,51 @@ function ProductPage() {
                                     icon={<ImportIcon className="w-5 h-5" />}
                                 />
                                 <IconButton
+                                    onFC={() => {
+                                        exportToExcel(dataPrice, "data.xlsx");
+                                    }}
                                     icon={<ExportIcon className="w-5 h-5" />}
                                 />
-                                <IconButton
-                                    icon={<MenuIcon className="w-5 h-5" />}
-                                    rightIcon={
-                                        <ArrowDown className="w-5 h-5" />
-                                    }
-                                />
+
+                                <ButtonOption
+                                    parent={{
+                                        icon: <MenuIcon className="w-5 h-5" />,
+                                        rightIcon: (
+                                            <ArrowDown className="w-5 h-5" />
+                                        )
+                                    }}>
+                                    <div className="grid grid-cols-2 grid-rows-[10] gap-2  w-[340px] p-3 rounded-md shadow-md bg-white">
+                                        {fieldShow.map((title: any) => (
+                                            <div className="flex gap-2 text-[13px] text-text ">
+                                                <input
+                                                    checked={title.show}
+                                                    type="checkbox"
+                                                    onChange={() =>
+                                                        handleFieldShow(
+                                                            title.id
+                                                        )
+                                                    }
+                                                />
+                                                <span>{title.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </ButtonOption>
                             </div>
                         </div>
-
-                        <Table
-                            detailItem
-                            checked
-                            onSelect={(id) => {}}
-                            itemChecked={itemChecked}
-                            customTitle={showPropertiesTable}
-                            body={filteredBody}
-                        />
-
+                        <div className="relative w-full overflow-auto">
+                            <Table
+                                checked
+                                openItem={openItem}
+                                onOpenItem={handleDetailItem}
+                                onSelect={(id) => {}}
+                                itemChecked={itemChecked}
+                                titleTable={fieldShow}
+                                body={filteredBody()}
+                            />
+                        </div>
                         {filteredBody.length > numberDisplay && (
-                            <div className="text-text flex gap-2 items-center">
+                            <div className="text-text flex gap-2 items-center py-[30px]">
                                 <Pagination
                                     active={active}
                                     setActive={setActive}

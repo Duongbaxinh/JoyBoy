@@ -42,35 +42,6 @@ export default function Home() {
                     <div className="h1">heelo</div>
                     <div className="h1">heelo</div>
                     <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
                 </div>
             </Popup>
             <div className="">

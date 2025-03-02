@@ -9,7 +9,7 @@ function StoreCard({data}: any) {
     return (
         <div className="w-full h-[500px]  p-5 ">
             <Table
-                styleTitle="!static !z-0"
+                styleTitle="!static !z-0 h-[50px]"
                 className="!static"
                 defineTitle={storeCard}
                 body={data}

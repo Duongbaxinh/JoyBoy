@@ -156,6 +156,7 @@ function Header({
                             <div className="flex-grow flex items-center">
                                 {pageParent.map((item: pageType) => (
                                     <OptionButton
+                                        key={item.title}
                                         hoverStyle=" bg-secondColor text-white"
                                         customParenItem=" !py-[10px] !px-[15px]  hover:bg-secondColor"
                                         customChildrenItem="w-full !rounded-[0px] !justify-start !gap-[20px] !py-[12px] !px-[30px] hover:bg-primaryColor"

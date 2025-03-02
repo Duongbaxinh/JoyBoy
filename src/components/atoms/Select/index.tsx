@@ -4,11 +4,12 @@ import Input, {Variant} from "../Input";
 import {convertText} from "@/utils";
 
 interface SelectInterface {
+    disabled?: boolean;
     leftIcon?: any;
     rightIcon?: any;
     placeholder?: string;
     selected?: {
-        id: number;
+        id: number | string;
         value: string;
         leftIcon?: any;
         rightIcon?: any;
@@ -22,7 +23,12 @@ interface SelectInterface {
     customItemOption?: string;
     inputSearch?: boolean;
     onChange?: any;
-    options?: {id: number; value: string; leftIcon?: any; rightIcon?: any}[];
+    options?: {
+        id: number | string;
+        value: string;
+        leftIcon?: any;
+        rightIcon?: any;
+    }[];
     className?: string;
     classOption?: string;
 }
@@ -51,7 +57,7 @@ function Select({
     const refSearch = useRef<HTMLDivElement | null>(null);
     const refSelect = useRef<HTMLDivElement | null>(null);
     const handleChangeValue = (item: {
-        id: number;
+        id: number | string;
         value: string;
         leftIcon?: any;
         rightIcon?: any;

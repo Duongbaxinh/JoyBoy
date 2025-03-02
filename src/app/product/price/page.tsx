@@ -1,6 +1,4 @@
 "use client";
-import {useState, useCallback, useMemo, useEffect} from "react";
-import {BiPlus} from "react-icons/bi";
 import ContainerLayout from "@/app/ContainerLayout/page";
 import {
     ArrowDown,
@@ -16,19 +14,13 @@ import Input from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Table from "@/components/atoms/Table";
-import {body, dataPrice, showPropertiesTable} from "@/fake";
-import {calculateMonthsLeft, convertText} from "@/utils";
+import {categories, expirations, stocks} from "@/consts";
+import {body, dataPrice, priceLabels} from "@/fake";
 import useSaveLocalStorage from "@/hooks/useLocalstorage";
-import {displayOptions, expirations, categories, stocks, types} from "@/consts";
-
-type Filters = {
-    typeProduct: string[];
-    categories: string[];
-    stock: string;
-    expiration: string;
-    businessStatus: string;
-    textSearch: string;
-};
+import {Filters} from "@/interfaces";
+import {calculateMonthsLeft, convertText} from "@/utils";
+import {useEffect, useMemo, useState} from "react";
+import {BiPlus} from "react-icons/bi";
 
 function ProductPage() {
     const [active, setActive] = useSaveLocalStorage("active", 1);
@@ -37,15 +29,16 @@ function ProductPage() {
         "numberDisplay",
         10
     );
+    const [hasMounted, setHasMounted] = useState(false);
     const [filters, setFilters] = useSaveLocalStorage("filters", {
         typeProduct: [],
         categories: [],
         stock: "all",
         expiration: "all",
         businessStatus: "all",
-        textSearch: ""
+        codeSearch: "",
+        nameSearch: ""
     });
-
     const handleFilterChange = (field: keyof Filters, value: string) => {
         setFilters((prev: any) => ({
             ...prev,
@@ -57,12 +50,15 @@ function ProductPage() {
         }));
     };
 
-    const handleRadioChange = (field: keyof Filters, value: string) => {
-        setFilters((prev: any) => ({...prev, [field]: value}));
+    const handleTextSearch = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        field: keyof Filters
+    ) => {
+        setFilters((prev: any) => ({...prev, [field]: e.target.value}));
     };
 
-    const handleTextSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilters((prev: any) => ({...prev, textSearch: e.target.value}));
+    const handleCleanSearch = (field: any) => {
+        setFilters((prev: any) => ({...prev, [field]: ""}));
     };
 
     const checkExpiration = (
@@ -73,35 +69,35 @@ function ProductPage() {
         return numberOfDate > min && numberOfDate < max;
     };
 
+    const fieldSearches = [
+        {field: "codeSearch", label: "Mã hàng", value: filters.codeSearch},
+        {field: "nameSearch", label: "Tên hàng", value: filters.nameSearch}
+    ];
     const filteredBody = useMemo(
         () =>
-            body.filter((item) => {
+            dataPrice.filter((item) => {
                 return (
-                    (filters.typeProduct.length === 0 ||
-                        filters.typeProduct.includes(item.type)) &&
                     (filters.categories.length === 0 ||
                         filters.categories.includes(item.category)) &&
                     (filters.stock === "all" ||
                         filters.stock === item.status) &&
-                    (filters.businessStatus === "all" ||
-                        filters.businessStatus === item.businessStatus) &&
                     (filters.expiration === "all" ||
                         checkExpiration(
                             filters.expiration,
                             calculateMonthsLeft(item.expiryDate)
                         )) &&
-                    (filters.textSearch === "" ||
+                    (filters.codeSearch === "" ||
                         convertText(item.code).includes(
-                            convertText(filters.textSearch)
-                        ) ||
+                            convertText(filters.codeSearch)
+                        )) &&
+                    (filters.nameSearch === "" ||
                         convertText(item.name).includes(
-                            convertText(filters.textSearch)
+                            convertText(filters.nameSearch)
                         ))
                 );
             }),
         [filters]
     );
-    const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
         setHasMounted(true);
@@ -113,37 +109,21 @@ function ProductPage() {
     return (
         <ContainerLayout>
             <Container>
-                <div className="grid grid-cols-5 gap-x-4">
-                    <div className="col-span-1 sticky left-0 top-0 overflow-auto">
+                <div className="grid grid-cols-5 gap-x-4 h-[600px]  ">
+                    <div className="col-span-1 ">
                         <h2 className="h-20 flex items-center text-2xl font-bold text-text">
-                            Hàng Hóa
+                            Bảng giá chung
                         </h2>
                         <div className="flex flex-col gap-3">
                             <FilterOption
-                                title="Loại Hàng"
+                                title="Bang Gia"
                                 className="p-3">
-                                <div className="mt-2 flex flex-col gap-3">
-                                    {types.map(({id, label}) => (
-                                        <label
-                                            key={id}
-                                            className="flex items-center gap-2 text-text">
-                                            <input
-                                                type="checkbox"
-                                                checked={filters.typeProduct.includes(
-                                                    id
-                                                )}
-                                                onChange={() =>
-                                                    handleFilterChange(
-                                                        "typeProduct",
-                                                        id
-                                                    )
-                                                }
-                                            />
-                                            <span className="text-sm">
-                                                {label}
-                                            </span>
-                                        </label>
-                                    ))}
+                                <div className="">
+                                    <Input
+                                        leadingIcon={<SearchIcon />}
+                                        variant="underline"
+                                        placeholder=""
+                                    />
                                 </div>
                             </FilterOption>
                             <FilterOption
@@ -203,35 +183,7 @@ function ProductPage() {
                                     ))}
                                 </div>
                             </FilterOption>
-                            <FilterOption
-                                title="Lựa chọn hiển thị"
-                                className="p-3">
-                                <div className="mt-2 flex flex-col gap-3">
-                                    {displayOptions.map(({id, label}) => (
-                                        <label
-                                            key={id}
-                                            className="flex items-center gap-2 text-text">
-                                            <input
-                                                type="radio"
-                                                name="businessStatus"
-                                                checked={
-                                                    filters.businessStatus ===
-                                                    id
-                                                }
-                                                onChange={() =>
-                                                    handleFilterChange(
-                                                        "businessStatus",
-                                                        id
-                                                    )
-                                                }
-                                            />
-                                            <span className="text-sm">
-                                                {label}
-                                            </span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </FilterOption>
+
                             <FilterOption
                                 title="Hạn sử dụng"
                                 className="p-3">
@@ -267,15 +219,8 @@ function ProductPage() {
                             </FilterOption>
                         </div>
                     </div>
-                    <div className="col-span-4 w-full">
-                        <div className="flex justify-between items-center h-20">
-                            <Input
-                                className="max-w-[450px] w-full bg-white !py-2"
-                                leadingIcon={<SearchIcon />}
-                                value={filters.textSearch}
-                                onChange={handleTextSearch}
-                                placeholder="Theo mã, tên hàng"
-                            />
+                    <div className="col-span-4 w-full h-[20px] sticky top-0 left-0  ">
+                        <div className="flex justify-end items-center h-20">
                             <div className="flex gap-2">
                                 <IconButton
                                     icon={<BiPlus className="w-5 h-5" />}
@@ -297,18 +242,22 @@ function ProductPage() {
                                 />
                             </div>
                         </div>
-
-                        <Table
-                            detailItem
-                            checked
-                            onSelect={(id) => {}}
-                            itemChecked={itemChecked}
-                            customTitle={dataPrice}
-                            body={dataPrice}
-                        />
-
+                        <div className="relative max-h-[500px] w-full overflow-auto">
+                            <Table
+                                onCleanSearch={handleCleanSearch}
+                                fieldSearches={fieldSearches}
+                                onSearch={handleTextSearch}
+                                editField="price"
+                                fieldSearch
+                                styleTitle="h-[50px]"
+                                onSelect={(id: any) => {}}
+                                itemChecked={itemChecked}
+                                titleTable={priceLabels}
+                                body={filteredBody}
+                            />
+                        </div>
                         {filteredBody.length > numberDisplay && (
-                            <div className="text-text flex gap-2 items-center">
+                            <div className="text-text flex gap-2 items-center py-[30px]">
                                 <Pagination
                                     active={active}
                                     setActive={setActive}

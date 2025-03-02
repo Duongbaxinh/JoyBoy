@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 type StockLimit = {
     min: number;
@@ -16,9 +16,6 @@ type ProductInfo = {
     costPrice: number;
     weight: string;
     location: string;
-    description: string;
-    orderNotes: string;
-    supplier: string;
 };
 
 type Product = {
@@ -28,6 +25,9 @@ type Product = {
     thumbnail: string;
     images: string[];
     info: ProductInfo;
+    description: string;
+    orderNotes: string;
+    supplier: string[];
 };
 const data: Product = {
     id: "1",
@@ -50,52 +50,58 @@ const data: Product = {
         price: 13000,
         costPrice: 10000,
         weight: "100 g",
-        location: "Inteligi",
-        description: "Sữa rửa mặt thiên nhiên giúp làm sạch da",
-        orderNotes: "Hàng mới về, khuyến mãi 10%",
-        supplier: "Công ty TNHH Aragi Việt Nam"
-    }
+        location: "Inteligi"
+    },
+    description: "Sữa rửa mặt thiên nhiên giúp làm sạch da",
+    orderNotes: "Hàng mới về, khuyến mãi 10%",
+    supplier: ["Công ty TNHH Aragi Việt Nam"]
 };
 
-function DetailItem() {
+function DetailItem({dataItem}: any) {
+    const [imageDisplay, setImageDisplay] = useState("");
+    const handleImageDisplay = (image: string) => {
+        setImageDisplay(image);
+    };
+    if (!dataItem) return <h1>Loading</h1>;
+    console.log(dataItem);
     return (
-        <div className="px-10 py-2 ">
+        <div className="px-10 py-2 w-max h-[800px]  ">
             <p className="text-[23px] py-4 font-bold capitalize text-text">
-                {data.name}
+                {dataItem.name}
             </p>
-            {/* <div className="text-[20px] capitalize text-text">
-                {data.formBuy}
-            </div> */}
-            <div className="grid grid-cols-[250px_53px_600px] gap-4 w-max">
+
+            <div className="grid grid-cols-[250px_53px_600px] gap-10 w-max">
                 <div className="pt-2">
                     <img
-                        src={data.thumbnail}
+                        src={imageDisplay ? imageDisplay : dataItem.image}
                         alt=""
-                        className="w-full rounded-sm"
+                        className="w-full rounded-sm min-h-[240px] shadow-md"
                     />
                 </div>
                 <div className="  flex flex-col gap-3 pt-2">
-                    {data.images.map((image) => (
+                    {dataItem.images.map((image: string, index: number) => (
                         <img
+                            onClick={() => handleImageDisplay(image)}
+                            key={index}
                             src={image}
                             alt=""
                             className="w-[60px] h-[60px] rounded-sm"
                         />
                     ))}
                 </div>
-                <div className="w-full flex gap-2 text-text">
-                    <div className="min-w-[350px] max-w-[370px] px-3">
-                        {Object.keys(data.info).map((v) => {
-                            const value =
-                                data.info[v as keyof typeof data.info];
+                <div className="w-full grid grid-cols-[300px_300px] gap-10 text-text">
+                    <div className="min-w-[300px]">
+                        {Object.keys(data.info).map((key) => {
+                            const value = dataItem[key];
+
                             return (
                                 <div
-                                    key={v}
-                                    className="flex gap-2 p-3 border-b-[1px] border-lightGray">
+                                    key={key}
+                                    className="flex gap-2 p-1 border-b-[1px] border-lightGray">
                                     <p className="capitalize   text-[14px] min-w-[100px]">
-                                        {v.toString() + ":"}
+                                        {key.toString() + ":"}
                                     </p>
-                                    <p className="capitalize text-[14px] pl-[40px] text-wrap break-words">
+                                    <p className=" w-full text-right capitalize text-[14px] pl-[40px] text-wrap break-words">
                                         {typeof value === "object"
                                             ? JSON.stringify(value)
                                             : value}
@@ -104,12 +110,22 @@ function DetailItem() {
                             );
                         })}
                     </div>
-                    <div className="w-[230px]">
-                        <div className="gap-2 p-3 border-b-[1px] border-lightGray">
-                            <p className="capitalize   text-[13px] min-w-[100px]">
-                                Mo ta
+                    <div className=" flex flex-col ">
+                        <div className="flex flex-col gap-2  ">
+                            <p className="capitalize  p-1 border-b-[1px] border-lightGray  text-[14px] min-w-[100px]">
+                                Mo Ta
                             </p>
-                            <p className="capitalize text-[14px] pl-[40px] text-wrap break-words"></p>
+                            <p className=" w-full text-left capitalize text-[14px]  text-wrap break-words">
+                                {dataItem["description"]}FKSFLSJFKSKD
+                            </p>
+                        </div>
+                        <div className="flex flex-col gap-2  ">
+                            <p className="capitalize  p-1 border-b-[1px] border-lightGray  text-[14px] min-w-[100px]">
+                                Nha Cung Cap
+                            </p>
+                            <p className=" w-full text-left capitalize text-[14px]  text-wrap break-words">
+                                {dataItem["description"]}FKSFLSJFKSKD
+                            </p>
                         </div>
                     </div>
                 </div>

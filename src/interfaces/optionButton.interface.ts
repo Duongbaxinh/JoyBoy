@@ -1,9 +1,9 @@
 export interface MenuItem {
     id: string | number;
     title?: string;
-    url: string;
-    icon: JSX.Element;
-    type?: string;
+    url?: string;
+    icon?: JSX.Element;
+    type?: string; // "link" | "button"
 }
 
 export interface OptionButtonProps {
@@ -17,4 +17,5 @@ export interface OptionButtonProps {
     customChildrenLabel?: string;
     customParentLabel?: string;
     hoverStyle?: string;
+    typeEvent?: "click" | "hover";
 }

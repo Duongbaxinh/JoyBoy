@@ -1,6 +1,7 @@
 import {ReactNode} from "react";
 
 export interface IconButtonProps {
+    disabled?: boolean;
     variant?: "button" | "link";
     url?: string;
     icon?: ReactNode;

@@ -13,7 +13,8 @@ function OptionButton({
     customChildrenIcon = "",
     customChildrenLabel = "",
     customParentLabel = "",
-    hoverStyle = ""
+    hoverStyle = "",
+    typeEvent = "hover"
 }: OptionButtonProps) {
     const [pageOption, setPageOption] = useState<string | number>("");
     const pathParam = usePathname();
@@ -24,8 +25,11 @@ function OptionButton({
     return (
         <div
             className="relative"
-            onMouseMove={() => handleHover(parentItem.id)}
-            onMouseOut={() => handleHover("")}>
+            onClick={() => typeEvent === "click" && handleHover(parentItem.id)}
+            onMouseMove={() =>
+                typeEvent === "hover" && handleHover(parentItem.id)
+            }
+            onMouseOut={() => typeEvent === "hover" && handleHover("")}>
             <IconButton
                 key={parentItem.id}
                 variant={parentItem.type as "link" | "button" | undefined}
