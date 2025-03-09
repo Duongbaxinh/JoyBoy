@@ -11,13 +11,11 @@ function Button({
     onAction: () => void;
 }) {
     return (
-        <div>
-            <button
-                className={`text-white border text-[13px]  border-orange-400 rounded-md bg-green ${className}`}
-                onClick={onAction}>
-                {label}
-            </button>
-        </div>
+        <button
+            className={`text-white border text-[13px]  border-orange-400 rounded-md bg-green ${className}`}
+            onClick={onAction}>
+            {label}
+        </button>
     );
 }
 

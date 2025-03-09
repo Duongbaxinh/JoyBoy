@@ -43,7 +43,7 @@ const config: Config = {
                 fadeGray: "#f7f8f9",
                 lightGray: "#e8eaed",
                 gray: "#EEEFF1",
-                darkGray: "#EEEFF1",
+                darkGray: "#85909d",
                 lightBlue: "#CCE2FD",
                 black: "#CCE2FD",
                 text: "#121212",
