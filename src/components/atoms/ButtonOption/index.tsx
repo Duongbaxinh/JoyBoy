@@ -1,17 +1,21 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import IconButton from "../IconButton";
-import {IconButtonProps} from "@/interfaces";
+import { IconButtonProps } from "@/interfaces";
+import useClickOutside from "@/hooks/useClickOuside";
 
 function ButtonOption({
     children,
-    parent
+    parent,
+    classNameChildren
 }: {
     children: React.ReactNode;
     parent: IconButtonProps;
+    classNameChildren?: string;
 }) {
+    const refOption = useRef<HTMLDivElement | null>(null)
     const [show, setShow] = React.useState(false);
-    console.log("check show ::: ", show);
+    useClickOutside([refOption], () => setShow(false))
     return (
         <div className="relative">
             <IconButton
@@ -26,7 +30,8 @@ function ButtonOption({
             />
 
             {show && (
-                <div className="absolute top-auto right-[270px] w-full h-full z-20">
+                <div ref={refOption}
+                    className={`absolute top-auto right-[270px] w-full h-full z-20 ${classNameChildren}`}>
                     {children}
                 </div>
             )}

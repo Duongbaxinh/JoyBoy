@@ -14,13 +14,13 @@ import Input from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
 import Table from "@/components/atoms/Table";
-import {categories, expirations, stocks} from "@/consts";
-import {body, dataPrice, priceLabels} from "@/fake";
+import { categories, expirations, stocks } from "@/consts";
+import { body, dataPrice, priceLabels } from "@/fake";
 import useSaveLocalStorage from "@/hooks/useLocalstorage";
-import {Filters} from "@/interfaces";
-import {calculateMonthsLeft, convertText} from "@/utils";
-import {useEffect, useMemo, useState} from "react";
-import {BiPlus} from "react-icons/bi";
+import { Filters } from "@/interfaces";
+import { calculateMonthsLeft, convertText } from "@/utils";
+import { useEffect, useMemo, useState } from "react";
+import { BiPlus } from "react-icons/bi";
 
 function ProductPage() {
     const [active, setActive] = useSaveLocalStorage("active", 1);
@@ -54,11 +54,11 @@ function ProductPage() {
         e: React.ChangeEvent<HTMLInputElement>,
         field: keyof Filters
     ) => {
-        setFilters((prev: any) => ({...prev, [field]: e.target.value}));
+        setFilters((prev: any) => ({ ...prev, [field]: e.target.value }));
     };
 
     const handleCleanSearch = (field: any) => {
-        setFilters((prev: any) => ({...prev, [field]: ""}));
+        setFilters((prev: any) => ({ ...prev, [field]: "" }));
     };
 
     const checkExpiration = (
@@ -70,8 +70,8 @@ function ProductPage() {
     };
 
     const fieldSearches = [
-        {field: "codeSearch", label: "Mã hàng", value: filters.codeSearch},
-        {field: "nameSearch", label: "Tên hàng", value: filters.nameSearch}
+        { field: "codeSearch", label: "Mã hàng", value: filters.codeSearch },
+        { field: "nameSearch", label: "Tên hàng", value: filters.nameSearch }
     ];
     const filteredBody = useMemo(
         () =>
@@ -134,7 +134,7 @@ function ProductPage() {
                                         leadingIcon={<SearchIcon />}
                                         placeholder="Tìm kiếm nhóm hàng"
                                     />
-                                    {categories.map(({id, label}) => (
+                                    {categories.map(({ id, label }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
@@ -161,7 +161,7 @@ function ProductPage() {
                                 title="Tồn kho"
                                 className="p-3">
                                 <div className="mt-2 flex flex-col gap-3">
-                                    {stocks.map(({id, label}) => (
+                                    {stocks.map(({ id, label }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
@@ -188,7 +188,7 @@ function ProductPage() {
                                 title="Hạn sử dụng"
                                 className="p-3">
                                 <div className="mt-2 flex flex-col gap-3">
-                                    {expirations.map(({id, label}) => (
+                                    {expirations.map(({ id, label }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
@@ -250,7 +250,7 @@ function ProductPage() {
                                 editField="price"
                                 fieldSearch
                                 styleTitle="h-[50px]"
-                                onSelect={(id: any) => {}}
+                                onSelect={(id: any) => { }}
                                 itemChecked={itemChecked}
                                 titleTable={priceLabels}
                                 body={filteredBody}

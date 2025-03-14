@@ -1,5 +1,5 @@
-import {ReactNode} from "react";
-import {MdCancel} from "react-icons/md";
+import { ReactNode } from "react";
+import { MdCancel } from "react-icons/md";
 import IconButton from "../IconButton";
 import "./styles.css";
 
@@ -9,6 +9,7 @@ interface Props {
     isOpen?: boolean;
     title?: string;
     subName?: string;
+    position?: string;
     onClose?: () => void;
 }
 
@@ -18,13 +19,14 @@ export default function Popup({
     isOpen,
     title,
     subName,
+    position,
     onClose
 }: Props) {
     return (
         <div
             onClick={onClose}
-            className={`modal w-[100vw] fixed inset-0 z-30  transition flex justify-center items-center",
-               ${isOpen ? "show" : ""} 
+            className={`modal w-[100vw] fixed inset-0 z-30  transition flex justify-center items-center
+               ${isOpen ? "show" : ""} ${position}
             `}>
             <div>
                 <div

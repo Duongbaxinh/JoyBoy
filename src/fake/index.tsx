@@ -1,4 +1,5 @@
-import {IProduct} from "@/interfaces";
+import { IProduct } from "@/interfaces";
+import { Product } from "@/interfaces/productTable.interface";
 
 export interface showFieldInterface {
     id: keyof IProduct;
@@ -230,7 +231,7 @@ export const body = [
         manufactureDate: "2024-07-01",
         expiryDate: "2025-08-01" // Còn hơn 6 tháng sử dụng
     },
-    ...Array.from({length: 11}, (_, i) => ({
+    ...Array.from({ length: 11 }, (_, i) => ({
         id: 3 + i,
         image: `image${3 + i}.jpg`,
         images: [],
@@ -259,8 +260,8 @@ export const body = [
             i % 3 === 0
                 ? `2025-04-${10 + i}` // Hạn sắp hết (trong vòng 2 tháng)
                 : i % 3 === 1
-                ? `2026-05-${10 + i}` // Còn dài hạn
-                : `2024-11-${10 + i}` // Đã hết hạn
+                    ? `2026-05-${10 + i}` // Còn dài hạn
+                    : `2024-11-${10 + i}` // Đã hết hạn
     }))
 ];
 
@@ -417,3 +418,193 @@ export const dataPrice = [
         status: "expired"
     }
 ];
+
+
+
+export interface Supplier {
+    id: number;
+    code: string;
+    name: string;
+    phone: string;
+    group: string;
+    email: string;
+    address: string;
+    area: string;
+    ward: string;
+    company: string;
+    note: string;
+    taxCode: string;
+    creator: string;
+    createdAt: string;
+    debt: number;
+    totalPurchase: number;
+    totalReturn: number;
+    status: string;
+}
+
+export const suppliers: Supplier[] = [
+    {
+        id: 1,
+        code: "NCC001",
+        name: "Nhà cung cấp A",
+        phone: "0123 456 789",
+        group: "Nhóm 1",
+        email: "nccA@example.com",
+        address: "123 Đường ABC",
+        area: "Hồ Chí Minh",
+        ward: "Quận 1",
+        company: "Công ty A",
+        note: "Ghi chú A",
+        taxCode: "123456789",
+        creator: "Nguyễn Văn B",
+        createdAt: "2024-03-12",
+        debt: 5000000,
+        totalPurchase: 20000000,
+        totalReturn: 1000000,
+        status: "Hoạt động",
+    },
+    {
+        id: 2,
+        code: "NCC002",
+        name: "Nhà cung cấp B",
+        phone: "0987 654 321",
+        group: "Nhóm 2",
+        email: "nccB@example.com",
+        address: "456 Đường XYZ",
+        area: "Hà Nội",
+        ward: "Quận Ba Đình",
+        company: "Công ty B",
+        note: "Ghi chú B",
+        taxCode: "987654321",
+        creator: "Trần Thị C",
+        createdAt: "2024-02-20",
+        debt: 1000000,
+        totalPurchase: 5000000,
+        totalReturn: 500000,
+        status: "Ngừng hoạt động",
+    },
+];
+
+
+export const options = [
+    { id: 1, value: "Sửa rửa mặt" },
+    { id: 2, value: "kem chống nắng1" },
+    { id: 3, value: "kem chống nắng2" },
+    { id: 4, value: "kem chống nắng3" },
+    { id: 5, value: "kem chống nắng4" },
+    { id: 6, value: "kem chống nắng5" },
+    { id: 7, value: "kem chống nắng6" },
+    { id: 8, value: "kem chống nắng7" }
+]
+export const productsEx: Product[] = [
+    {
+        id: 1,
+        code: "SP000001",
+        name: "Nước hoa Dior",
+        quantity: 0,
+        unitPrice: 1500000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 2,
+        code: "SP000002",
+        name: "Son môi MAC",
+        quantity: 0,
+        unitPrice: 600000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 3,
+        code: "SP000003",
+        name: "Kem dưỡng da Nivea",
+        quantity: 0,
+        unitPrice: 250000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 4,
+        code: "SP000004",
+        name: "Sữa rửa mặt Senka",
+        quantity: 0,
+        unitPrice: 120000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 5,
+        code: "SP000005",
+        name: "Dầu gội Head & Shoulders",
+        quantity: 0,
+        unitPrice: 180000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 6,
+        code: "SP000006",
+        name: "Sữa tắm Dove",
+        quantity: 0,
+        unitPrice: 200000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 7,
+        code: "SP000007",
+        name: "Mặt nạ dưỡng da",
+        quantity: 0,
+        unitPrice: 50000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 8,
+        code: "SP000008",
+        name: "Nước tẩy trang Bioderma",
+        quantity: 0,
+        unitPrice: 350000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 9,
+        code: "SP000009",
+        name: "Kem chống nắng Anessa",
+        quantity: 0,
+        unitPrice: 450000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    },
+    {
+        id: 10,
+        code: "SP000010",
+        name: "Phấn phủ Maybelline",
+        quantity: 0,
+        unitPrice: 300000,
+        discount: 0,
+        discountType: "percent",
+        totalPrice: 0,
+        note: ""
+    }
+]

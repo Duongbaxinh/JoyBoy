@@ -32,3 +32,6 @@ export const types = [
     {id: "service", label: "Dịch vụ"},
     {id: "combo", label: "Combo - đóng gói"}
 ];
+
+export const MAX_QUANTITY: number = 1000000000000;
+export const MAX_PRICE: number = 1000000000000;

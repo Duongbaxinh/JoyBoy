@@ -1,7 +1,7 @@
-import {ArrowDown, SearchIcon, TickSelectedIcon} from "@/assets/icons";
-import React, {memo, useEffect, useRef, useState} from "react";
-import Input, {Variant} from "../Input";
-import {convertText} from "@/utils";
+import { ArrowDown, SearchIcon, TickSelectedIcon } from "@/assets/icons";
+import React, { memo, useEffect, useRef, useState } from "react";
+import Input, { Variant } from "../Input";
+import { convertText } from "@/utils";
 
 interface SelectInterface {
     disabled?: boolean;
@@ -140,29 +140,25 @@ function Select({
                 </div>
                 {iconSelect && (
                     <div
-                        className={` ${customIcon} ${
-                            openOption
-                                ? "animate-rotate"
-                                : "animate-rotateContrary"
-                        }`}>
+                        className={` ${customIcon} ${openOption
+                            ? "animate-rotate"
+                            : "animate-rotateContrary"
+                            }`}>
                         {iconSelect}
                     </div>
                 )}
             </div>
 
             <div
-                className={` absolute z-10 mt-1 w-full h-auto invisible bg-white shadow-md top-auto left-0 rounded-md border-[1px] 
-                    
-                    ${
-                        openOption !== null &&
-                        openOption === true &&
-                        "animate-dropdown !visible"
+                className={` absolute z-10 mt-1 w-full h-auto invisible bg-white shadow-md top-auto left-0 rounded-md overflow-hidden
+                                        ${openOption !== null &&
+                    openOption === true &&
+                    "animate-dropdown !visible"
                     }
-                     ${
-                         openOption !== null &&
-                         openOption === false &&
-                         "animate-uptown"
-                     } ${customOption} `}>
+                     ${openOption !== null &&
+                    openOption === false &&
+                    "animate-uptown"
+                    } ${customOption} `}>
                 {inputSearch && (
                     <div className=" w-full p-2 sticky top-0 bg-white">
                         <Input

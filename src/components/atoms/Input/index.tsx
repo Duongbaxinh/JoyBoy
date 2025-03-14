@@ -1,5 +1,5 @@
 "use client";
-import {BoxIcon} from "@/assets/icons";
+import { BoxIcon } from "@/assets/icons";
 import React, {
     ReactComponentElement,
     ReactElement,
@@ -23,12 +23,15 @@ interface InputInterface {
     value?: string | number;
     leadingIcon?: ReactNode;
     tailIcon?: ReactNode;
+    tailIconSecond?: ReactNode;
     refInput?: any;
     refSearch?: any;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onMounDown?: React.ChangeEventHandler<HTMLInputElement>;
+    onClick?: React.ChangeEventHandler<HTMLInputElement>;
     onHandleLeadingIcon?: any;
     onHandleTailIcon?: VoidFunction;
+    onHandleTailIconSecond?: VoidFunction;
     onBlur?: VoidFunction;
     onHandleFocus?: any;
     maxWidth?: string;
@@ -50,6 +53,7 @@ function Input({
     type,
     leadingIcon,
     tailIcon,
+    tailIconSecond,
     className,
     variant = Variant.OUTLINE,
     onChange,
@@ -57,9 +61,11 @@ function Input({
     refInput = null,
     refSearch = null,
     onMounDown,
+    onClick,
     classInput,
     onHandleLeadingIcon,
     onHandleTailIcon,
+    onHandleTailIconSecond,
     onHandleFocus,
     onBlur
 }: InputInterface) {
@@ -70,7 +76,8 @@ function Input({
     };
     return (
         <div
-            className={`flex justify-start items-center ${variantType[variant]} border-green relative pt-[7px] pr-[6px] pb-[6px] w-full ${className}`}>
+            className={`flex justify-start items-center ${variantType[variant]} border-green relative pt-[7px] pr-[6px] pb-[6px] w-full ${className}`}
+            onClick={(e) => e.stopPropagation()}>
             {leadingIcon && (
                 <div
                     className="mx-1  cursor-pointer text-red-500"
@@ -80,8 +87,9 @@ function Input({
             )}
 
             <input
+                onBlur={onBlur}
                 ref={refInput}
-                className={`border-0 outline-none w-full h-full p-0 m-0 text-[13px] leading-[18px] text-text truncate ${classInput} `}
+                className={`border-0  outline-none w-full h-full p-0 m-0 text-[13px] leading-[18px] text-text truncate !bg-transparent ${classInput} `}
                 placeholder={`${placeholder}`}
                 value={value}
                 onChange={onChange}
@@ -94,6 +102,14 @@ function Input({
                     className="mx-1  cursor-pointer text-red-500"
                     onClick={onHandleTailIcon}>
                     {tailIcon}
+                </div>
+            )}
+            {tailIconSecond && (
+                <div
+                    ref={refSearch}
+                    className="mx-1  cursor-pointer text-red-500"
+                    onClick={onHandleTailIconSecond}>
+                    {tailIconSecond}
                 </div>
             )}
         </div>
