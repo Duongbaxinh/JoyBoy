@@ -1,3 +1,4 @@
+import {categories} from "@/consts";
 export interface Product {
     id: number;
     code: string;
@@ -6,6 +7,7 @@ export interface Product {
     unitPrice: number;
     discount: number;
     discountType: "percent" | "vnd";
+    categories?: string;
     totalPrice: number;
     note?: string;
 }

@@ -6,37 +6,63 @@ import Container from "@/components/atoms/Container";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select";
-import { convertText, formatPrice } from "@/utils";
+import { convertText, formatDateToString, formatPrice } from "@/utils";
 import Link from "next/link";
 import { BiEdit, BiPlus } from "react-icons/bi";
 import ContainerLayout from "../ContainerLayout/page";
-
+import Calendar from 'react-calendar';
 import Popup from "@/components/atoms/Popup";
+import PriceType from "@/components/atoms/PriceType";
 import Search from "@/components/atoms/Search";
-import { MAX_PRICE } from "@/consts";
-import { body, options, Supplier, suppliers } from "@/fake";
+import { categories, MAX_PRICE } from "@/consts";
+import { body, categoryEx, options, productsEx, Supplier, supplierEx } from "@/fake";
 import usePriceModified from "@/hooks/usePriceModified";
+import { Product } from "@/interfaces/productTable.interface";
 import { calculatePrice } from "@/utils/calculatePrice";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
 import ProductTable from "./ProductTable";
-import PriceType from "@/components/atoms/PriceType";
-import { Product } from "@/interfaces/productTable.interface";
+import { ImportData, TPaymentMethod } from "@/interfaces/request/importProduct";
+import { ICalendar } from "@/interfaces";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
 function StoreInput() {
 
+
     const remainingDebt = -5000;
+    const [importData, setImportData] = useState<ImportData>({
+        supplier: "",
+        amountDue: 0,
+        amountPaid: 0,
+        date: null,
+        debtStatus: 0,
+        status: "draft",
+        totalItems: 0,
+        totalPrice: 0,
+        totalDiscount: 0,
+        finalPrice: 0,
+        discountType: "vnd",
+        paymentMethod: "cash",
+        notes: "",
+        items: []
+    });
     const [isOpen, setIsOpen] = useState(false)
+    const [startDate, setStartDate] = useState(new Date());
     const [suggestions, setSuggestions] = useState<Product[]>([])
+    const [note, setNote] = useState<string>('')
     const [valueSelect, setValueSelect] = useState<{
         id: number;
         value: string;
     }>();
+
     const refSearch = useRef<HTMLDivElement | null>(null);
-    const [totalDiscount, setTotalDiscount] = useState(0)
     const [products, setProducts] = useState<Product[]>([]);
-    const [supplier, setSupplier] = useState<Supplier[]>([]);
+    const [categories, setCategories] = useState(categoryEx)
+    const [supplierSelect, setSupplierSelect] = useState<Supplier>();
+    const [suppliers, setSuppliers] = useState<Supplier[]>(supplierEx)
     const [typePrice, setTypePrice] = useState<"vnd" | "percent">("vnd")
     const [textSearch, setTextSearch] = useState<{
         searchProduct: { value: string, status: boolean },
@@ -67,33 +93,69 @@ function StoreInput() {
     const handleNote = (e: any) => (id: string | number) => {
         setProducts((pre) => pre.map((p) => p.id === id ? ({ ...p, note: e.target.value }) : p))
     }
+    const handleAddProductByCategory = () => {
+        const productFilter = productsEx.filter((product) => product.categories === valueSelect?.value)
+        setImportData(prev => ({ ...prev, items: productFilter }))
+        setIsOpen(false)
+    }
 
-    const updateProduct = ({ id, quantity, discount, unitPrice }: { id: string | number, quantity?: number, discount?: number, unitPrice?: number }) => {
-        const productUpdate = products.find((item) => item.id === id);
-        if (!productUpdate) throw new Error("product not found!");
+    const updateProduct = ({ id, quantity, discount, unitPrice, totalPrice, totalQuantity, totalDiscount, amountPay, supplier, date }: {
+        id?: string | number, quantity?: number, discount?: number, unitPrice?: number,
+        totalQuantity?: number,
+        totalPrice?: number,
+        totalDiscount?: number,
+        paymentType?: string,
+        amountPay?: number,
+        date?: string,
+        supplier?: string
 
-        if (quantity !== undefined) {
-            const validQuantity = Math.min(Math.max(quantity, 0), MAX_PRICE);
-            productUpdate.quantity = validQuantity;
+    }) => {
+        if (id) {
+            const productUpdate = importData.items.find((item) => item.id === id);
+            if (!productUpdate) throw new Error("product not found!");
+
+            if (quantity !== undefined) {
+                const validQuantity = Math.min(Math.max(quantity, 0), MAX_PRICE);
+                productUpdate.quantity = validQuantity;
+            }
+
+            if (discount !== undefined) {
+                const validDiscount = unit.type === "vnd" ? Math.min((productUpdate.unitPrice * productUpdate.quantity), discount) :
+                    Math.min(Math.max(discount, 0), 100)
+                productUpdate.discount = validDiscount;
+            }
+
+            if (unitPrice !== undefined) {
+                const validUnitPrice = Math.min(Math.max(unitPrice, 0), MAX_PRICE);
+                productUpdate.unitPrice = validUnitPrice;
+            }
+
+            productUpdate.discountType = unit.type;
+            const totalProduct = calculatePrice(productUpdate.unitPrice * productUpdate.quantity, productUpdate.discount, 'sub', unit.type);
+            productUpdate.totalPrice = Math.max(0, totalProduct);
+
+            const arrUpdate = importData.items.map((item) => item.id === productUpdate.id ? productUpdate : item);
+            setImportData(prev => ({
+                ...prev
+                , items: arrUpdate
+            }))
+        } else {
+            setImportData(prev => ({
+                ...prev,
+                supplier: supplier ? supplier : prev.supplier,
+                date: date ? date : prev.date,
+                totalPrice: totalPrice ? totalPrice : prev.totalPrice,
+                amountDue: totalPrice ? totalPrice : prev.amountDue,
+                totalDiscount: Math.min(prev.totalPrice, totalDiscount ?? prev.totalDiscount),
+                totalItems: totalQuantity ? totalQuantity : prev.totalItems,
+                finalPrice: prev.totalPrice - prev.totalDiscount,
+                amountPaid: amountPay ? amountPay : prev.amountPaid,
+                debtStatus: prev.amountPaid - prev.finalPrice
+
+            }))
         }
 
-        if (discount !== undefined) {
-            const validDiscount = unit.type === "vnd" ? Math.min((productUpdate.unitPrice * productUpdate.quantity), discount) :
-                Math.min(Math.max(discount, 0), 100)
-            productUpdate.discount = validDiscount;
-        }
-
-        if (unitPrice !== undefined) {
-            const validUnitPrice = Math.min(Math.max(unitPrice, 0), MAX_PRICE);
-            productUpdate.unitPrice = validUnitPrice;
-        }
-
-        productUpdate.discountType = unit.type;
-        const totalProduct = calculatePrice(productUpdate.unitPrice * productUpdate.quantity, productUpdate.discount, 'sub', unit.type);
-        productUpdate.totalPrice = Math.max(0, totalProduct);
-
-        const arrUpdate = products.map((item) => item.id === productUpdate.id ? productUpdate : item);
-        setProducts(arrUpdate);
+        // setProducts(arrUpdate);
     };
 
     const handleEdit = (field: keyof typeof edit, id: number | string) => {
@@ -145,53 +207,79 @@ function StoreInput() {
         const query = e.target.value
         setTextSearch(prev => ({ ...prev, searchSupplier: { value: query, status: true } }))
         const lowerQuery = convertText(query.toLowerCase().trim());
-        const supplierSearch: Supplier[] = suppliers
+        const supplierSearch: Supplier[] = supplierEx
             .filter(
                 (supplier) =>
-                    convertText(supplier.name.toLowerCase()).includes(lowerQuery))
+                    convertText(supplier.name.toLowerCase()).includes(lowerQuery) || query.length === 0)
 
-        setSupplier(supplierSearch)
+        setSuppliers(supplierSearch)
     }
 
     const handleAddProduct = (product: Product) => {
+
         const findProduct = products.find((item) => item.id === product.id)
         const productClone = [...products]
         if (findProduct) {
+            alert("run at 1")
             findProduct.quantity += 1
             const updateProduct = productClone.filter((item: Product) => item.id === findProduct.id ? findProduct : item)
-            setProducts([...updateProduct])
+            setImportData((prev) => ({ ...prev, items: [...updateProduct] }))
+            // setProducts([...updateProduct])
         } else {
+            alert("run at 2")
             const updateProduct = [...productClone, product]
-            setProducts([...updateProduct])
+            setImportData((prev) => ({ ...prev, items: [...updateProduct] }))
         }
         setTextSearch(prev => ({ ...prev, searchProduct: { ...prev.searchProduct, status: false } }))
     }
-    const { totalQuantity, totalPrice } = useMemo(() => {
-        return products.reduce((acc, product) => {
+    const handleSelectSupplier = (supplier: Supplier) => {
+        setSupplierSelect(supplier)
+        updateProduct({ supplier: supplier.name + " " + supplier.phone })
+        setTextSearch(prev => ({ ...prev, searchSupplier: { ...prev.searchSupplier, value: supplier.name + "   " + supplier.phone, status: false } }))
+    }
+    useMemo(() => {
+        const { totalQuantity, totalPrice } = importData.items.reduce((acc, product) => {
             acc.totalQuantity += product.quantity
             acc.totalPrice += product.totalPrice;
             return acc;
         }, { totalQuantity: 0, totalPrice: 0 })
-    }, [products]);
+
+        updateProduct({ totalPrice: totalPrice, totalQuantity: totalQuantity })
+
+    }, [importData.items]);
     const handleTotalDiscount = ({ discount }: { productId?: string, discount: number }) => {
         if (typePrice === 'vnd') {
-            setTotalDiscount(Math.min(totalPrice, discount))
+            updateProduct({ totalDiscount: Math.max(0, discount) })
         }
         if (typePrice === 'percent') {
-            setTotalDiscount(Math.min(100, discount))
+            updateProduct({ totalDiscount: Math.max(100, discount) })
         }
     }
-    const handleTypePrice = (field: "vnd" | "percent") => {
 
+    const handleTypePrice = (field: "vnd" | "percent") => {
         setTypePrice(field)
     }
+
     const handleClickOut = (field: "searchProduct" | "searchSupplier") => {
         console.log('check handle click out')
         return setTimeout(() => {
             setTextSearch(prev => ({ ...prev, [field]: { ...prev[field], status: false } }))
         }, 200);
     }
-    const finalPrice = calculatePrice(totalPrice, typePrice === "vnd" ? Math.min(totalDiscount, totalPrice) : Math.min(totalDiscount, 100), 'sub', typePrice)
+
+    const handleDate = (date: any) => {
+        updateProduct({ date: formatDateToString(date) })
+    }
+    const handleCreateImportData = async (status: "draft" | "completed") => {
+
+        console.log("check data correct ", importData)
+    }
+
+    const handleChangePayment = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value);
+        updateProduct({ amountPay: value })
+
+    }
     return (
         <ContainerLayout>
             <Container>
@@ -207,12 +295,12 @@ function StoreInput() {
                             <Select placeholder="----Lua chon----"
                                 selected={valueSelect}
                                 onChange={(item: any) => setValueSelect(item)}
-                                options={options} />
+                                options={categories} />
                         </div>
 
                         <div className="mt-6 flex justify-end space-x-2">
                             <Button onAction={() => { setIsOpen(false) }} label=" Bỏ qua" className="p-2 w-[60px] bg-gray-500 hover:bg-gray-600 text-white" />
-                            <Button onAction={() => { }} label="Xong" className=" p-2  w-[60px] bg-green-500 hover:bg-green-600 text-white" />
+                            <Button onAction={() => { handleAddProductByCategory() }} label="Xong" className=" p-2  w-[60px] bg-green-500 hover:bg-green-600 text-white" />
                         </div>
                     </div>
                 </Popup>
@@ -231,7 +319,7 @@ function StoreInput() {
                                         Nhap hàng
                                     </h1>
                                     <Search
-                                        onBlur={() => handleClickOut("searchProduct")}
+                                        // onBlur={() => handleClickOut("searchProduct")}
                                         textSearch={textSearch.searchProduct.value}
                                         onSearch={handleOnSearch}
                                         titleSearch={"Tim hang hoa theo ma hoac ten"}
@@ -275,7 +363,7 @@ function StoreInput() {
                                 handlePercentUnit={handlePercentUnit}
                                 handleDiscountProduct={handleDiscountProduct}
                                 handleEdit={handleEdit}
-                                products={products}
+                                products={importData.items}
                                 handleNote={handleNote}
                                 handleAdjustUnitPrice={handleAdjustUnitPrice}
                                 handleQuantity={handleQuantity}
@@ -298,9 +386,8 @@ function StoreInput() {
                                     ]}
                                 />
                                 <div className="flex gap-2 items-center text-darkGray text-[13px]">
-                                    <p className="text-darkGray leading-[24px] border-b-[1px]">
-                                        08/03/2025
-                                    </p>
+                                    <DatePicker className="w-fit max-w-[70px] border-b-[1px] leading-[24px] outline-none" selected={startDate} onChange={(date: any) => handleDate(date)} />
+
                                     <Select
                                         iconSelect={null}
                                         className="text-darkGray text-[13px]  min-w-[60px] max-w[60px]"
@@ -325,10 +412,11 @@ function StoreInput() {
                                     onHandleTailIcon={() => { }}
                                     onSearch={handleSearchSupplier}
                                     textSearch={textSearch.searchSupplier.value}
-                                    titleSearch="Tim kiem nha cung cap">
+                                    titleSearch={`Tim kiem nha cung cap `}>
                                     {
-                                        supplier && textSearch.searchSupplier.status && supplier.map((supplier: Supplier) => (
-                                            <div ref={refSearch} className="flex items-center justify-between text-[13px]">
+                                        suppliers && textSearch.searchSupplier.status && suppliers.map((supplier: Supplier) => (
+                                            <div ref={refSearch} className="flex items-center justify-between text-[13px] p-2 hover:bg-lightGray"
+                                                onClick={() => handleSelectSupplier(supplier)}>
                                                 <p>{supplier.name}</p>
                                                 <p>{supplier.phone}</p>
                                             </div>
@@ -365,11 +453,11 @@ function StoreInput() {
                                 <p className=" text-[13px] text-text  p-1 leading-[20px]">
                                     Tổng tiền hàng{" "}
                                     <span className=" inline-block  min-w-[20px] h-[20px] w-fit rounded-sm text-center border">
-                                        {totalQuantity}
+                                        {importData.totalItems}
                                     </span>
                                 </p>
                                 <p className=" text-[13px] text-text leading-[20px] p-1 ">
-                                    {formatPrice(totalPrice)}
+                                    {formatPrice(importData.totalPrice)}
                                 </p>
                             </div>
 
@@ -383,7 +471,7 @@ function StoreInput() {
                                     onEdit={setEdit}
                                     typePrice={typePrice}
                                     field="totalDiscount"
-                                    discount={typePrice === "vnd" ? Math.min(totalDiscount, totalPrice) : Math.min(totalDiscount, 100)}
+                                    discount={typePrice === "vnd" ? Math.min(importData.totalDiscount, importData.totalPrice) : Math.min(importData.totalDiscount, 100)}
                                     handleType={(field: "vnd" | "percent") => handleTypePrice(field)}
                                     handleEdit={() => handleEdit("totalDiscount", "1")}
                                     handleDiscountProduct={({ discount }) => handleTotalDiscount({ discount })} />
@@ -393,7 +481,7 @@ function StoreInput() {
                                     Cần trả nhà cung cấp
                                 </p>
                                 <p className=" text-[13px] min-w-[80px] text-right font-bold  text-blue-400 leading-[20px]  p-1 border-b-[1px] ">
-                                    {formatPrice(finalPrice)}
+                                    {formatPrice(importData.finalPrice)}
                                 </p>
                             </div>
                             <div className="flex justify-between text-[13px] text-text">
@@ -401,21 +489,15 @@ function StoreInput() {
                                     Tiền trả nhà cung cấp (F8)
                                 </p>
                                 <div className="flex items-center">
-                                    <p className="font-semibold text-green-600">
-                                        {formatPrice(0)}
-                                    </p>
-                                    <svg
-                                        className="w-4 h-4 ml-2 text-blue-500"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
+                                    <Input
+                                        variant="underline"
+                                        className="max-w-[60px]"
+                                        classInput="text-right"
+                                        value={importData.amountPaid}
+                                        onChange={handleChangePayment}
+                                    />
+
+
                                 </div>
                             </div>
                             <div className="flex justify-between text-[13px] text-text">
@@ -428,13 +510,15 @@ function StoreInput() {
                                             ? "text-red-600 font-semibold"
                                             : "font-semibold"
                                     }>
-                                    {formatPrice(remainingDebt)}
+                                    {formatPrice(importData.debtStatus)}
                                 </p>
                             </div>
                             <div className="mb-4 text-[13px] text-text">
                                 <Input
                                     leadingIcon={<BiEdit />}
                                     variant="underline"
+                                    value={note}
+                                    onChange={(e) => setNote(e.target.value)}
                                     placeholder="Ghi chu"
                                 />
                             </div>
@@ -445,12 +529,12 @@ function StoreInput() {
                                 <Button
                                     className=" flex-1 h-full !bg-blue-600 text-white py-2 rounded-lg !hover:bg-blue-700"
                                     label="Lưu tạm"
-                                    onAction={() => { }}
+                                    onAction={() => { handleCreateImportData("draft") }}
                                 />
                                 <Button
                                     className=" flex-1 h-full bg-green-600 bg-green text-white py-2 rounded-lg hover:bg-green-700"
                                     label="   Hoàn thành"
-                                    onAction={() => { }}
+                                    onAction={() => { handleCreateImportData("completed") }}
                                 />
                             </div>
                         </div>

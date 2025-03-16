@@ -1,3 +1,4 @@
+;
 import { PriceState, StatusType } from "@/interfaces/productTable.interface";
 import { useState } from "react";
 

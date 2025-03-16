@@ -442,7 +442,7 @@ export interface Supplier {
     status: string;
 }
 
-export const suppliers: Supplier[] = [
+export const supplierEx: Supplier[] = [
     {
         id: 1,
         code: "NCC001",
@@ -486,9 +486,24 @@ export const suppliers: Supplier[] = [
 ];
 
 
+export interface Category {
+    id: number | string;
+    value: string;
+}
+
+export const categoryEx: Category[] = [
+    { id: 1, value: "perfume" },
+    { id: 2, value: "skincare" },
+    { id: 3, value: "haircare" },
+    { id: 4, value: "cosmetics" },
+    { id: 5, value: "bodycare" }
+];
+
 export const options = [
     { id: 1, value: "Sửa rửa mặt" },
-    { id: 2, value: "kem chống nắng1" },
+    {
+        id: 2, value: "kem chống nắng1"
+    },
     { id: 3, value: "kem chống nắng2" },
     { id: 4, value: "kem chống nắng3" },
     { id: 5, value: "kem chống nắng4" },
@@ -499,112 +514,122 @@ export const options = [
 export const productsEx: Product[] = [
     {
         id: 1,
-        code: "SP000001",
-        name: "Nước hoa Dior",
-        quantity: 0,
-        unitPrice: 1500000,
-        discount: 0,
-        discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        code: "mh001",
+        name: "Nước hoa Chanel",
+        quantity: 50,
+        unitPrice: 2000000,
+        discount: 200000,
+        discountType: "vnd",
+        totalPrice: 1800000,
+        categories: "perfume",
+        note: "Mùi hương sang trọng"
     },
     {
         id: 2,
-        code: "SP000002",
-        name: "Son môi MAC",
-        quantity: 0,
-        unitPrice: 600000,
-        discount: 0,
+        code: "mh002",
+        name: "Sữa rửa mặt Cetaphil",
+        quantity: 30,
+        unitPrice: 250000,
+        discount: 10,
         discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        totalPrice: 225000,
+        categories: "skincare",
+        note: "Dành cho da nhạy cảm"
     },
     {
         id: 3,
-        code: "SP000003",
-        name: "Kem dưỡng da Nivea",
-        quantity: 0,
-        unitPrice: 250000,
+        code: "mh003",
+        name: "Dầu gội Tresemme",
+        quantity: 40,
+        unitPrice: 180000,
         discount: 0,
-        discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        discountType: "vnd",
+        totalPrice: 180000,
+        categories: "haircare",
+        note: "Dưỡng tóc mềm mượt"
     },
     {
         id: 4,
-        code: "SP000004",
-        name: "Sữa rửa mặt Senka",
-        quantity: 0,
-        unitPrice: 120000,
-        discount: 0,
+        code: "mh004",
+        name: "Serum dưỡng da La Roche-Posay",
+        quantity: 20,
+        unitPrice: 450000,
+        discount: 15,
         discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        totalPrice: 382500,
+        categories: "skincare",
+        note: "Cấp ẩm và phục hồi da"
     },
     {
         id: 5,
-        code: "SP000005",
-        name: "Dầu gội Head & Shoulders",
-        quantity: 0,
-        unitPrice: 180000,
-        discount: 0,
-        discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        code: "mh005",
+        name: "Kem chống nắng Anessa",
+        quantity: 25,
+        unitPrice: 500000,
+        discount: 50000,
+        discountType: "vnd",
+        totalPrice: 450000,
+        categories: "skincare",
+        note: "Chống nắng tốt, không bết dính"
     },
     {
         id: 6,
-        code: "SP000006",
-        name: "Sữa tắm Dove",
-        quantity: 0,
-        unitPrice: 200000,
-        discount: 0,
+        code: "mh006",
+        name: "Son môi MAC",
+        quantity: 60,
+        unitPrice: 600000,
+        discount: 10,
         discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        totalPrice: 540000,
+        categories: "cosmetics",
+        note: "Màu đỏ cam trendy"
     },
     {
         id: 7,
-        code: "SP000007",
-        name: "Mặt nạ dưỡng da",
-        quantity: 0,
-        unitPrice: 50000,
+        code: "mh007",
+        name: "Sữa tắm Dove",
+        quantity: 35,
+        unitPrice: 150000,
         discount: 0,
-        discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        discountType: "vnd",
+        totalPrice: 150000,
+        categories: "bodycare",
+        note: "Dưỡng ẩm sâu"
     },
     {
         id: 8,
-        code: "SP000008",
-        name: "Nước tẩy trang Bioderma",
-        quantity: 0,
-        unitPrice: 350000,
-        discount: 0,
+        code: "mh008",
+        name: "Xịt khoáng Vichy",
+        quantity: 15,
+        unitPrice: 320000,
+        discount: 20,
         discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        totalPrice: 256000,
+        categories: "skincare",
+        note: "Giúp da luôn tươi mát"
     },
     {
         id: 9,
-        code: "SP000009",
-        name: "Kem chống nắng Anessa",
-        quantity: 0,
-        unitPrice: 450000,
-        discount: 0,
+        code: "mh009",
+        name: "Kem dưỡng ẩm CeraVe",
+        quantity: 45,
+        unitPrice: 380000,
+        discount: 5,
         discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        totalPrice: 361000,
+        categories: "skincare",
+        note: "Dưỡng ẩm tốt, phù hợp mọi loại da"
     },
     {
         id: 10,
-        code: "SP000010",
-        name: "Phấn phủ Maybelline",
-        quantity: 0,
-        unitPrice: 300000,
-        discount: 0,
-        discountType: "percent",
-        totalPrice: 0,
-        note: ""
+        code: "mh010",
+        name: "Toner Some By Mi",
+        quantity: 20,
+        unitPrice: 290000,
+        discount: 29000,
+        discountType: "vnd",
+        totalPrice: 261000,
+        categories: "skincare",
+        note: "Làm sạch sâu, hỗ trợ trị mụn"
     }
 ]

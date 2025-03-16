@@ -1,12 +1,14 @@
 import Button from "@/components/atoms/Button";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
+import FileInput from "@/components/atoms/Input/FileInput";
 import useClickOutside from "@/hooks/useClickOuside";
 import { Product, ProductTableProps } from "@/interfaces/productTable.interface";
 import { formatPrice } from "@/utils";
 import { useRef, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { BsArrowDown, BsArrowUp } from "react-icons/bs";
+import { LuFolderInput } from "react-icons/lu";
 import { MdEditLocation } from "react-icons/md";
 
 
@@ -224,7 +226,7 @@ const ProductTable = ({
         }
     };
 
-    if (products.length <= 0) return <h1>Loading....</h1>;
+    // if (products.length <= 0) return <h1>Loading....</h1>;
 
     return (
         <div className="w-full  overflow-x-auto bg-white h-full md:h-[calc(100vh-180px)] relative ">
@@ -243,18 +245,43 @@ const ProductTable = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => (
-                        <tr
-                            key={product.id}
-                            className="hover:bg-lightGreen border-b-[1px] border-lightGray"
-                            onMouseEnter={() => setHoveredId(product.id)}
-                            onMouseLeave={() => setHoveredId(null)}>
-                            <td className="px-3">
-                                <BiTrash />
+                    {products.length > 0 ? (
+                        products.map((product) => (
+                            <tr
+                                key={product.id}
+                                className="hover:bg-lightGreen border-b-[1px] border-lightGray"
+                                onMouseEnter={() => setHoveredId(product.id)}
+                                onMouseLeave={() => setHoveredId(null)}>
+                                <td className="px-3">
+                                    <BiTrash />
+                                </td>
+                                {titles.map((col) => defineColumn(product, col.id))}
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan={titles.length + 1} className="w-full text-center   h-[calc(100vh-225px)] " >
+                                <div className="w-full h-full flex flex-col justify-center items-center">
+                                    <h2 className="text-xl font-semibold">Thêm sản phẩm từ file excel</h2>
+
+                                    <div className="flex items-center gap-2">
+                                        <span>Tải về file mẫu:</span>
+                                        <a
+                                            href="/template.xlsx"
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            Excel file
+                                        </a>
+                                    </div>
+
+                                    {/* <IconButton label="Chon file du lieu" icon={<LuFolderInput />}
+                                        customLabel="font-bold "
+                                        onFC={() => { }} /> */}
+                                    <FileInput label="Chon file du lieu" onChange={() => { }} />
+                                </div>
                             </td>
-                            {titles.map((col) => defineColumn(product, col.id))}
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
         </div>

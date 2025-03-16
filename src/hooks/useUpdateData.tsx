@@ -1,6 +1,7 @@
 "use client";
-import {headers} from "next/headers";
-import {useState, useEffect, use} from "react";
+import axios from "axios";
+import { headers } from "next/headers";
+import { useState, useEffect, use } from "react";
 
 const exPayload = {
     limit: 0,
@@ -39,7 +40,7 @@ const useUpdateData = ({
     const handleGetData = async () => {
         try {
             setIsLoading(true);
-            const {data} = await axios.put(url, payload, authenticated);
+            const { data } = await axios.put(url, payload);
             setData(data);
             setIsLoading(false);
         } catch (error) {

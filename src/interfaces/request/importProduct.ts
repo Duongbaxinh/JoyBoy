@@ -1,17 +1,18 @@
 import {Product} from "../productTable.interface";
-
+export type TPaymentMethod = "card" | "cash";
 export interface ImportData {
-    supplier: string;
-    date: string;
+    supplier: string | number;
+    date: any;
     status: string;
-    order_code: string;
-    import_code: string;
-    total_items: number;
-    total_price: number;
-    discount_percent: number;
-    amount_due: number;
-    amount_paid: number;
-    debt_status: number;
+    totalItems: number;
+    totalPrice: number;
+    totalDiscount: number;
+    finalPrice: number;
+    discountType: "vnd" | "percent";
+    amountDue: number;
+    amountPaid: number;
+    paymentMethod: TPaymentMethod;
+    debtStatus: number;
     notes?: string;
     items: Product[];
 }

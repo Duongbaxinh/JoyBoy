@@ -1,3 +1,4 @@
+import {format, parse} from "date-fns";
 export function formatDate(dateString: string): string {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -6,6 +7,10 @@ export function formatDate(dateString: string): string {
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
+export function formatDateToString(date: Date): string {
+    return format(date, "dd/MM/yyyy HH:mm:ss");
 }
 
 export const calculateMonthsLeft = (expiryDate: string): number => {
