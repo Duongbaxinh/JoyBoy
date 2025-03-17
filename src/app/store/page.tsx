@@ -5,24 +5,22 @@ import ButtonOption from "@/components/atoms/ButtonOption";
 import Container from "@/components/atoms/Container";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
-import Select from "@/components/atoms/Select";
-import { convertText, formatDateToString, formatPrice } from "@/utils";
-import Link from "next/link";
-import { BiEdit, BiPlus } from "react-icons/bi";
-import ContainerLayout from "../ContainerLayout/page";
-import Calendar from 'react-calendar';
 import Popup from "@/components/atoms/Popup";
 import PriceType from "@/components/atoms/PriceType";
 import Search from "@/components/atoms/Search";
-import { categories, MAX_PRICE } from "@/consts";
-import { body, categoryEx, options, productsEx, Supplier, supplierEx } from "@/fake";
+import Select from "@/components/atoms/Select";
+import { MAX_PRICE } from "@/consts";
+import { body, categoryEx, productsEx, Supplier, supplierEx } from "@/fake";
 import usePriceModified from "@/hooks/usePriceModified";
 import { Product } from "@/interfaces/productTable.interface";
+import { ImportData } from "@/interfaces/request/importProduct";
+import { convertText, formatDateToString, formatPrice } from "@/utils";
 import { calculatePrice } from "@/utils/calculatePrice";
+import Link from "next/link";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
+import { BiEdit, BiPlus } from "react-icons/bi";
+import ContainerLayout from "../ContainerLayout/page";
 import ProductTable from "./ProductTable";
-import { ImportData, TPaymentMethod } from "@/interfaces/request/importProduct";
-import { ICalendar } from "@/interfaces";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -52,7 +50,6 @@ function StoreInput() {
     const [isOpen, setIsOpen] = useState(false)
     const [startDate, setStartDate] = useState(new Date());
     const [suggestions, setSuggestions] = useState<Product[]>([])
-    const [note, setNote] = useState<string>('')
     const [valueSelect, setValueSelect] = useState<{
         id: number;
         value: string;
@@ -90,16 +87,25 @@ function StoreInput() {
     });
 
 
-    const handleNote = (e: any) => (id: string | number) => {
-        setProducts((pre) => pre.map((p) => p.id === id ? ({ ...p, note: e.target.value }) : p))
+    const handleNote = (e: any) => (id?: string | number) => {
+        if (id) {
+            updateProduct({ id: id, productNote: e.target.value })
+        } else {
+            updateProduct({ notes: e.target.value })
+        }
     }
+
+    const handleNodeImportData = (e: ChangeEvent<HTMLInputElement>) => {
+        updateProduct({ notes: e.target.value })
+    }
+
     const handleAddProductByCategory = () => {
         const productFilter = productsEx.filter((product) => product.categories === valueSelect?.value)
         setImportData(prev => ({ ...prev, items: productFilter }))
         setIsOpen(false)
     }
 
-    const updateProduct = ({ id, quantity, discount, unitPrice, totalPrice, totalQuantity, totalDiscount, amountPay, supplier, date }: {
+    const updateProduct = ({ id, quantity, notes, discount, productNote, unitPrice, totalPrice, totalQuantity, totalDiscount, amountPay, supplier, date }: {
         id?: string | number, quantity?: number, discount?: number, unitPrice?: number,
         totalQuantity?: number,
         totalPrice?: number,
@@ -107,6 +113,8 @@ function StoreInput() {
         paymentType?: string,
         amountPay?: number,
         date?: string,
+        notes?: string,
+        productNote?: string,
         supplier?: string
 
     }) => {
@@ -129,6 +137,9 @@ function StoreInput() {
                 const validUnitPrice = Math.min(Math.max(unitPrice, 0), MAX_PRICE);
                 productUpdate.unitPrice = validUnitPrice;
             }
+            if (productNote !== undefined) {
+                productUpdate.note = productNote
+            }
 
             productUpdate.discountType = unit.type;
             const totalProduct = calculatePrice(productUpdate.unitPrice * productUpdate.quantity, productUpdate.discount, 'sub', unit.type);
@@ -140,6 +151,7 @@ function StoreInput() {
                 , items: arrUpdate
             }))
         } else {
+            console.log("check log notes ", notes)
             setImportData(prev => ({
                 ...prev,
                 supplier: supplier ? supplier : prev.supplier,
@@ -150,12 +162,11 @@ function StoreInput() {
                 totalItems: totalQuantity ? totalQuantity : prev.totalItems,
                 finalPrice: prev.totalPrice - prev.totalDiscount,
                 amountPaid: amountPay ? amountPay : prev.amountPaid,
-                debtStatus: prev.amountPaid - prev.finalPrice
-
+                debtStatus: prev.amountPaid - prev.finalPrice,
+                notes: notes ? notes : prev.notes
             }))
         }
 
-        // setProducts(arrUpdate);
     };
 
     const handleEdit = (field: keyof typeof edit, id: number | string) => {
@@ -217,8 +228,8 @@ function StoreInput() {
 
     const handleAddProduct = (product: Product) => {
 
-        const findProduct = products.find((item) => item.id === product.id)
-        const productClone = [...products]
+        const findProduct = importData.items.find((item) => item.id === product.id)
+        const productClone = [...importData.items]
         if (findProduct) {
             alert("run at 1")
             findProduct.quantity += 1
@@ -268,6 +279,7 @@ function StoreInput() {
     }
 
     const handleDate = (date: any) => {
+        setStartDate(date)
         updateProduct({ date: formatDateToString(date) })
     }
     const handleCreateImportData = async (status: "draft" | "completed") => {
@@ -386,7 +398,8 @@ function StoreInput() {
                                     ]}
                                 />
                                 <div className="flex gap-2 items-center text-darkGray text-[13px]">
-                                    <DatePicker className="w-fit max-w-[70px] border-b-[1px] leading-[24px] outline-none" selected={startDate} onChange={(date: any) => handleDate(date)} />
+                                    <DatePicker className="w-fit max-w-[70px] border-b-[1px] leading-[24px] outline-none"
+                                        selected={startDate} onChange={(date: any) => handleDate(date)} />
 
                                     <Select
                                         iconSelect={null}
@@ -517,8 +530,8 @@ function StoreInput() {
                                 <Input
                                     leadingIcon={<BiEdit />}
                                     variant="underline"
-                                    value={note}
-                                    onChange={(e) => setNote(e.target.value)}
+                                    value={importData.notes}
+                                    onChange={(e) => handleNodeImportData(e)}
                                     placeholder="Ghi chu"
                                 />
                             </div>
