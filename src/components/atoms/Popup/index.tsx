@@ -25,13 +25,14 @@ export default function Popup({
     return (
         <div
             onClick={onClose}
-            className={`modal w-[100vw] fixed inset-0 z-30  transition flex justify-center items-center
+            className={`modal w-[100vw] fixed  inset-0 z-30  transition flex justify-center items-center
+                
                ${isOpen ? "show" : ""} ${position}
             `}>
             <div>
                 <div
                     onClick={(e) => e.stopPropagation()}
-                    className={`min-w-[200px] bg-white flex flex-col gap-[15px] max-h-[90vh] p-[10px] rounded-md ${className}`}>
+                    className={`min-w-[200px] bg-white flex flex-col gap-[15px] p-[10px] rounded-md  overflow-auto ${className}`}>
                     <div className="w-full sticky top-0 bg-white">
                         <div className="w-full flex justify-between">
                             <p className="text-[18px] font-[700] text-text">

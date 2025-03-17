@@ -31,6 +31,9 @@ interface SelectInterface {
     }[];
     className?: string;
     classOption?: string;
+    error?: boolean;
+    message?: string;
+    variant?: "underline" | "outline";
 }
 
 function Select({
@@ -49,7 +52,10 @@ function Select({
     className,
     leftIcon,
     rightIcon,
-    classOption
+    classOption,
+    error,
+    message,
+    variant = "outline"
 }: SelectInterface) {
     const [textSearch, setTextSearch] = useState("");
     const [openOption, setOpenOption] = useState<string | boolean>("");
@@ -123,11 +129,16 @@ function Select({
         )
     );
 
+    const variantType = {
+        underline: `border-b-[0.5px] focus-within:border-b-[2px]`,
+        outline: "border-[0.5px] focus-within:border-[2px] rounded-sm"
+    };
+
     return (
         <div className={`relative  border-green w-full  ${className}`}>
             <div
                 tabIndex={0}
-                className="w-full flex justify-between items-center gap-[6px] border-b-[1px]"
+                className={`flex items-center justify-between cursor-pointer ${variantType[variant]} border-green p-2 ${className}`}
                 ref={refSelect}
                 onClick={() => handleOpenOption(openOption)}>
                 <div
@@ -194,6 +205,11 @@ function Select({
                     ))}
                 </div>
             </div>
+            {error && message && (
+                <p className="absolute text-[12px] italic text-red-500 mt-1">
+                    {message}
+                </p>
+            )}
         </div>
     );
 }

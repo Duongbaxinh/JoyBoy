@@ -1,4 +1,5 @@
 import { IProduct } from "@/interfaces";
+import { SelectOption } from "@/interfaces/createProduct.interface";
 import { Product } from "@/interfaces/productTable.interface";
 
 export interface showFieldInterface {
@@ -633,3 +634,41 @@ export const productsEx: Product[] = [
         note: "Làm sạch sâu, hỗ trợ trị mụn"
     }
 ]
+
+export const productList = [
+    { name: "500ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "400ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "600ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "700ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "800ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "900ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "10000ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "11111ml - Red", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "500ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "400ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "600ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "700ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "800ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 },
+    { name: "900ml - Blue", unit: "box", productCode: "", barcode: "", costPrice: 0, sellingPrice: 0, stock: 0 }
+];
+
+export const categories: SelectOption[] = [
+    { id: '1', value: 'Điện thoại' },
+    { id: '2', value: 'Laptop' },
+    { id: '3', value: 'Phụ kiện' }
+];
+
+export const brands: SelectOption[] = [
+    { id: '1', value: 'Apple' },
+    { id: '2', value: 'Samsung' },
+    { id: '3', value: 'Dell' }
+];
+export const attributes: SelectOption[] = [
+    { id: '1', value: 'Color' },
+    { id: '2', value: 'Volume' },
+];
+
+export const units: SelectOption[] = [
+    { id: '1', value: 'g' },
+    { id: '2', value: 'kg' }
+];
