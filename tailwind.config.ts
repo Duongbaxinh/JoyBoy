@@ -45,7 +45,7 @@ const config: Config = {
                 gray: "#EEEFF1",
                 darkGray: "#EEEFF1",
                 lightBlue: "#CCE2FD",
-                black: "#CCE2FD",
+                black: "#000000",
                 text: "#121212",
                 white: "#FFFFFF",
                 lightGreen: "#e6f8ec",

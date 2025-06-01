@@ -1,0 +1,669 @@
+{
+    "reviews": {
+        "data": {
+            "overall_rating": 3.8,
+            "total_reviews": 6,
+            "reviews": [],
+            "joyBoy_care_response": {
+                "message": "Cảm ơn bạn đã dành thời gian đánh giá sản phẩm. JoyBoy rất vui khi biết bạn hài lòng với sản phẩm và dịch vụ của JoyBoy. Nếu có bất kỳ câu hỏi nào khác, vui lòng liên hệ với JoyBoy qua các kênh hỗ trợ của JoyBoy nhé. Chúc bạn một ngày vui vẻ!",
+                "time_ago": "2 ngày trước"
+            }
+        }
+    },
+    "products": {
+        "links": {
+            "previous": null,
+            "next": "http://joyboybe-production.up.railway.app/products?limitnumber=10&order=asc&page=2&sortBy=product_price"
+        },
+        "page": 1,
+        "page_size": 10,
+        "num_pages": 2,
+        "count": 15,
+        "results": [
+            {
+                "id": "f7b3e2a1-4c9d-4e7b-8f1a-2b3c4d5e6f7a",
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/8e4c712d-bbc8-44f8-bc4e-bd45eecaa310.webp",
+                "product_brand": "DEAR DAHLIA",
+                "product_name": "[Blooming Edition] Má Hồng Dạng Nước Dear Dahlia Petal Drop Liquid Blush 4g",
+                "product_price": 500000,
+                "product_discount": null,
+                "product_category": "Blush",
+                "product_made": "South Korea",
+                "product_discountType": false,
+                "product_discount_start": null,
+                "product_discount_end": null,
+                "product_sold": 245,
+                "product_international": true,
+                "product_rate": 4.2,
+                "product_ingredient": "Water, Glycerin, Titanium Dioxide, Dahlia Variabilis Flower Extract, Sodium Hyaluronate, Dimethicone, Iron Oxides, Phenoxyethanol",
+                "product_description": "A lightweight liquid blush from DEAR DAHLIA's Blooming Edition, offering a natural, dewy flush with long-lasting color. Infused with Dahlia flower extract, it hydrates and blends seamlessly for a radiant complexion.",
+                "product_stock_quantity": 320,
+                "created_at": "2025-05-29T15:33:00+07:00",
+                "updated_at": "2025-05-29T15:33:00+07:00",
+                "images": [
+                    "https://image.hsv-tech.io/600x600/bbx/common/8e4c712d-bbc8-44f8-bc4e-bd45eecaa310.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/18aa10c8-5bbe-4f71-954e-1229301a2776.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/9446c09a-c177-44c7-b5ba-e0dbd4654614.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/272d86a8-4dba-41ed-8907-42cc2ef3f45a.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/f590e3c4-d6b6-4c6d-bcd3-0be872509251.webp"
+                ]
+            },
+            {
+                "id": "a8c9f3b2-5d0e-4f8c-9g2b-3c4d5e6f7g8b",
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/05bbe14e-fd49-4889-9e9a-9abad62ed915.webp",
+                "product_brand": "DEAR DAHLIA",
+                "product_name": "Son Thỏi Hiệu Ứng Lì Mịn Dear Dahlia Lip Paradise Effortless Matte Lipstick (3,2G)",
+                "product_price": 721000,
+                "product_discount": 3,
+                "product_category": "Lipstick",
+                "product_made": "South Korea",
+                "product_discountType": true,
+                "product_discount_start": "2025-05-29",
+                "product_discount_end": "2025-06-29",
+                "product_sold": 512,
+                "product_international": true,
+                "product_rate": 4.5,
+                "product_ingredient": "Dimethicone, Synthetic Wax, Octyldodecanol, Dahlia Variabilis Flower Extract, Jojoba Seed Oil, Mica, Red 7 Lake, Tocopherol",
+                "product_description": "DEAR DAHLIA Lip Paradise Effortless Matte Lipstick delivers a smooth, velvety matte finish with vibrant color payoff. Enriched with Dahlia extract, it ensures comfortable wear without drying the lips.",
+                "product_stock_quantity": 180,
+                "created_at": "2025-05-29T15:33:00+07:00",
+                "updated_at": "2025-05-29T15:33:00+07:00",
+                "images": [
+                    "https://image.hsv-tech.io/600x600/bbx/common/05bbe14e-fd49-4889-9e9a-9abad62ed915.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/742b2ad1-faa3-4ab3-a9a8-7adcdc5edf49.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/c5e22719-7b99-4231-85d8-f160df0e641a.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/41a5db86-20bc-4a99-9bf3-c9db2eca4d26.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/c04ec03b-09b9-4fea-bd95-fd568c2e2847.webp"
+                ]
+            },
+            {
+                "id": "b9d0g4c3-6e1f-5g9d-ah3c-4d5e6f7g8h9c",
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/ea0989f7-d430-4ba5-af2e-856919a0951f.webp",
+                "product_brand": "DEAR DAHLIA",
+                "product_name": "Phấn Phủ Trang Điểm Dear Dahlia Skin Paradise Soft Velvet Setting Powder Compact 10g",
+                "product_price": 899000,
+                "product_discount": 6,
+                "product_category": "Setting Powder",
+                "product_made": "South Korea",
+                "product_discountType": true,
+                "product_discount_start": "2025-05-29",
+                "product_discount_end": "2025-06-29",
+                "product_sold": 387,
+                "product_international": true,
+                "product_rate": 4.8,
+                "product_ingredient": "Talc, Silica, Dimethicone, Dahlia Variabilis Flower Extract, Boron Nitride, Magnesium Stearate, Phenoxyethanol",
+                "product_description": "A finely milled setting powder that blurs imperfections and sets makeup for a soft, velvety finish. Infused with Dahlia extract, it controls oil while keeping skin hydrated.",
+                "product_stock_quantity": 250,
+                "created_at": "2025-05-29T15:33:00+07:00",
+                "updated_at": "2025-05-29T15:33:00+07:00",
+                "images": [
+                    "https://image.hsv-tech.io/600x600/bbx/common/ea0989f7-d430-4ba5-af2e-856919a0951f.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/96d35757-9416-4cb9-a73e-b33b9efe17cc.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/654205e6-b042-4628-befa-b5fcf7dda8db.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/fb0bfe38-4ea4-4360-9db8-d9f5ff77ab79.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/common/ac6fb12a-7714-44a6-a4cd-9396aa5e4dba.webp"
+                ]
+            },
+            {
+                "id": "c0e1h5d4-7f2g-6h0e-bi4d-5e6f7g8h9i0d",
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/products/e976d1c9-26cd-4e91-b779-75fdd583c751.webp",
+                "product_brand": "DEAR DAHLIA",
+                "product_name": "Má Hồng Trang Điểm Dear Dahlia Blooming Edition Petal Glow Blush 3.8g",
+                "product_price": 489000,
+                "product_discount": 16,
+                "product_category": "Blush",
+                "product_made": "South Korea",
+                "product_discountType": true,
+                "product_discount_start": "2025-05-29",
+                "product_discount_end": "2025-06-29",
+                "product_sold": 678,
+                "product_international": true,
+                "product_rate": 4.3,
+                "product_ingredient": "Mica, Talc, Dahlia Variabilis Flower Extract, Dimethicone, Titanium Dioxide, Iron Oxides, Sodium Hyaluronate",
+                "product_description": "This Blooming Edition blush delivers a soft, glowing finish with buildable color. Infused with Dahlia extract, it nourishes skin while adding a healthy, radiant flush.",
+                "product_stock_quantity": 400,
+                "created_at": "2025-05-29T15:33:00+07:00",
+                "updated_at": "2025-05-29T15:33:00+07:00",
+                "images": [
+                    "https://image.hsv-tech.io/600x600/bbx/products/e976d1c9-26cd-4e91-b779-75fdd583c751.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/a9209cf7-70bd-4615-8580-c3af770b90dd.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/6412447d-2cc3-4cba-9a71-9b2835db7e4b.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/06f12aab-5d7e-4125-993d-6687a4ad4e74.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/5586fdde-dead-425c-9067-5ba3663f6ca7.webp"
+                ]
+            },
+            {
+                "id": "d1f2i6e5-8g3h-7i1f-cj5e-6f7g8h9i0j1e",
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/products/67240ba0-e217-4837-a2bb-03a7ca21b78b.webp",
+                "product_brand": "DEAR DAHLIA",
+                "product_name": "Phấn Bắt Sáng Dear Dahlia Blooming Edition Endless Glow Illuminator - Sunlit (7.2g)",
+                "product_price": 629000,
+                "product_discount": 16,
+                "product_category": "Highlighter",
+                "product_made": "South Korea",
+                "product_discountType": true,
+                "product_discount_start": "2025-05-29",
+                "product_discount_end": "2025-06-29",
+                "product_sold": 432,
+                "product_international": true,
+                "product_rate": 4.6,
+                "product_ingredient": "Mica, Synthetic Fluorphlogopite, Dahlia Variabilis Flower Extract, Titanium Dioxide, Dimethicone, Tin Oxide",
+                "product_description": "A luminous highlighter from the Blooming Edition, providing a radiant, sunlit glow. Infused with Dahlia extract, it blends effortlessly for a natural, dewy finish.",
+                "product_stock_quantity": 280,
+                "created_at": "2025-05-29T15:33:00+07:00",
+                "updated_at": "2025-05-29T15:33:00+07:00",
+                "images": [
+                    "https://image.hsv-tech.io/600x600/bbx/products/67240ba0-e217-4837-a2bb-03a7ca21b78b.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/5d440006-e99e-4f61-8c10-268fb1e172e6.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/ca5faf9f-be0a-40f6-9011-295e5c98199e.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/products/5a7b0187-9c13-452b-b699-32d0834393fc.webp",
+                    "https://image.hsv-tech.io/600x600/bbx/dear_dahlia_blooming_edition_endless_glow_illumina_sunlit_1_2d5214f8bcd04c0cb9ed863573547ec9.jpg"
+                ]
+            }
+        ]
+    },
+    "categories": [
+        {
+            "key": "FACE",
+            "title": "Mặt nạ"
+        },
+        {
+            "key": "NOSE",
+            "title": "Xịt khoáng"
+        },
+        {
+            "key": "cham-soc-vung-da-mat",
+            "title": "Chăm sóc vùng da mắt"
+        },
+        {
+            "key": "nuoc-hoa-hong-toner",
+            "title": "Nước hoa hồng, toner"
+        },
+        {
+            "key": "kem-chong-nang",
+            "title": "Kem chống nắng"
+        },
+        {
+            "key": "tri-mun-va-seo",
+            "title": "Sản phẩm trị mụn và sẹo"
+        },
+        {
+            "key": "kem-va-sua-duong-da",
+            "title": "Kem và sữa dưỡng da"
+        },
+        {
+            "key": "san-pham-cham-soc-da-mat-khac",
+            "title": "Sản phẩm chăm sóc da mặt khác"
+        },
+        {
+            "key": "serum",
+            "title": "Serum"
+        },
+        {
+            "key": "bo-cham-soc-da-mat",
+            "title": "Bộ chăm sóc da mặt"
+        }
+    ],
+
+    "brands": [
+        {
+            "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/42e25a05-e70e-4e54-a4d7-391dd31583ad.webp",
+            "title": "THE FACE SHOP",
+            "specific": false
+        },
+        {
+            "id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/05ab3d22-0080-41d6-bfd4-43f4696d120a.webp",
+            "title": "AMUSE",
+            "specific": false
+        },
+        {
+            "id": "550e8400-e29b-41d4-a716-446655440000",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/8192c13f-cd4e-4859-ae00-6b85640423e3.webp",
+            "title": "CLIO",
+            "specific": false
+        },
+        {
+            "id": "3c6e0b8a-9e1c-4b3e-9c1a-1e6a4f5b2d3e",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/99e0467c-2bfa-466d-8df5-82a4ebe7f8c8.webp",
+            "title": "DEARDAHLIA",
+            "specific": false
+        },
+        {
+            "id": "7d793037-a1b0-4f7c-9b4e-0c5b6d7e8f9a",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/7df65e05-451b-4198-869e-4c76d8b1b8dd.webp",
+            "title": "FRESHIAN",
+            "specific": false
+        },
+        {
+            "id": "8e9f0a1b-2c3d-4e5f-9a0b-1c2d3e4f5a6b",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/b33472ea-f977-4761-8d34-5436a7eb59cb.webp",
+            "title": "KLAVUU",
+            "specific": false
+        },
+        {
+            "id": "9f0a1b2c-3d4e-5f6a-0b1c-2d3e4f5a6b7c",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/ded9b2ae-3f33-4021-9789-64fcc0db21dd.webp",
+            "title": "GLINT",
+            "specific": false
+        },
+        {
+            "id": "0a1b2c3d-4e5f-6a7b-1c2d-3e4f5a6b7c8d",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/533f13d9-9b8c-47d5-b084-87dfdc182d9b.webp",
+            "title": "THE WHOO",
+            "specific": false
+        },
+        {
+            "id": "1b2c3d4e-5f6a-7b8c-2d3e-4f5a6b7c8d9e",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/5129ffce-7480-4920-a2e1-372fa69cc3a8.webp",
+            "title": "GOODAL",
+            "specific": false
+        },
+        {
+            "id": "2c3d4e5f-6a7b-8c9d-3e4f-5a6b7c8d9e0f",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/851bfd4a-d255-40e0-a92b-262d864a27ba.webp",
+            "title": "SUM37",
+            "specific": false
+        },
+        {
+            "id": "3d4e5f6a-7b8c-9d0e-4f5a-6b7c8d9e0f1a",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/7181a78e-a04a-461e-952b-5ef636d9a5bb.webp",
+            "title": "OHUI",
+            "specific": false
+        },
+        {
+            "id": "4e5f6a7b-8c9d-0e1f-5a6b-7c8d9e0f1a2b",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/1f122bc0-60c1-4e88-a592-e104f9e375ca.webp",
+            "title": "PAYOT",
+            "specific": false
+        },
+        {
+            "id": "5f6a7b8c-9d0e-1f2a-6b7c-8d9e0f1a2b3c",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/124b4465-b323-4609-b36f-161385e6b9ee.webp",
+            "title": "CNP LABORATORY",
+            "specific": false
+        },
+        {
+            "id": "6a7b8c9d-0e1f-2a3b-7c8d-9e0f1a2b3c4d",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/950dcf94-9fb5-47b5-8aef-a2327922dad3.webp",
+            "title": "PASSION BEYOND",
+            "specific": false
+        },
+        {
+            "id": "7b8c9d0e-1f2a-3b4c-8d9e-0f1a2b3c4d5e",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/d08cd181-f48d-4567-ba6a-708a110d1b9e.webp",
+            "title": "PAULAS CHOICE",
+            "specific": false
+        },
+        {
+            "id": "8c9d0e1f-2a3b-4c5d-9e0f-1a2b3c4d5e6f",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/93d1ebea-a392-43a4-b930-fde516b298e5.webp",
+            "title": "LAROCHE POSAY",
+            "specific": false
+        },
+        {
+            "id": "9d0e1f2a-3b4c-5d6e-0f1a-2b3c4d5e6f7a",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/1b4629d4-6a1d-4323-946b-f2a81375ae8b.webp",
+            "title": "COCOON",
+            "specific": false
+        },
+        {
+            "id": "0e1f2a3b-4c5d-6e7f-1a2b-3c4d5e6f7a8b",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/1f61423d-5fa8-4101-acd1-8513e05b4db2.webp",
+            "title": "OBBAGI",
+            "specific": false
+        },
+        {
+            "id": "1f2a3b4c-5d6e-7f8a-2b3c-4d5e6f7a8b9c",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/f34c628d-957a-4e99-aa1d-87b75fddede4.webp",
+            "title": "MISEENSCENE",
+            "specific": false
+        },
+        {
+            "id": "2a3b4c5d-6e7f-8a9b-3c4d-5e6f7a8b9c0d",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/9d310391-1b94-4f51-b4ff-91cfd9836cb4.webp",
+            "title": "OFELIA",
+            "specific": false
+        },
+        {
+            "id": "3b4c5d6e-7f8a-9b0c-4d5e-6f7a8b9c0d1e",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/2ecc2fd8-6809-4a29-b218-8bfbd536a248.webp",
+            "title": "BIODERMA",
+            "specific": false
+        },
+        {
+            "id": "4c5d6e7f-8a9b-0c1d-5e6f-7a8b9c0d1e2f",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/cad3266c-74be-449b-9680-9749b9091559.webp",
+            "title": "AESTURA",
+            "specific": false
+        },
+        {
+            "id": "5d6e7f8a-9b0c-1d2e-6f7a-8b9c0d1e2f3a",
+            "image": "https://image.hsv-tech.io/900x439/bbx/common/6db78932-52c7-45b4-accb-51d8aac32048.webp",
+            "title": "BLUR MATTE",
+            "specific": false
+        }
+    ],
+    "cart": {
+        "cart_id": 1000001,
+        "cart_status": "draft",
+        "cart_quantity": 2,
+        "cart_total_price": 49.99,
+        "cart_discount": 5.0,
+        "cart_final_price": 44.99,
+        "cart_shipping": 5.0,
+        "cart_discount_shipping": 0.0,
+        "cart_user": {
+            "user_id": 101,
+            "user_name": "Alice Smith",
+            "user_address": "456 Elm St, New York, USA"
+        },
+        "cart_products": [
+            {
+                "id": "6b058000-bd68-4aec-8f3a-53ba66e58b9e",
+                "product_name": "The Ordinary Niacinamide 10% + Zinc 1%",
+                "product_price": 250000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/ee5dd51c-0bc1-4158-ac25-abea088d5f91.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.029766Z"
+            },
+            {
+                "id": "fe3854b6-af03-41b4-a47d-0a0676951f61",
+                "product_name": "The Ordinary Alpha Arbutin 2% + HA",
+                "product_price": 330000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/e7cd2392-0f50-485c-9fad-b560875d2e9f.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.035778Z"
+            },
+            {
+                "id": "8085c4eb-86d0-4afc-8c8e-93c181848b7a",
+                "product_name": "Laneige Water Sleeping Mask",
+                "product_price": 650000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/558e2f39-8f2c-4ec1-8d93-f2621f6deb70.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.042393Z"
+            },
+            {
+                "id": "4eb6dd17-3da8-4759-b4c1-be2d9a747291",
+                "product_name": "Innisfree Green Tea Seed Serum",
+                "product_price": 520000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/53dd920f-cd75-45b8-bdd5-fd311def024c.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.047761Z"
+            },
+            {
+                "id": "178654f6-0e6e-4cc1-8819-d7b29684fbb3",
+                "product_name": "COSRX Low pH Good Morning Gel Cleanser",
+                "product_price": 280000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/products/17dbfae7-bbf3-419a-826a-1604761a3d93.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.053228Z"
+            },
+            {
+                "id": "b9daf5fe-306f-4712-a85c-6fff9d2e9a9e",
+                "product_name": "L'Oréal Paris Revitalift Laser X3 Cream",
+                "product_price": 750000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/4f1b14b2-39b9-47d0-b1dd-93748d938438.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.059059Z"
+            },
+            {
+                "id": "04640338-60af-46be-82a3-c83c95c78ba5",
+                "product_name": "Maybelline Fit Me Matte + Poreless Foundation",
+                "product_price": 220000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/ab435650-0510-471a-9b84-e13fe0d6bde5.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.064280Z"
+            },
+            {
+                "id": "c02669ec-4f7c-4c05-b47e-a113e9a8e330",
+                "product_name": "Anastasia Beverly Hills Dipbrow Pomade",
+                "product_price": 550000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/1285b479-f5fd-4cb9-8ec9-b4f1701e874b.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.069756Z"
+            },
+            {
+                "id": "f909d253-a2bb-4162-8a8a-6a46cb18e7e8",
+                "product_name": "Dr.Jart+ Ceramidin Cream",
+                "product_price": 950000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/2cc02dec-63da-49df-aac5-4213b4dc748e.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.078508Z"
+            },
+            {
+                "id": "f645d999-b21f-4312-9275-a4d2c5159a1d",
+                "product_name": "Some By Mi AHA-BHA-PHA 30 Days Miracle Toner",
+                "product_price": 350000,
+                "product_thumbnail": "https://image.hsv-tech.io/600x600/bbx/common/ecadc937-824b-4f8d-88c0-4cbf5c34dcb6.webp",
+                "quantity": 1,
+                "created_at": "2025-05-22T11:04:00Z",
+                "updated_at": "2025-05-23T13:20:43.084370Z"
+            }
+        ]
+    },
+    "order_checkout": {
+        "order_id": 1000001,
+        "order_status": "draft",
+        "order_quantity": 2,
+        "order_total_price": 1030000,
+        "order_discount": 5000,
+        "order_final_price": 6000000,
+        "order_shipping": 15000,
+        "order_payment_method": "CASH",
+        "order_paid": false,
+        "order_amount_paid": 5000000,
+        "order_amount_rest": 1000000,
+        "order_discount_shipping": 0.0,
+        "order_expected_delivery_time": "2025-04-13T19:00:00Z",
+        "order_user": {
+            "user_id": 101,
+            "user_name": "Alice Smith",
+            "user_address": "456 Elm St, New York, USA"
+        },
+        "order_products": [
+            {
+                "id": 5001,
+                "product_price": 250000,
+                "product_price_cost": 250000,
+                "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707539160/1758519e93449af005a02dc443a91b8d.jpg_fuhxnm.webp",
+                "product_name": "Sữa Rửa Mặt Dạng Gel Dịu Nhẹ Dành Cho Da Nhạy Cảm Và Da Khô Laneige Water Bank Blue Ha Cleansing Gel 200ml",
+                "product_quantity": 1,
+                "product_total_price": 250000,
+                "product_discount": 0.0
+            },
+            {
+                "id": 5002,
+                "product_price": 249999,
+                "product_price_cost": 24.99,
+                "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707549401/b8a8f9156a46e6fa5e9191577a5a041f.png_psazkh.webp",
+                "product_name": "Bộ sản phẩm Kem chống nắng dưỡng da bảo vệ hoàn hảo (Anessa Gold Milk 60ml x2 + Gold Gel 90g)",
+                "product_quantity": 1,
+                "product_total_price": 240000,
+                "product_discount": 0.0
+            }
+        ]
+    },
+    "orders": {
+        "data": {
+            "orders": [
+                {
+                    "order_id": 1000001,
+                    "order_status": "draft",
+                    "order_quantity": 2,
+                    "order_total_price": 1030000,
+                    "order_discount": 5000,
+                    "order_final_price": 6000000,
+                    "order_shipping": 15000,
+                    "order_discount_shipping": 0.0,
+                    "order_expected_delivery_time": "2025-04-13T19:00:00Z",
+                    "order_user": {
+                        "user_id": 101,
+                        "user_name": "Alice Smith",
+                        "user_address": "456 Elm St, New York, USA"
+                    },
+                    "order_products": [
+                        {
+                            "id": 5001,
+                            "product_price": 250000,
+                            "product_price_cost": 250000,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707539160/1758519e93449af005a02dc443a91b8d.jpg_fuhxnm.webp",
+                            "product_name": "Sữa Rửa Mặt Dạng Gel Dịu Nhẹ Dành Cho Da Nhạy Cảm Và Da Khô Laneige Water Bank Blue Ha Cleansing Gel 200ml",
+                            "product_quantity": 1,
+                            "product_total_price": 250000,
+                            "product_discount": 0.0
+                        },
+                        {
+                            "id": 5002,
+                            "product_price": 249999,
+                            "product_price_cost": 24.99,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707549401/b8a8f9156a46e6fa5e9191577a5a041f.png_psazkh.webp",
+                            "product_name": "Bộ sản phẩm Kem chống nắng dưỡng da bảo vệ hoàn hảo (Anessa Gold Milk 60ml x2 + Gold Gel 90g)",
+                            "product_quantity": 1,
+                            "product_total_price": 240000,
+                            "product_discount": 0.0
+                        }
+                    ]
+                },
+                {
+                    "order_id": 1000001,
+                    "order_status": "draft",
+                    "order_quantity": 2,
+                    "order_total_price": 1030000,
+                    "order_discount": 5000,
+                    "order_final_price": 6000000,
+                    "order_shipping": 15000,
+                    "order_discount_shipping": 0.0,
+                    "order_expected_delivery_time": "2025-04-13T19:00:00Z",
+                    "order_user": {
+                        "user_id": 101,
+                        "user_name": "Alice Smith",
+                        "user_address": "456 Elm St, New York, USA"
+                    },
+                    "order_products": [
+                        {
+                            "id": 5001,
+                            "product_price": 250000,
+                            "product_price_cost": 250000,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707539160/1758519e93449af005a02dc443a91b8d.jpg_fuhxnm.webp",
+                            "product_name": "Sữa Rửa Mặt Dạng Gel Dịu Nhẹ Dành Cho Da Nhạy Cảm Và Da Khô Laneige Water Bank Blue Ha Cleansing Gel 200ml",
+                            "product_quantity": 1,
+                            "product_total_price": 250000,
+                            "product_discount": 0.0
+                        },
+                        {
+                            "id": 5002,
+                            "product_price": 249999,
+                            "product_price_cost": 24.99,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707549401/b8a8f9156a46e6fa5e9191577a5a041f.png_psazkh.webp",
+                            "product_name": "Bộ sản phẩm Kem chống nắng dưỡng da bảo vệ hoàn hảo (Anessa Gold Milk 60ml x2 + Gold Gel 90g)",
+                            "product_quantity": 1,
+                            "product_total_price": 240000,
+                            "product_discount": 0.0
+                        }
+                    ]
+                },
+                {
+                    "order_id": 1000001,
+                    "order_status": "draft",
+                    "order_quantity": 2,
+                    "order_total_price": 1030000,
+                    "order_discount": 5000,
+                    "order_final_price": 6000000,
+                    "order_shipping": 15000,
+                    "order_discount_shipping": 0.0,
+                    "order_expected_delivery_time": "2025-04-13T19:00:00Z",
+                    "order_user": {
+                        "user_id": 101,
+                        "user_name": "Alice Smith",
+                        "user_address": "456 Elm St, New York, USA"
+                    },
+                    "order_products": [
+                        {
+                            "id": 5001,
+                            "product_price": 250000,
+                            "product_price_cost": 250000,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707539160/1758519e93449af005a02dc443a91b8d.jpg_fuhxnm.webp",
+                            "product_name": "Sữa Rửa Mặt Dạng Gel Dịu Nhẹ Dành Cho Da Nhạy Cảm Và Da Khô Laneige Water Bank Blue Ha Cleansing Gel 200ml",
+                            "product_quantity": 1,
+                            "product_total_price": 250000,
+                            "product_discount": 0.0
+                        },
+                        {
+                            "id": 5002,
+                            "product_price": 249999,
+                            "product_price_cost": 24.99,
+                            "product_thumbnail": "https://res.cloudinary.com/dwu92ycra/image/upload/v1707549401/b8a8f9156a46e6fa5e9191577a5a041f.png_psazkh.webp",
+                            "product_name": "Bộ sản phẩm Kem chống nắng dưỡng da bảo vệ hoàn hảo (Anessa Gold Milk 60ml x2 + Gold Gel 90g)",
+                            "product_quantity": 1,
+                            "product_total_price": 240000,
+                            "product_discount": 0.0
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "order_trackings": [
+        {
+            "time": "10:20 14-01-2025",
+            "status": "Đã giao",
+            "detail": "Giao hàng thành công",
+            "image": "Xem hình ảnh giao hàng",
+            "type": "success"
+        },
+        {
+            "time": "09:14 14-01-2025",
+            "status": "Đang vận chuyển",
+            "detail": "Đơn hàng sẽ sớm được giao, vui lòng chú ý điện thoại",
+            "type": "in_progress"
+        },
+        {
+            "time": "07:17 14-01-2025",
+            "detail": "Đơn hàng đã đến trạm giao hàng tại khu vực của bạn Phường Hòa Khánh Bắc...",
+            "type": "delivering "
+        },
+        {
+            "time": "05:45 14-01-2025",
+            "detail": "Đơn hàng đang được trung chuyển đến địa điểm kế tiếp",
+            "type": "delivering "
+        },
+        {
+            "time": "01:18 14-01-2025",
+            "detail": "Đơn hàng đã đến kho phân loại Phường Hòa Khánh Bắc...",
+            "type": "delivering "
+        },
+        {
+            "time": "01:18 14-01-2025",
+            "detail": "Đơn hàng được đặt",
+            "type": "delivering "
+        }
+    ],
+    "user": {
+        "username": "duongbaxinh",
+        "first_name": "Xinh",
+        "last_name": "Duong Ba",
+        "phone": "0378700020",
+        "address": "08 Tien Son 9, Phuong Hoa Cuong Nam, Hai Chau, Da Nang"
+    },
+    "brand": [
+        {
+            "id": "BRAND-1",
+            "name": "The Cocoon Original Vietnam"
+        },
+        {"id": "BRAND-2", "name": "La Roche-Posay"},
+        {"id": "BRAND-3", "name": "dermalogica"},
+        {"id": "dabo", "name": "Dabo"},
+        {"id": "smas", "name": "SMAS"}
+    ]
+}

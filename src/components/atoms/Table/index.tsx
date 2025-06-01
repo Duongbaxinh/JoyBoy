@@ -1,78 +1,120 @@
-import React from 'react';
-import { formatPrice } from '@/utils';
+"use client";
+import { IProduct, TableProps } from "@/interfaces";
+import Image from "next/image";
+import Price from "../Price";
+import DetailItem from "./DetailItem";
+import { useState } from "react";
 
-// Define and export the RawProduct interface
-export interface RawProduct {
-    id: string;
-    product_name: string;
-    product_price: number;
-    product_thumbnail: string;
-    product_images: string[];
-    product_type: string;
-    product_brand: string;
-    product_category: string;
-    product_made: string;
-    product_discount: boolean;
-    product_discount_start: string;
-    product_discount_end: string;
-    product_sold: number;
-    product_international: boolean;
-    product_rate: number;
-    product_ingredient: string;
-}
 
-// Define the props interface for ProductTable
-interface ProductTableProps {
-    products: RawProduct[];
-    productLabels: { key: string; label: string }[];
-}
+const Table: React.FC<TableProps> = ({
+    isDetail,
+    setIsDetail,
+    className,
+    styleTitle,
+    checked = false,
+    body,
+    productLabels,
+    openItem,
+    onOpenItem,
+    onSelect
+}) => {
+    const [detailItem, setDetailItem] = useState<number | string>('')
+    const toggleDetailItem = (id: number | string) => {
+        if (id === detailItem) {
+            setIsDetail(!isDetail)
+        } else {
+            setIsDetail(true)
+            setDetailItem(id)
+        }
+    };
 
-// ProductTable component
-const ProductTable: React.FC<ProductTableProps> = ({ products, productLabels }) => {
+    const tBody = (product: IProduct, key: keyof IProduct) => {
+        if (key === 'product_thumbnail') {
+            return (<Image src={product[key] ?? null} alt="lll" width={80} height={80} className="rounded-md" />)
+        }
+        if (key === 'product_price') {
+            return (<Price product_price={product[key]} />)
+        }
+        return (<p>{product[key] ?? "-"}</p>)
+    }
+    const isItemDetailSelected = (productId: number | string) => {
+        return productId === detailItem
+    }
     return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                    <tr>
-                        {productLabels.map((label) => (
+        <div
+            className={` bg-white text-text text-[13px] leading-[29px]  ${className}`}>
+            <table>
+                <thead
+                    className={`bg-pink-300 ${!isDetail ? " sticky top-0" : ""} px-3 left-0 z-10 ${styleTitle}`}>
+                    <tr className="px-3">
+                        <th className="py-2 px-3 w-full max-w-[80px] ">
+                            <input
+                                type="checkbox"
+                                onChange={(e) =>
+                                    onSelect({ type: "all", id: "", e })
+                                }
+                            />
+                        </th>
+                        {productLabels.map((col: any) => (
                             <th
-                                key={label.key}
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                            >
-                                {label.label}
+                                key={col.key}
+                                className="pl-4 text-left whitespace-nowrap w-full py-4 ">
+                                {col.label}
                             </th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {products.map((product, index) => (
-                        <tr key={`${index}-${product.product_name}`}>
-                            {productLabels.map((label) => (
-                                <td
-                                    key={`${index}-${product.product_name}-${label.key}`}
-                                    className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                                >
-                                    {label.key === 'product_price' ? (
-                                        formatPrice(product.product_price)
-                                    ) : label.key === 'product_discount' ? (
-                                        product.product_discount ? 'Có' : 'Không'
-                                    ) : label.key === 'product_images' ? (
-                                        product.product_images.length > 0
-                                            ? product.product_images.join(', ')
-                                            : 'Không có'
-                                    ) : label.key === 'product_international' ? (
-                                        product.product_international ? 'Có' : 'Không'
-                                    ) : (
-                                        product[label.key as keyof RawProduct]
+
+                <tbody>
+                    {body.map((row: IProduct, index: number) => (
+                        <>
+                            {row.id !== detailItem &&
+                                <tr
+                                    key={index}
+                                    className={`bg-white hover:bg-pink-100 ${isDetail &&
+                                        isItemDetailSelected(row.id ?? "") &&
+                                        "font-bold bg-pink-400 hover:bg-pink-400"
+                                        } `}
+                                    onClick={() => toggleDetailItem(row.id ?? "")}>
+
+                                    <td className="py-2 px-3">
+                                        <input
+                                            type="checkbox"
+                                            onChange={(e) =>
+                                                onSelect({
+                                                    type: "item",
+                                                    id: row.product_brand,
+                                                    e
+                                                })
+                                            }
+                                        />
+                                    </td>
+
+                                    {productLabels.map(
+                                        (col: { key: keyof IProduct, label: any }, index) => (
+                                            <td
+                                                key={index}
+                                                className="pl-4 py-[12px] w-full whitespace-nowrap text-left">
+                                                {tBody(row, col.key)}
+                                            </td>
+                                        )
                                     )}
-                                </td>
-                            ))}
-                        </tr>
+                                </tr >
+                            }
+
+                            {detailItem === row.id && isDetail && (
+                                <tr key={row.id} >
+                                    <td colSpan={Object.keys(row).length}>
+                                        <DetailItem setIsDetail={setIsDetail} product={row} />
+                                    </td>
+                                </tr>
+                            )}
+                        </>
                     ))}
                 </tbody>
             </table>
-        </div>
+        </div >
     );
 };
 
-export default ProductTable
+export default Table;

@@ -1,5 +1,5 @@
 "use client";
-import {BoxIcon} from "@/assets/icons";
+import { BoxIcon } from "@/assets/icons";
 import React, {
     ReactComponentElement,
     ReactElement,
@@ -18,6 +18,7 @@ export enum Variant {
     OUTLINE = "outline"
 }
 interface InputInterface {
+    nameInput?: string,
     disabled?: boolean;
     placeholder?: string;
     value?: string | number;
@@ -42,6 +43,7 @@ interface InputInterface {
     className?: string;
     classInput?: string;
     variant?: "underline" | "outline";
+    resInput?: any
 }
 
 function Input({
@@ -61,7 +63,8 @@ function Input({
     onHandleLeadingIcon,
     onHandleTailIcon,
     onHandleFocus,
-    onBlur
+    onBlur, nameInput,
+    resInput
 }: InputInterface) {
     const variantType = {
         underline: `border-b-[0.5px] focus-within:border-b-[2px]`,
@@ -81,9 +84,10 @@ function Input({
 
             <input
                 ref={refInput}
+                name={nameInput}
+                {...resInput}
                 className={`border-0 outline-none w-full h-full p-0 m-0 text-[13px] leading-[18px] text-text truncate ${classInput} `}
                 placeholder={`${placeholder}`}
-                value={value}
                 onChange={onChange}
                 type={`${type ? type : "text"}`}
                 onFocus={onHandleFocus}

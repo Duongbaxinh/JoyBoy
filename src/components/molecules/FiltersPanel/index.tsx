@@ -3,9 +3,9 @@ import React from "react";
 import FilterOption from "@/components/atoms/FilterOption";
 import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select";
-import {SearchIcon} from "@/assets/icons";
-import {categories, types, stocks, displayOptions, expirations} from "@/consts";
-import {Filters} from "@/interfaces";
+import { SearchIcon } from "@/assets/icons";
+import { categories, types, stocks, displayOptions, expirations } from "@/consts";
+import { Filters } from "@/interfaces";
 
 interface FiltersPanelProps {
     filters: Filters;
@@ -24,8 +24,8 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
             [field]: Array.isArray(filters[field])
                 ? (filters[field] as string[]).includes(value)
                     ? (filters[field] as string[]).filter(
-                          (item) => item !== value
-                      )
+                        (item) => item !== value
+                    )
                     : [...(filters[field] as string[]), value]
                 : value
         });
@@ -41,7 +41,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                     title="Loại Hàng"
                     className="p-3">
                     <div className="mt-2 flex flex-col gap-3">
-                        {types.map(({id, label}) => (
+                        {types.map(({ id, label }) => (
                             <label
                                 key={id}
                                 className="flex items-center gap-2 text-text">
@@ -62,10 +62,11 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                     className="p-3">
                     <div className="mt-2 flex flex-col gap-3">
                         <Input
+                            resInput={""}
                             leadingIcon={<SearchIcon />}
                             placeholder="Tìm kiếm nhóm hàng"
                         />
-                        {categories.map(({id, label}) => (
+                        {categories.map(({ id, label }) => (
                             <label
                                 key={id}
                                 className="flex items-center gap-2 text-text">
@@ -85,7 +86,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                     title="Tồn kho"
                     className="p-3">
                     <div className="mt-2 flex flex-col gap-3">
-                        {stocks.map(({id, label}) => (
+                        {stocks.map(({ id, label }) => (
                             <label
                                 key={id}
                                 className="flex items-center gap-2 text-text">
@@ -106,7 +107,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                     title="Lựa chọn hiển thị"
                     className="p-3">
                     <div className="mt-2 flex flex-col gap-3">
-                        {displayOptions.map(({id, label}) => (
+                        {displayOptions.map(({ id, label }) => (
                             <label
                                 key={id}
                                 className="flex items-center gap-2 text-text">
@@ -123,13 +124,13 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                         ))}
                     </div>
                 </FilterOption>
-                <FilterOption
+                {/* <FilterOption
                     title="Hạn sử dụng"
                     className="p-3">
                     <div className="mt-2 flex flex-col gap-3">
-                        {expirations.map(({id, label}) => (
+                        {expirations.map(({ id, label }, index) => (
                             <label
-                                key={id}
+                                key={index}
                                 className="flex items-center gap-2 text-text">
                                 <input
                                     type="radio"
@@ -143,7 +144,7 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
                             </label>
                         ))}
                     </div>
-                </FilterOption>
+                </FilterOption> */}
                 <FilterOption
                     title="Thương hiệu"
                     className="p-3">

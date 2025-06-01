@@ -13,7 +13,7 @@ function Button({
     return (
         <div>
             <button
-                className={`text-white border text-[13px]  border-orange-400 rounded-md bg-green ${className}`}
+                className={`text-white border text-[13px]  border-orange-400 rounded-sm bg-pink-400 ${className}`}
                 onClick={onAction}>
                 {label}
             </button>

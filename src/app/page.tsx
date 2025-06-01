@@ -1,12 +1,11 @@
 "use client";
 
-import {EyeIcon} from "@/assets/icons";
-import Input, {Variant} from "@/components/atoms/Input";
+import { EyeIcon } from "@/assets/icons";
+import Input, { Variant } from "@/components/atoms/Input";
 import Pagination from "@/components/atoms/Pagination";
 import Select from "@/components/atoms/Select";
-import Drawer from "@/components/molecules/Drawer";
 
-import {useState} from "react";
+import { useState } from "react";
 import ContainerLayout from "./ContainerLayout/page";
 import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
@@ -72,14 +71,14 @@ export default function Home() {
                     onChange={(item: any) => setValueSelect(item)}
                     placeholder="Chon san pham muon tao"
                     options={[
-                        {id: 1, value: "Sửa rửa mặt", leftIcon: <EyeIcon />},
-                        {id: 2, value: "kem chống nắng1"},
-                        {id: 3, value: "kem chống nắng2"},
-                        {id: 4, value: "kem chống nắng3"},
-                        {id: 5, value: "kem chống nắng4"},
-                        {id: 6, value: "kem chống nắng5"},
-                        {id: 7, value: "kem chống nắng6"},
-                        {id: 8, value: "kem chống nắng7"}
+                        { id: 1, value: "Sửa rửa mặt", leftIcon: <EyeIcon /> },
+                        { id: 2, value: "kem chống nắng1" },
+                        { id: 3, value: "kem chống nắng2" },
+                        { id: 4, value: "kem chống nắng3" },
+                        { id: 5, value: "kem chống nắng4" },
+                        { id: 6, value: "kem chống nắng5" },
+                        { id: 7, value: "kem chống nắng6" },
+                        { id: 8, value: "kem chống nắng7" }
                     ]}
                 />
 

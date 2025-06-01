@@ -1,9 +1,9 @@
 "use client";
-import {BackIcon, EyeIcon} from "@/assets/icons";
+import { BackIcon, EyeIcon } from "@/assets/icons";
 import Header from "@/components/molecules/Header";
-import {pageChildren, pageParent} from "@/components/molecules/Header/config";
+import { pageChildren, pageParent } from "@/components/molecules/Header/config";
 import Sidebar from "@/components/molecules/Sidebar";
-import React, {ReactNode, useState} from "react";
+import React, { ReactNode, useState } from "react";
 
 interface TypeContainer {
     isHeader?: boolean;
@@ -34,15 +34,13 @@ function ContainerLayout({
     return (
         <>
             <div
-                className={`flex  w-full ${
-                    isOpen ? "overflow-hidden h-[100vh]" : "overflow-x-hidden"
-                }`}>
+                className={`flex  w-full bg-white ${isOpen ? "overflow-hidden h-[100vh]" : "overflow-x-hidden"
+                    }`}>
                 <div
-                    className={` h-[100vh] ${
-                        isOpen !== null
-                            ? isOpen && "animate-appearanceLeft"
-                            : "hidden"
-                    }
+                    className={` h-[100vh] ${isOpen !== null
+                        ? isOpen && "animate-appearanceLeft"
+                        : "hidden"
+                        }
                         ${isOpen !== null && !isOpen && "animate-hiddenLeft"}
                     }`}>
                     <Sidebar onClose={handleCloseMenu} />
@@ -58,13 +56,12 @@ function ContainerLayout({
 
                     <div className={`w-full `}>{children}</div>
 
-                    <div className="">Footer</div>
+
 
                     <div
                         onClick={handleOpenMenu}
-                        className={`absolute w-full h-full top-0 left-0 bg-text opacity-[0.2] ${
-                            isOpen ? "block" : "hidden"
-                        }`}>
+                        className={`absolute w-full h-full top-0 left-0 bg-text opacity-[0.2] ${isOpen ? "block" : "hidden"
+                            }`}>
                         <div className="h-[48px] ml-[20px] flex items-center">
                             <BackIcon
                                 className="w-6 h-6  "

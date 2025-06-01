@@ -1,3 +1,4 @@
+import {SetStateAction} from "react";
 import {Filters} from "./filter.interface";
 import {IProduct} from "./product.interface";
 
@@ -8,6 +9,8 @@ export interface SelectParams {
 }
 
 export interface TableProps {
+    isDetail: boolean;
+    setIsDetail: React.Dispatch<SetStateAction<boolean>>;
     fieldSearches?: {field: string; label: string; value: any}[];
     onSearch?: (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -27,6 +30,7 @@ export interface TableProps {
     styleTitle?: string;
     titleTable?: any;
     checked?: boolean;
+    productLabels: any[];
     body: IProduct[] | any;
     detailItem?: {item: string | number | null; open: boolean};
     itemChecked?: (string | number)[];
