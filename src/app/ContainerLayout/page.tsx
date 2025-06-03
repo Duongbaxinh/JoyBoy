@@ -1,9 +1,10 @@
 "use client";
-import { BackIcon, EyeIcon } from "@/assets/icons";
+import { BackIcon } from "@/assets/icons";
 import Header from "@/components/molecules/Header";
 import { pageChildren, pageParent } from "@/components/molecules/Header/config";
 import Sidebar from "@/components/molecules/Sidebar";
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
+import { ToastContainer } from 'react-toastify';
 
 interface TypeContainer {
     isHeader?: boolean;
@@ -33,6 +34,7 @@ function ContainerLayout({
     };
     return (
         <>
+            <ToastContainer />
             <div
                 className={`flex  w-full bg-white ${isOpen ? "overflow-hidden h-[100vh]" : "overflow-x-hidden"
                     }`}>

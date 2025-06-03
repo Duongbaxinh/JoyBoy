@@ -3,6 +3,7 @@ import ReduxProvider from "@/redux/ReduxProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ProductProvider } from "@/contexts/formcreateproduct.contex";
 
 
 
@@ -19,8 +20,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <ReduxProvider> {children}</ReduxProvider>
+                <ReduxProvider>
+                    <ProductProvider>
+                        {children}
+                    </ProductProvider>
+                </ReduxProvider>
             </body>
-        </html>
+        </html >
     );
 }

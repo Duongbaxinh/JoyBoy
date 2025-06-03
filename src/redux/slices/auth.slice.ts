@@ -28,7 +28,6 @@ const baseQuery = fetchBaseQuery({
 // Base query có token (chỉ dùng cho getUser)
 const baseQueryWithToken = fetchBaseQuery({
     baseUrl: BASE_API,
-
     prepareHeaders: (headers) => {
         const token = localStorage.getItem("accessToken");
         if (token) {

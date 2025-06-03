@@ -1,9 +1,12 @@
 import { IProduct } from "@/interfaces";
+import { useDeleteProductMutation } from "@/redux/apis/manageproduct.api";
+import { useGetAllProductsQuery } from "@/redux/apis/product.api";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { IoCloseCircle } from "react-icons/io5";
+import { toast } from "react-toastify";
 import Button from "../Button";
 import IconButton from "../IconButton";
-import { IoCloseCircle } from "react-icons/io5";
 
 type StockLimit = {
     min: number;
@@ -63,15 +66,28 @@ const data: Product = {
 };
 
 function DetailItem({ product, setIsDetail }: { product: IProduct, setIsDetail: Dispatch<SetStateAction<boolean>> }) {
-    const [imageDisplay, setImageDisplay] = useState("");
+    const [imageDisplay, setImageDisplay] = useState("")
+    const { refetch } = useGetAllProductsQuery();
+    const [deleteProduct, { isLoading: isDeleteProduct, error: errorDeleteProduct }] = useDeleteProductMutation()
     const handleImageDisplay = (image: string) => {
         setImageDisplay(image);
     };
+    const handleDeleteProduct = async (slug: string) => {
+        try {
+            if (!slug) return toast.error("Đã có lỗi xảy ra")
+            await deleteProduct(slug).unwrap()
+            toast.success("Sản phẩm đã được xóa")
+            await refetch()
+        } catch (error) {
+            toast.error("ddax co loi xay ra")
+            console.log("check error ", error)
+        }
+    }
     const setClose = () => {
         setIsDetail(false)
     }
     if (!product) return <h1>Loading</h1>;
-    console.log(product);
+    console.log("check erro 333r ", errorDeleteProduct)
     return (
         <div className="relative px-2 py-2 w-full  max-w-[950px] h-[600px]  shadow rounded-md ">
             <IconButton className="absolute right-0 top-0" icon={<IoCloseCircle />} onFC={setClose} />
@@ -79,18 +95,18 @@ function DetailItem({ product, setIsDetail }: { product: IProduct, setIsDetail: 
                 <div className="grid grid-cols-8 gap-4 w-full  ">
                     <div className="pt-2 col-span-3 relative">
                         <Image
-                            src={imageDisplay ? imageDisplay : product.product_thumbnail}
+                            src={(imageDisplay ? imageDisplay : product.product_thumbnail) ?? "/images/product.png"}
                             alt=""
                             className="rounded-sm shadow-md object-cover"
                             fill
                         />
                     </div>
                     <div className=" col-span-1 flex flex-col gap-3 pt-2 max-h-[240px] overflow-y-scroll no-scrollbar">
-                        {product.images.map((image: string, index: number) => (
+                        {product.product_images.map((image, index: number) => (
                             <Image
-                                onClick={() => handleImageDisplay(image)}
+                                onClick={() => handleImageDisplay(image.image_url)}
                                 key={index}
-                                src={image ?? null}
+                                src={image.image_url ? image.image_url : "/images/product.png"}
                                 alt=""
                                 width={60}
                                 height={60}
@@ -102,8 +118,8 @@ function DetailItem({ product, setIsDetail }: { product: IProduct, setIsDetail: 
                         <h1 className=" text-[20px] font-[700] leading-[26px]"> {product.product_name}</h1>
                         <div className="grid grid-cols-2">
                             <p>Thương hiệu: </p>  <p className="text-[14px]  leading-5 "> {`${product.product_brand}`}</p>
-                            <p>Danh mục sản phẩm: </p> <p className="text-[14px]  leading-5 "> {`${product.product_category}`}</p>
-                            <p>Loại sản phẩm: </p><p className="text-[14px]  leading-5 "> {`${"Sữa rửa mặt"}`}</p>
+                            {/* <p>Danh mục sản phẩm: </p> <p className="text-[14px]  leading-5 "> {`${product.product_type?.}`}</p> */}
+                            <p>Loại sản phẩm: </p><p className="text-[14px]  leading-5 "> {`${product.product_type?.title}`}</p>
                             <p>Xuất xứ: </p><p className=" text-[14px]  leading-[26px]">  {`${product.product_made}`}</p>
                             <p>Số lượng đã bán: </p><p className=" text-[14px]  leading-[26px]">  {`${product.product_sold}`}</p>
                             <p>Tồn kho: </p><p className=" text-[14px]  leading-[26px]">  {`${product.product_stock_quantity}`}</p>
@@ -124,7 +140,7 @@ function DetailItem({ product, setIsDetail }: { product: IProduct, setIsDetail: 
             </div>
             <div className="absolute bottom-0 right-0 px-3 py-2 w-full flex justify-end gap-10 bg-pink-50 h-[60px]">
                 <Button label="Chỉnh sửa sản phẩm" onAction={() => { }} className="px-4 h-full !rounded-md" />
-                <Button label="Xóa sản phẩm" onAction={() => { }} className="px-4 h-full !rounded-md !bg-red-400" />
+                <Button label={`${isDeleteProduct ? "Đang xóa..." : "Xóa sản phẩm"}`} onAction={() => { handleDeleteProduct(product.product_slug) }} className="px-4 h-full !rounded-md !bg-red-400" />
             </div>
         </div>
     );

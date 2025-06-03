@@ -30,10 +30,16 @@ const Table: React.FC<TableProps> = ({
 
     const tBody = (product: IProduct, key: keyof IProduct) => {
         if (key === 'product_thumbnail') {
-            return (<Image src={product[key] ?? null} alt="lll" width={80} height={80} className="rounded-md" />)
+            return (<Image src={product[key] || "/fallback-image.jpg"} alt="lll" width={80} height={80} className="rounded-md" />)
         }
         if (key === 'product_price') {
             return (<Price product_price={product[key]} />)
+        }
+        if (key === "product_brand" || key === "product_promotion" || key === "product_type") {
+            return (<p>{product[key]?.title ?? "-"}</p>)
+        }
+        if (key === "product_images") {
+            return
         }
         return (<p>{product[key] ?? "-"}</p>)
     }
@@ -83,7 +89,7 @@ const Table: React.FC<TableProps> = ({
                                             onChange={(e) =>
                                                 onSelect({
                                                     type: "item",
-                                                    id: row.product_brand,
+                                                    id: row.product_brand.slug,
                                                     e
                                                 })
                                             }

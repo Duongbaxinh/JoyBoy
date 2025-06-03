@@ -1,6 +1,6 @@
 import {SetStateAction} from "react";
 import {Filters} from "./filter.interface";
-import {IProduct} from "./product.interface";
+import {IProduct} from "./data.type";
 
 export interface SelectParams {
     type: "all" | "item";
@@ -31,7 +31,7 @@ export interface TableProps {
     titleTable?: any;
     checked?: boolean;
     productLabels: any[];
-    body: IProduct[] | any;
+    body: IProduct[];
     detailItem?: {item: string | number | null; open: boolean};
     itemChecked?: (string | number)[];
     customHeader?: string;

@@ -1,6 +1,5 @@
-import {IProduct} from "@/interfaces";
 import {BASE_API} from "@/config/api.config";
-import {ProductResponse} from "@/interfaces/data.type";
+import {IProduct, ProductResponse} from "@/interfaces/data.type";
 import {toQueryString} from "@/utils/createParam";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 interface ParamsType {
@@ -29,7 +28,7 @@ export const productApi = createApi({
             },
             keepUnusedDataFor: 0
         }),
-        getAllProducts: builder.query<ProductResponse, ParamsType>({
+        getAllProducts: builder.query<ProductResponse, ParamsType | void>({
             query: (params: any) => {
                 const queryString = toQueryString(params);
                 const url = `/products?${queryString}`;
@@ -61,12 +60,7 @@ export const productApi = createApi({
             keepUnusedDataFor: 0
         }),
         getProductById: builder.query({
-            // query: (id) => `/products/${id}`,
-            query: (id) => {
-                return {
-                    url: "http://localhost:5001/1"
-                };
-            },
+            query: (id) => `/products/${id}`,
             transformResponse: (response: IProduct) => {
                 return response;
             },

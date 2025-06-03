@@ -1,103 +1,13 @@
 "use client";
 
-import { EyeIcon } from "@/assets/icons";
-import Input, { Variant } from "@/components/atoms/Input";
-import Pagination from "@/components/atoms/Pagination";
-import Select from "@/components/atoms/Select";
 
-import { useState } from "react";
 import ContainerLayout from "./ContainerLayout/page";
-import FilterOption from "@/components/atoms/FilterOption";
-import IconButton from "@/components/atoms/IconButton";
-import Popup from "@/components/atoms/Popup";
 
 export default function Home() {
-    const [value, setValue] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
-    const [active, setActive] = useState(1);
-    const [valueSelect, setValueSelect] = useState<{
-        id: number;
-        value: string;
-    }>();
 
-    const handleSetValueInput = (e: any) => {
-        setValue(e.target.value);
-    };
-
-    const handleClick = () => {
-        alert("click me !!!");
-    };
-    const handleOpen = () => {
-        setIsOpen(!isOpen);
-    };
     return (
         <ContainerLayout>
-            <Popup
-                title="Danh muc"
-                isOpen={isOpen}
-                onClose={handleOpen}
-                className="w-[500px]">
-                <div className=" w-[900px] bg-white ">
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                    <div className="h1">heelo</div>
-                </div>
-            </Popup>
-            <div className="">
-                <button onClick={() => setIsOpen(!isOpen)}>OPEN</button>
-
-                <div className="group bg-red-400 p-2 min-w-[200px]">
-                    <div className="group-hover:bg-blue-500 bg-red-300 p-2 w-[50px] cursor-pointer">
-                        Hover me!
-                    </div>
-                </div>
-            </div>
-            <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-                <h1 className="text-red-300">
-                    Welcome to JoyBoy App {valueSelect?.value}
-                </h1>
-                <FilterOption
-                    className="w-[200px] p-0"
-                    title="Filter Option">
-                    <IconButton
-                        label="Option"
-                        className="w-full"
-                    />
-                </FilterOption>
-                <Select
-                    className="max-w-[500px]  px-2"
-                    leftIcon={<EyeIcon />}
-                    selected={valueSelect}
-                    onChange={(item: any) => setValueSelect(item)}
-                    placeholder="Chon san pham muon tao"
-                    options={[
-                        { id: 1, value: "Sửa rửa mặt", leftIcon: <EyeIcon /> },
-                        { id: 2, value: "kem chống nắng1" },
-                        { id: 3, value: "kem chống nắng2" },
-                        { id: 4, value: "kem chống nắng3" },
-                        { id: 5, value: "kem chống nắng4" },
-                        { id: 6, value: "kem chống nắng5" },
-                        { id: 7, value: "kem chống nắng6" },
-                        { id: 8, value: "kem chống nắng7" }
-                    ]}
-                />
-
-                <Input
-                    className="w-[200px]"
-                    placeholder="Hello..."
-                    value={value}
-                    onChange={handleSetValueInput}
-                    onHandleLeadingIcon={handleClick}
-                    variant={Variant.OUTLINE}
-                    leadingIcon={<EyeIcon />}
-                    tailIcon={<EyeIcon />}
-                />
-                <Pagination
-                    active={active}
-                    setActive={setActive}
-                    totalPage={10}
-                />
-            </div>
+            Login
         </ContainerLayout>
     );
 }

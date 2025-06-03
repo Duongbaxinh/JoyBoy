@@ -1,17 +1,21 @@
 "use client";
 import {configureStore} from "@reduxjs/toolkit";
-import {productApi} from "./slices/product.slice";
+import {productApi} from "./apis/product.api";
 import {setupListeners} from "@reduxjs/toolkit/query";
-import {categoryApi} from "./slices/category.slice";
+import {categoryApi} from "./apis/category.api";
 import {brandApi} from "./apis/brand.api";
 import {authApi} from "./slices/auth.slice";
-import brandReducer from "./slices/brand.slice";
 import userReducer from "./slices/auth.slice";
+import {productTypeApi} from "./apis/typeproduct.api";
+import {promotionApi} from "./apis/promotion.api";
+import {manageProductApi} from "./apis/manageproduct.api";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        brands: brandReducer,
+        [manageProductApi.reducerPath]: manageProductApi.reducer,
+        [promotionApi.reducerPath]: promotionApi.reducer,
+        [productTypeApi.reducerPath]: productTypeApi.reducer,
         [categoryApi.reducerPath]: categoryApi.reducer,
         [productApi.reducerPath]: productApi.reducer,
         [brandApi.reducerPath]: brandApi.reducer,
@@ -19,6 +23,9 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
+            manageProductApi.middleware,
+            productTypeApi.middleware,
+            promotionApi.middleware,
             productApi.middleware,
             categoryApi.middleware,
             brandApi.middleware,

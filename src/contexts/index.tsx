@@ -1,5 +1,5 @@
 "use client";
-import React, {createContext, useContext, ReactNode, useState} from "react";
+import React, { createContext, useContext, ReactNode, useState } from "react";
 
 interface PopupContextType {
     showPopup: boolean;
@@ -8,13 +8,13 @@ interface PopupContextType {
 
 const PopupContext = createContext<PopupContextType | undefined>(undefined);
 
-export const PopupProvider: React.FC<{children: React.ReactNode}> = ({
+export const PopupProvider: React.FC<{ children: React.ReactNode }> = ({
     children
 }) => {
     const [showPopup, setShowPopup] = useState(false);
 
     return (
-        <PopupContext.Provider value={{showPopup, setShowPopup}}>
+        <PopupContext.Provider value={{ showPopup, setShowPopup }}>
             {children}
         </PopupContext.Provider>
     );

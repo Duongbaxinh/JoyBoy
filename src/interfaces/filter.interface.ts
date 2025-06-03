@@ -11,11 +11,11 @@ export type Filters = {
 export type FilterProductType = {
     limitnumber: number;
     page: number;
-    product_type_id?: string[];
+    product_type?: string[];
     product_price?: number[];
     product_discount?: boolean;
-    product_brand_id?: string[];
-    product_categories_id?: string[];
+    product_brand?: string[];
+    product_categories?: string[];
     sortBy?: string | null;
     order?: "asc" | "desc";
     textSearch?: string;

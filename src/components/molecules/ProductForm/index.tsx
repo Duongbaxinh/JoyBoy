@@ -1,204 +1,64 @@
-"use client";
-import FileUpload from '@/components/atoms/FileUpload';
-import Input, { Variant } from '@/components/atoms/Input';
-import Popup from '@/components/atoms/Popup';
-import { useForm } from 'react-hook-form';
+// src/components/ProductForm.tsx
+import { useGetBrandsQuery } from "@/redux/apis/brand.api";
+import { useGetAllTypeQuery } from "@/redux/apis/typeproduct.api";
+import { useGetAllPromotionQuery } from "@/redux/apis/promotion.api";
+import { Control, useController } from "react-hook-form";
+import { ProductFormData } from "@/interfaces/form.type";
 
-type ProductFormData = {
-    product_name: string;
-    product_brand: string;
-    product_type: string;
-    product_thumbnail: string;
-    product_images: number;
-    product_made: number;
-    product_discount: string;
-    product_discount_start: string;
-    product_discount_end: string;
-    product_international: boolean;
-    product_ingredient: string;
-    product_description: string;
-    product_stock_quantity: number;
-    product_expiration_date: string;
-};
+interface ProductFormProps {
+    control: Control<any>;
+    register: any;
+    errors: any;
+    index?: number;
+    prefix?: string;
+}
 
-export default function ProductForm() {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<ProductFormData>({
-        defaultValues: {
-            product_name: "",
-            product_brand: "",
-            product_type: "",
-            product_thumbnail: "",
-            product_images: 0,
-            product_made: 0,
-            product_discount: "",
-            product_discount_start: "",
-            product_discount_end: "",
-            product_international: false,
-            product_ingredient: "",
-            product_description: "",
-            product_stock_quantity: 0,
-            product_expiration_date: "",
-        },
+export default function ProductForm({ control, register, errors, index, prefix = "" }: ProductFormProps) {
+    const { data: productTypes } = useGetAllTypeQuery();
+    const { data: brands } = useGetBrandsQuery();
+    const { data: promotions } = useGetAllPromotionQuery();
+    const { field: discountField } = useController({
+        control,
+        name: `${prefix}product_discount`,
     });
 
-    const onSubmit = (data: ProductFormData) => {
-        console.log('Form data:', data);
-    };
-
-    const handleChangeFile = (e: any) => {
-        console.log('check file :::: ', e.target.files)
-    }
     return (
-        <Popup isOpen={true}>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-[1000px] mx-auto flex flex-col gap-4 p-4">
-                <h2 className="text-2xl font-bold">Thêm Sản Phẩm</h2>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Tên sản phẩm</label>
-                    <Input
-                        nameInput="product_name"
-                        placeholder="Nhập tên sản phẩm"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_name", { required: "Tên sản phẩm là bắt buộc" }) }}
-                    />
-                    {errors.product_name && <p className="text-red-500 text-sm mt-1">{errors.product_name.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Thương hiệu</label>
-                    <Input
-                        nameInput="product_brand"
-                        placeholder="Nhập thương hiệu"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_brand", { required: "Thương hiệu là bắt buộc" }) }}
-                    />
-                    {errors.product_brand && <p className="text-red-500 text-sm mt-1">{errors.product_brand.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Loại sản phẩm</label>
-                    <Input
-                        nameInput="product_type"
-                        placeholder="Nhập loại sản phẩm"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_type", { required: "Loại sản phẩm là bắt buộc" }) }}
-                    />
-                    {errors.product_type && <p className="text-red-500 text-sm mt-1">{errors.product_type.message}</p>}
-                </div>
-
-
-                <div>
-                    <label className="block font-medium text-gray-700">Hình ảnh sản phẩm (tối đa 5)</label>
-                    <input type='file' onChange={handleChangeFile} />
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Năm sản xuất</label>
-                    <Input
-                        nameInput="product_made"
-                        type="number"
-                        placeholder="Nhập năm sản xuất"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_made", { required: "Năm sản xuất là bắt buộc", min: { value: 1900, message: "Năm phải lớn hơn 1900" } }) }}
-                    />
-                    {errors.product_made && <p className="text-red-500 text-sm mt-1">{errors.product_made.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Giảm giá</label>
-                    <Input
-                        nameInput="product_discount"
-                        placeholder="Nhập phần trăm giảm giá"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_discount", { required: "Giảm giá là bắt buộc", pattern: { value: /^\d+(\.\d{1,2})?$/, message: "Phải là số hợp lệ (ví dụ: 10 hoặc 10.5)" } }) }}
-                    />
-                    {errors.product_discount && <p className="text-red-500 text-sm mt-1">{errors.product_discount.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Ngày bắt đầu giảm giá</label>
-                    <Input
-                        nameInput="product_discount_start"
-                        type="date"
-                        placeholder="Chọn ngày bắt đầu"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_discount_start", { required: "Ngày bắt đầu là bắt buộc" }) }}
-                    />
-                    {errors.product_discount_start && <p className="text-red-500 text-sm mt-1">{errors.product_discount_start.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Ngày kết thúc giảm giá</label>
-                    <Input
-                        nameInput="product_discount_end"
-                        type="date"
-                        placeholder="Chọn ngày kết thúc"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_discount_end", { required: "Ngày kết thúc là bắt buộc" }) }}
-                    />
-                    {errors.product_discount_end && <p className="text-red-500 text-sm mt-1">{errors.product_discount_end.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Sản phẩm quốc tế</label>
-                    <Input
-                        nameInput="product_international"
-                        type="checkbox"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_international") }}
-                    />
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Thành phần</label>
-                    <Input
-                        nameInput="product_ingredient"
-                        placeholder="Nhập thành phần"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_ingredient", { required: "Thành phần là bắt buộc" }) }}
-                    />
-                    {errors.product_ingredient && <p className="text-red-500 text-sm mt-1">{errors.product_ingredient.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Mô tả</label>
-                    <Input
-                        nameInput="product_description"
-                        placeholder="Nhập mô tả"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_description", { required: "Mô tả là bắt buộc" }) }}
-                    />
-                    {errors.product_description && <p className="text-red-500 text-sm mt-1">{errors.product_description.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Số lượng tồn kho</label>
-                    <Input
-                        nameInput="product_stock_quantity"
-                        type="number"
-                        placeholder="Nhập số lượng tồn kho"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_stock_quantity", { required: "Số lượng tồn kho là bắt buộc", min: { value: 0, message: "Phải lớn hơn hoặc bằng 0" } }) }}
-                    />
-                    {errors.product_stock_quantity && <p className="text-red-500 text-sm mt-1">{errors.product_stock_quantity.message}</p>}
-                </div>
-
-                <div>
-                    <label className="block font-medium text-gray-700">Ngày hết hạn</label>
-                    <Input
-                        nameInput="product_expiration_date"
-                        type="date"
-                        placeholder="Chọn ngày hết hạn"
-                        variant={Variant.OUTLINE}
-                        resInput={{ ...register("product_expiration_date", { required: "Ngày hết hạn là bắt buộc" }) }}
-                    />
-                    {errors.product_expiration_date && <p className="text-red-500 text-sm mt-1">{errors.product_expiration_date.message}</p>}
-                </div>
-
-                <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4">
-                    Lưu sản phẩm
-                </button>
-            </form>
-        </Popup>
+        <div className="grid grid-cols-2 gap-4">
+            <div>
+                <label className="block text-sm font-medium text-gray-700">Tên sản phẩm</label>
+                <input
+                    type="text"
+                    {...register(`${prefix}product_name`, { required: "Tên sản phẩm là bắt buộc" })}
+                    className="mt-1 p-2 w-full border border-purple-300 rounded"
+                    placeholder="Nhập tên sản phẩm"
+                />
+                {errors.product_name && <p className="text-red-500 text-sm mt-1">{errors.product_name.message}</p>}
+            </div>
+            {/* Các trường khác: giá, thương hiệu, loại sản phẩm, v.v. */}
+            <div className="flex items-center">
+                <label className="block text-sm font-medium text-gray-700 mr-2">Giảm giá</label>
+                <input
+                    type="checkbox"
+                    {...register(`${prefix}product_discount`)}
+                    className="mt-1 h-5 w-5 text-purple-600"
+                />
+            </div>
+            {discountField.value && (
+                <>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Phần trăm giảm giá</label>
+                        <input
+                            type="number"
+                            {...register(`${prefix}product_discount_percent`, { required: "Phần trăm giảm giá là bắt buộc", min: 0, max: 100 })}
+                            className="mt-1 p-2 w-full border border-purple-300 rounded"
+                            placeholder="Nhập phần trăm"
+                        />
+                        {errors.product_discount_percent && <p className="text-red-500 text-sm mt- Wales1">{errors.product_discount_percent.message}</p>}
+                    </div>
+                    {/* Các trường ngày bắt đầu, kết thúc */}
+                </>
+            )}
+            {/* Thêm các trường khác tương tự */}
+        </div>
     );
 }

@@ -10,13 +10,20 @@ import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
 import Input from "@/components/atoms/Input";
 import ProductTable from "@/components/atoms/Table";
+import { BASE_API } from "@/config/api.config";
+import { CREATE_PRODUCT_URL } from "@/config/router.config";
 import { priceRanges } from "@/consts";
+import { useProduct } from "@/contexts/formcreateproduct.contex";
 import { FilterProductType } from "@/interfaces";
 import { useGetBrandsQuery } from "@/redux/apis/brand.api";
-import { useGetAllCategoryQuery } from "@/redux/slices/category.slice";
-import { useGetProductFilterQuery } from "@/redux/slices/product.slice";
+import { useGetAllCategoryQuery } from "@/redux/apis/category.api";
+import { useGetProductFilterQuery } from "@/redux/apis/product.api";
+import { useGetAllTypeQuery } from "@/redux/apis/typeproduct.api";
+import Link from "next/link";
 import { useState } from "react";
 import { BiPlus } from "react-icons/bi";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import ReactPaginate from 'react-paginate';
 import { isArray } from "util";
 
 
@@ -42,11 +49,11 @@ const productLabels = [
 const initFilter: FilterProductType = {
     limitnumber: 10,
     page: 1,
-    product_brand_id: [],
-    product_categories_id: [],
+    product_brand: [],
+    product_categories: [],
     product_discount: false,
     product_price: [],
-    product_type_id: [],
+    product_type: [],
     textSearch: '',
     product_sold: []
 
@@ -57,16 +64,16 @@ function ProductPage() {
         item: number | string | null;
         open: boolean;
     }>({ item: null, open: false });
-
+    const { setShowFormProductCreate, showFormProductCreate } = useProduct()
     const [isDetail, setIsDetail] = useState<boolean>(false)
-
     const [filters, setFilters] = useState<FilterProductType>(initFilter);
     const { data: products, isLoading: loadingProduct, error: errorProduct } = useGetProductFilterQuery(filters)
     const { data: categories, isLoading, error } = useGetAllCategoryQuery()
+    const { data: productTypes, isLoading: isLoadingTypes, error: errorTypes } = useGetAllTypeQuery()
     const { data: brands, isLoading: loadingBrand, error: errorBrand } = useGetBrandsQuery()
 
 
-    if (!products) return <h1>Error</h1>
+
 
     const handleTextSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters((prev: any) => ({ ...prev, textSearch: e.target.value }));
@@ -80,6 +87,7 @@ function ProductPage() {
         }
     }
     const handleFilter = (filed: keyof FilterProductType, value: any) => {
+
         if (filed === "product_price") {
             setFilters(prev => ({ ...prev, [filed]: value }))
         }
@@ -87,26 +95,53 @@ function ProductPage() {
         setFilters(prev => ({ ...prev, [filed]: newData }))
     }
 
+    const totalPage = products ? Math.ceil(products.count / filters.limitnumber) : 1
+    const currentPage = Math.min(filters.page, Math.max(1, products?.page ?? 1))
+
+    const isPrevious = currentPage > 1
+    const isNext = currentPage < totalPage
+    const productsDisplay = products?.results ?? []
+    console.log("check product data ::: :", products)
     return (
         <ContainerLayout>
             <Container>
+                {/* <ProductForm /> */}
                 <div className="grid grid-cols-5 gap-x-4 ">
                     <div className="col-span-1 ">
                         <h2 className="h-20 flex items-center text-2xl font-bold text-text">
                             Hàng Hóa
                         </h2>
                         <div className="flex flex-col gap-3">
-                            <FilterOption
-                                title="Loại Hàng"
+                            {/* <FilterOption
+                                title="Danh mục"
                                 className="p-3">
                                 <div className="mt-2 flex flex-col gap-3">
-                                    {categories && categories.map(({ key, title }) => (
+                                    {categories && categories.map(({ id, slug, title }) => (
                                         <label
-                                            key={key}
+                                            key={id}
                                             className="flex items-center gap-2 text-text">
                                             <input
                                                 type="checkbox"
-                                                onChange={() => handleFilter("product_categories_id", title)}
+                                                onChange={() => handleFilter("product_categories", slug)}
+                                            />
+                                            <span className="text-sm">
+                                                {title}
+                                            </span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </FilterOption> */}
+                            <FilterOption
+                                title="Nhóm hàng"
+                                className="p-3 max-h-[300px] overflow-y-scroll">
+                                <div className="mt-2 flex flex-col gap-3">
+                                    {productTypes && productTypes.map(({ id, slug, title }) => (
+                                        <label
+                                            key={id}
+                                            className="flex items-center gap-2 text-text">
+                                            <input
+                                                type="checkbox"
+                                                onChange={() => handleFilter("product_type", slug)}
                                             />
                                             <span className="text-sm">
                                                 {title}
@@ -115,37 +150,18 @@ function ProductPage() {
                                     ))}
                                 </div>
                             </FilterOption>
-                            {/* <FilterOption
-                                title="Nhóm hàng"
-                                className="p-3">
-                                <div className="mt-2 flex flex-col gap-3">
-                                    {categories.map(({ id, label }) => (
-                                        <label
-                                            key={id}
-                                            className="flex items-center gap-2 text-text">
-                                            <input
-                                                type="checkbox"
-
-                                            />
-                                            <span className="text-sm">
-                                                {label}
-                                            </span>
-                                        </label>
-                                    ))}
-                                </div>
-                            </FilterOption> */}
 
                             <FilterOption
                                 title="Thương hiệu"
-                                className="p-3">
+                                className="p-3 max-h-[300px] overflow-y-scroll" >
                                 <div className="mt-2 flex flex-col gap-3">
-                                    {brands && brands.map(({ id, title }) => (
+                                    {brands && brands.map(({ id, slug, title }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
                                             <input
                                                 type="checkbox"
-                                                onChange={() => handleFilter("product_brand_id", title)}
+                                                onChange={() => handleFilter("product_brand", slug)}
                                             />
                                             <span className="text-sm">
                                                 {title}
@@ -229,12 +245,9 @@ function ProductPage() {
                                 placeholder="Theo mã, tên hàng"
                             />
                             <div className="flex gap-2">
-                                <IconButton
-                                    icon={<BiPlus className="w-5 h-5" />}
-                                    rightIcon={
-                                        <ArrowDown className="w-5 h-5" />
-                                    }
-                                />
+                                <Link href={CREATE_PRODUCT_URL}>
+                                    <BiPlus className="w-5 h-5" />
+                                </Link>
                                 <IconButton
                                     icon={<ImportIcon className="w-5 h-5" />}
                                 />
@@ -242,20 +255,37 @@ function ProductPage() {
 
                             </div>
                         </div>
-                        <div className={`relative w-full ${!isDetail ? "overflow-auto" : ""}`}>
+                        <div className={`relative w-full ${!isDetail ? "overflow-auto max-h-[80vh]" : ""}`}>
                             <ProductTable
                                 isDetail={isDetail}
                                 setIsDetail={setIsDetail}
                                 onSelect={() => { }}
                                 productLabels={productLabels}
-                                body={products.results ?? []}
+                                body={productsDisplay}
                             />
                         </div>
-
+                        {totalPage > 1 && (
+                            <div className="flex justify-center items-center gap-2 ">
+                                <ReactPaginate
+                                    className='flex gap-4 items-center justify-center '
+                                    breakLabel="..."
+                                    nextLabel={<FaChevronRight />}
+                                    activeClassName='min-w-[30px] max-w-[30px] min-h-[30px] max-h-[30px] flex items-center justify-center bg-pink-300 rounded-sm'
+                                    pageRangeDisplayed={products?.page}
+                                    initialPage={currentPage - 1}
+                                    onPageChange={(selectedItem) => {
+                                        handleFilter("page", selectedItem.selected + 1);
+                                    }}
+                                    pageCount={totalPage}
+                                    previousLabel={<FaChevronLeft />}
+                                    renderOnZeroPageCount={null}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </Container>
-        </ContainerLayout>
+        </ContainerLayout >
     );
 }
 export default ProductPage;

@@ -51,7 +51,15 @@ const config: Config = {
                 lightGreen: "#e6f8ec",
                 green: "#00B63E",
                 darkGreen: "#006D25",
-                orange: "#FAAE59"
+                orange: "#FAAE59",
+                "creamy-white": "#F8F1F1",
+                "charcoal-gray": "#333333",
+                "slate-gray": "#666666",
+                "soft-coral": "#FF6F61",
+                "muted-lavender": "#D8BFD8",
+                "rose-red": "#E63946",
+                "mint-green": "#A8D5BA",
+                "light-gray": "#E0E0E0"
             },
             animation: {
                 dropdown: "dropdown 0.2s ease-in-out forwards",
