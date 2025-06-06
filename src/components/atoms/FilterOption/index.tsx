@@ -1,6 +1,6 @@
-import {DropIcon} from "@/assets/icons";
-import {memo, ReactNode, useState} from "react";
-import ContainerShadow from "../ContainerShadow";
+import { DropIcon } from "@/assets/icons";
+import { memo, ReactNode, useState } from "react";
+
 
 interface FilterOptionInterface {
     leftIcon?: any;
@@ -16,7 +16,7 @@ interface FilterOptionInterface {
     children: ReactNode;
     inputSearch?: boolean;
     onChange?: any;
-    options?: {id: number; value: string; leftIcon?: any; rightIcon?: any}[];
+    options?: { id: number; value: string; leftIcon?: any; rightIcon?: any }[];
     className?: string;
     classOption?: string;
     title?: string;
@@ -43,8 +43,7 @@ function FilterOption({
         }
     };
     return (
-        <ContainerShadow
-            className={`${className} flex flex-col justify-start items-start`}>
+        <div className="">
             <div
                 onClick={handleOpenOption}
                 className="w-full flex justify-between items-center gap-[6px] ">
@@ -57,28 +56,26 @@ function FilterOption({
                     </div>
                 </div>
                 <div
-                    className={` ${customIcon} ${
-                        openOption ? "animate-rotate" : "animate-rotateContrary"
-                    }`}>
+                    className={` ${customIcon} ${openOption ? "animate-rotate" : "animate-rotateContrary"
+                        }`}>
                     {iconSelect}
                 </div>
             </div>
 
             <div
                 className={`w-full h-auto  bg-white 
-                    ${
-                        openOption !== null &&
-                        openOption === true &&
-                        "animate-dropdown !visible"
+                    ${openOption !== null &&
+                    openOption === true &&
+                    "animate-dropdown !visible"
                     }
-                     ${
-                         openOption !== null &&
-                         openOption === false &&
-                         "animate-uptown "
-                     } ${customOption} `}>
+                     ${openOption !== null &&
+                    openOption === false &&
+                    "animate-uptown "
+                    } ${customOption} `}>
                 <div className={`w-full`}>{children}</div>
             </div>
-        </ContainerShadow>
+        </div>
+
     );
 }
 

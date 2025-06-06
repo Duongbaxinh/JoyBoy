@@ -1,19 +1,19 @@
 "use client";
 import {configureStore} from "@reduxjs/toolkit";
-import {productApi} from "./apis/product.api";
 import {setupListeners} from "@reduxjs/toolkit/query";
-import {categoryApi} from "./apis/category.api";
 import {brandApi} from "./apis/brand.api";
-import {authApi} from "./slices/auth.slice";
-import userReducer from "./slices/auth.slice";
-import {productTypeApi} from "./apis/typeproduct.api";
-import {promotionApi} from "./apis/promotion.api";
+import {categoryApi} from "./apis/category.api";
 import {manageProductApi} from "./apis/manageproduct.api";
+import {orderApi} from "./apis/order.api";
+import {productApi} from "./apis/product.api";
+import {promotionApi} from "./apis/promotion.api";
+import {productTypeApi} from "./apis/typeproduct.api";
+import {authApi} from "./slices/auth.slice";
 
 export const store = configureStore({
     reducer: {
-        user: userReducer,
         [manageProductApi.reducerPath]: manageProductApi.reducer,
+        [orderApi.reducerPath]: orderApi.reducer,
         [promotionApi.reducerPath]: promotionApi.reducer,
         [productTypeApi.reducerPath]: productTypeApi.reducer,
         [categoryApi.reducerPath]: categoryApi.reducer,
@@ -23,6 +23,7 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
+            orderApi.middleware,
             manageProductApi.middleware,
             productTypeApi.middleware,
             promotionApi.middleware,

@@ -15,7 +15,7 @@ export const baseQuery = fetchBaseQuery({
     prepareHeaders: (headers) => {
         const token =
             typeof window !== "undefined"
-                ? localStorage.getItem("accessToken")
+                ? localStorage.getItem("admin_AccessToken")
                 : null;
         if (token) {
             headers.set("Authorization", `Bearer ${JSON.parse(token)}`);
@@ -38,7 +38,7 @@ export const customFetchBaseQuery: BaseQueryFn<
     ) {
         const refreshToken =
             typeof window !== "undefined"
-                ? localStorage.getItem("refreshToken")
+                ? localStorage.getItem("admin_FreshToken")
                 : null;
         if (refreshToken) {
             try {
@@ -58,11 +58,11 @@ export const customFetchBaseQuery: BaseQueryFn<
                     const newRefreshToken = (refreshResult.data as any)
                         .refresh_token;
                     localStorage.setItem(
-                        "accessToken",
+                        "admin_AccessToken",
                         JSON.stringify(newAccessToken)
                     );
                     localStorage.setItem(
-                        "refreshToken",
+                        "admin_FreshToken",
                         JSON.stringify(newRefreshToken)
                     );
                     result = await baseQuery(args, api, extraOptions);

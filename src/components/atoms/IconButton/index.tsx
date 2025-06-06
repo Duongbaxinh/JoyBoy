@@ -1,12 +1,23 @@
-import {EyeIcon, ReportIcon} from "@/assets/icons";
-import {IconButtonProps} from "@/interfaces";
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 
+export interface IconButtonProps {
+    disabled?: boolean;
+    variant?: "button" | "link";
+    url?: string;
+    icon?: ReactNode;
+    badge?: boolean;
+    className?: string;
+    customLabel?: string;
+    customIcon?: string;
+    label?: string;
+    rightIcon?: ReactNode;
+    onFC?: any;
+}
 const button = (props: IconButtonProps) => (
     <div className="relative">
         <button
-            onMouseMove={() => {}}
+            onMouseMove={() => { }}
             onClick={() => props.onFC()}
             className={`flex px-[10px] py-[8px] items-center justify-center gap-2 rounded-md border-0 outline-none bg-green hover:bg-darkGreen text-white text-[14px] ${props.className}`}>
             {props.icon && (
@@ -41,7 +52,7 @@ const typeButton = {
     link: link
 };
 
-function IconButton({...props}: IconButtonProps) {
+function IconButton({ ...props }: IconButtonProps) {
     return <>{typeButton[props.variant ? props.variant : "button"](props)}</>;
 }
 

@@ -1,4 +1,11 @@
 import {ShippingAddress, UserProfileType} from "./auth.type";
+// PRODUCT
+export interface ImageProduct {
+    id?: string;
+    image_url: string;
+    alt_text: string;
+    is_primary?: boolean;
+}
 
 export type ProductResponse = {
     results: IProduct[];
@@ -8,21 +15,15 @@ export type ProductResponse = {
     number_page: number;
     count: number;
 };
-export interface ImageProduct {
-    id?: string;
-    image_url: string;
-    alt_text: string;
-    is_primary?: boolean;
-}
 
-export type Category = {
+export type ProductType = {
     id: string;
     title: string;
     image: string;
     slug: string;
 };
 
-export type ProductType = {
+export type Category = {
     id: string;
     title: string;
     image: string;
@@ -42,6 +43,7 @@ export type ProductPromotion = {
     title: string;
     discount_percent: number;
 };
+
 export type IProduct = {
     id: string;
     product_name: string;
@@ -70,33 +72,17 @@ export type IProduct = {
     updated_at: string;
 };
 
+// ORDER
+export type statusOrderType =
+    | "pending"
+    | "processing"
+    | "shipped"
+    | "delivered"
+    | "cancelled";
 export type OrderUser = {
     user_id: number;
     user_name: string;
     user_address: string;
-};
-
-export type OrderStorage = {
-    order_quantity: number;
-    order_total_price: number;
-    order_discount: number;
-    order_final_price: number;
-    order_shipping: number;
-    order_expected_delivery_time: string; // ISO format datetime string
-    order_user: {
-        user_id: number;
-        user_name: string;
-        user_address: string;
-    };
-    order_products: {
-        id: number | undefined; // nếu có thể là undefined, nếu không thì chỉ để number
-        product_price: number | undefined;
-        product_thumbnail: string | undefined;
-        product_name: string | undefined;
-        product_quantity: number;
-        product_total_price: number | undefined;
-        product_discount: number;
-    }[];
 };
 
 export type OrderProduct = {
@@ -109,52 +95,36 @@ export type OrderProduct = {
     updated_at?: string;
 };
 
-export type OrderCheckout = {
-    order_id: string;
+export type OrderStorage = {
     order_quantity: number;
     order_total_price: number;
     order_discount: number;
-    order_code_discount: string;
     order_final_price: number;
     order_shipping: number;
-    order_shippingAddress: ShippingAddress;
-    order_paid: boolean;
-    order_amount_paid: number;
-    order_amount_rest: number;
-    order_payment_method: "CASH" | "CARD";
-    order_discount_shipping: number;
-    order_expected_delivery_time: Date;
-    order_user: OrderUser;
-    order_products: OrderProduct[];
+    order_expected_delivery_time: string;
+    order_user: {
+        user_id: number;
+        user_name: string;
+        user_address: string;
+    };
+    order_products: {
+        id: number | undefined;
+        product_price: number | undefined;
+        product_thumbnail: string | undefined;
+        product_name: string | undefined;
+        product_quantity: number;
+        product_total_price: number | undefined;
+        product_discount: number;
+    }[];
 };
 
 export type OrderType = {
     id: string;
     user: UserProfileType;
-    status:
-        | "pending"
-        | "confirmed"
-        | "shipped"
-        | "delivered"
-        | "cancelled"
-        | "confirmed";
+    status: statusOrderType;
     total_price: number;
     shipping_address: ShippingAddress;
     order_details: OrderProduct[];
-    created_at: string;
-    updated_at: string;
-};
-
-export type OrderDetailType = {
-    product_id: string;
-    order_id: string;
-    quantity: number;
-};
-export type OrderItemDisplayType = {
-    id: string;
-    product_name: string;
-    product_price: number;
-    quantity: number;
     created_at: string;
     updated_at: string;
 };
@@ -162,7 +132,7 @@ export type OrderItemDisplayType = {
 export type OrderResponse = {
     id: string;
     user: UserProfileType;
-    status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+    status: statusOrderType;
     shipping_address: ShippingAddress;
     order_details: OrderProduct[];
     total_price: number;
@@ -170,13 +140,14 @@ export type OrderResponse = {
     updated_at: string;
 };
 
+// CATEGORY
 export type CategoryProduct = {
     id: string;
     title: string;
     image: string;
     slug: string;
 };
-
+// BRAND
 export type BranchType = {
     id: string;
     title: string;
@@ -185,6 +156,7 @@ export type BranchType = {
     specific: boolean;
 };
 
+// PROMOTION
 export interface Promotion {
     id: string;
     title: string;

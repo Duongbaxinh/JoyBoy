@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import IconButton from "../IconButton";
-import {IconButtonProps} from "@/interfaces";
+import IconButton, { IconButtonProps } from "../IconButton";
+
 
 function ButtonOption({
     children,

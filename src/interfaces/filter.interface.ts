@@ -13,7 +13,7 @@ export type FilterProductType = {
     page: number;
     product_type?: string[];
     product_price?: number[];
-    product_discount?: boolean;
+    product_discount?: boolean | null;
     product_brand?: string[];
     product_categories?: string[];
     sortBy?: string | null;

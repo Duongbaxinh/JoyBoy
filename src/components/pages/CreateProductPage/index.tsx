@@ -1,7 +1,7 @@
 // src/components/CreateProductPage.tsx
 "use client";
 
-import ContainerLayout from "@/app/ContainerLayout/page";
+import ContainerLayout from "@/components/layouts/ContainerLayout/page";
 import { MESS_ERROR, MESS_SUCCESSFUL } from "@/config/mess.config";
 import { initProduct } from "@/consts/product";
 import { ImageProduct } from "@/interfaces";

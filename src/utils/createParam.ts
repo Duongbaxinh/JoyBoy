@@ -9,7 +9,10 @@ export const createParams = (customParams: any) => ({
 
 export function toQueryString(params: any) {
     return Object.entries(params)
-        .filter(([_, v]) => v !== "" && !(Array.isArray(v) && v.length === 0))
+        .filter(
+            ([_, v]) =>
+                v !== "" && v !== null && !(Array.isArray(v) && v.length === 0)
+        )
         .map(([key, val]) =>
             Array.isArray(val)
                 ? `${key}=${val.join(",")}`

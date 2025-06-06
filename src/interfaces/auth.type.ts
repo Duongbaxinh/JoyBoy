@@ -31,46 +31,50 @@ export type AuthDataRegister = {
     phone: string;
     confirmPassword: string;
 };
+export interface RegisterResponse {
+    id: string;
+    username: string;
+    email: string;
+    phone: string;
+    role: Role;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+}
 
 export interface Role {
     id: string;
     name: string;
     scope: string;
-    created_at: string; // ISO date string
-    updated_at: string; // ISO date string
+    created_at: string;
+    updated_at: string;
 }
 
 export type LoginType = Pick<UserType, "username"> & {password: string};
 export type UserProfileType = {
     id: string;
     username: string;
-    email: string;
-    phone: string;
-    created_at: string;
-    updated_at: string;
-};
-
-export interface ProfileFormData {
-    fullName: string;
-    nickname: string;
-}
-
-export type ShippingAddress = {
-    id: string;
-    user: UserProfileType;
-    address: string;
-    city: string;
-    zip: string;
-    country: string;
-    phone: string;
-    created_at: string;
-    updated_at: string;
+    email?: string;
+    phone?: string;
+    created_at?: string;
+    updated_at?: string;
 };
 
 export type ChangePasswordPayload = {
     email: string;
     current_password: string;
     new_password: string;
+};
+
+export type ShippingAddress = {
+    id: string;
+    user?: UserProfileType;
+    address?: string;
+    city?: string;
+    zip?: string;
+    country?: string;
+    created_at?: string;
+    updated_at?: string;
 };
 
 export type ForgotPasswordPayload = {
@@ -80,22 +84,3 @@ export type ResetPasswordPayload = {
     token: string;
     new_password: string;
 };
-
-export type AddressInfo = {
-    address: string;
-    city: string;
-    zip: string;
-    country: string;
-    phone: string;
-};
-
-export interface RegisterResponse {
-    id: string;
-    username: string;
-    email: string;
-    phone: string;
-    role: Role;
-    is_active: boolean;
-    created_at: string; // ISO date string
-    updated_at: string; // ISO date string
-}

@@ -11,11 +11,13 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
+        "@hookform/resolvers": "^5.0.1",
         "@reduxjs/toolkit": "^2.6.0",
         "@storybook/addon-coverage": "^1.0.4",
         "@svgr/webpack": "^8.1.0",
         "axios": "^1.8.1",
         "chart.js": "^4.4.8",
+        "dompurify": "^3.2.6",
         "file-saver": "^2.0.5",
         "my-app": "file:",
         "next": "14.2.14",
@@ -28,8 +30,10 @@
         "react-redux": "^9.2.0",
         "react-toastify": "^11.0.5",
         "tailwind-scrollbar": "^3.1.0",
+        "use-debounce": "^10.0.4",
         "xlsx": "^0.18.5",
-        "yarn": "^1.22.22"
+        "yarn": "^1.22.22",
+        "yup": "^1.6.1"
     },
     "resolutions": {
         "webpack": "^5"

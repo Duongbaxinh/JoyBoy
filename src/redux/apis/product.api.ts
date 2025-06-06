@@ -43,11 +43,11 @@ export const productApi = createApi({
             },
             providesTags: ["IProduct"]
         }),
-        getProductFilter: builder.query<ProductResponse, ParamsType>({
+        getProductFilter: builder.query<ProductResponse, ParamsType | void>({
             query: (params: any) => {
                 const queryString = toQueryString(params);
-
                 const url = `/products?${queryString}`;
+                console.log("check urlll ::: ", url);
                 return {
                     url: url,
                     timeout: 10000
@@ -56,11 +56,10 @@ export const productApi = createApi({
             transformResponse: (response: ProductResponse) => {
                 return response;
             },
-            providesTags: ["IProduct"],
-            keepUnusedDataFor: 0
+            providesTags: ["IProduct"]
         }),
         getProductById: builder.query({
-            query: (id) => `/products/${id}`,
+            query: (slug) => `/products/${slug}`,
             transformResponse: (response: IProduct) => {
                 return response;
             },
