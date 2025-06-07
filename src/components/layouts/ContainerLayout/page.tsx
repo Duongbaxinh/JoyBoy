@@ -26,7 +26,7 @@ function ContainerLayout({
         <>
             <ToastContainer />
             <div
-                className={`flex w-full bg-white "overflow-x-hidden max-w-[1440px] mt-0 mx-auto`}>
+                className={`flex w-full bg-white "overflow-x-hidden  min-w-[1440px] max-w-[1440px] mt-0 mx-auto`}>
                 <div
                     className={` h-[100vh] ${isOpen !== null
                         ? isOpen && "animate-appearanceLeft"

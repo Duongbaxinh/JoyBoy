@@ -84,3 +84,24 @@ export type ResetPasswordPayload = {
     token: string;
     new_password: string;
 };
+
+export type UserRole = "customer" | "seller";
+
+export interface Role {
+    id: string;
+    name: string;
+    scope: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface User {
+    id: string;
+    username: string;
+    email: string;
+    phone: string;
+    role: Role;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+}

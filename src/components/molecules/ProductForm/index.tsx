@@ -1,7 +1,7 @@
 // src/components/ProductForm.tsx
-import { useGetBrandsQuery } from "@/redux/apis/brand.api";
+import { useGetAllBrandQuery, useGetBrandsQuery } from "@/redux/apis/brand.api";
 import { useGetAllPromotionQuery } from "@/redux/apis/promotion.api";
-import { useGetAllTypeQuery } from "@/redux/apis/typeproduct.api";
+import { useGetAllTypeQuery, useGetTypeQuery } from "@/redux/apis/typeproduct.api";
 import { Control, useController } from "react-hook-form";
 
 interface ProductFormProps {
@@ -13,8 +13,8 @@ interface ProductFormProps {
 }
 
 export default function ProductForm({ control, register, errors, index, prefix = "" }: ProductFormProps) {
-    const { data: productTypes, isLoading: isLoadingTypes } = useGetAllTypeQuery();
-    const { data: brands, isLoading: isLoadingBrands } = useGetBrandsQuery();
+    const { data: productTypes, isLoading: isLoadingTypes, error: errorTypes } = useGetAllTypeQuery()
+    const { data: brands, isLoading: loadingBrand, error: errorBrand } = useGetAllBrandQuery()
     const { data: promotions, isLoading: isLoadingPromotions } = useGetAllPromotionQuery();
 
 
@@ -62,7 +62,7 @@ export default function ProductForm({ control, register, errors, index, prefix =
                 <select
                     {...register(getFieldName("product_brand_id"), { required: "Thương hiệu là bắt buộc" })}
                     className="mt-1 p-2 w-full border border-purple-300 rounded"
-                    disabled={isLoadingBrands}
+                    disabled={loadingBrand}
                 >
                     <option value="">Chọn thương hiệu</option>
                     {brands?.map((brand) => (

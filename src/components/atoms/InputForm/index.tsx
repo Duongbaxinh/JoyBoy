@@ -15,9 +15,9 @@ interface NumberInputProps {
 
 const InputForm: React.FC<NumberInputProps> = ({ register, leadingIcon, error, placeholder, type, defaultValue, onChange, className = "" }) => {
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
             {leadingIcon && (leadingIcon)}
-            <div className="flex flex-col">
+            <div className="flex flex-col  w-full">
                 <input
 
                     defaultValue={defaultValue}

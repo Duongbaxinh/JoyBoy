@@ -55,11 +55,11 @@ function FilterOption({
                         {title}
                     </div>
                 </div>
-                <div
+                {/* <div
                     className={` ${customIcon} ${openOption ? "animate-rotate" : "animate-rotateContrary"
                         }`}>
                     {iconSelect}
-                </div>
+                </div> */}
             </div>
 
             <div

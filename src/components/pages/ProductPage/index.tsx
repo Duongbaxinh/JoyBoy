@@ -1,52 +1,32 @@
 "use client";
-import ContainerLayout from "@/components/layouts/ContainerLayout/page";
 import {
     ImportIcon,
     SearchIcon
 } from "@/assets/icons";
+import Button from "@/components/atoms/Button";
 import Container from "@/components/atoms/Container";
 import FilterOption from "@/components/atoms/FilterOption";
 import IconButton from "@/components/atoms/IconButton";
 import InputForm from "@/components/atoms/InputForm";
+import ContainerLayout from "@/components/layouts/ContainerLayout/page";
 import ProductTable from "@/components/molecules/ProductTable";
 import { CREATE_PRODUCT_URL } from "@/config/router.config";
-import { priceRanges } from "@/consts";
-import { initFilter } from "@/consts/product";
-import { useProduct } from "@/contexts/product.context";
-import { IProduct } from "@/interfaces";
+import { priceRanges, productLabels } from "@/consts";
+import { ParamFilter, useProduct } from "@/contexts/product.context";
+import { IProduct, ProductBrand, ProductType, ProductTypeResponse } from "@/interfaces";
 import { FilterProductType } from "@/interfaces/filter.interface";
 import { useGetBrandsQuery } from "@/redux/apis/brand.api";
-import { useGetAllCategoryQuery } from "@/redux/apis/category.api";
 import { useDeleteProductMutation } from "@/redux/apis/manageproduct.api";
-import { useGetProductFilterQuery } from "@/redux/apis/product.api";
-import { useGetAllTypeQuery } from "@/redux/apis/typeproduct.api";
+import { useGetTypeQuery } from "@/redux/apis/typeproduct.api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiPlus } from "react-icons/bi";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import ReactPaginate from 'react-paginate';
 import { toast } from "react-toastify";
 import { isArray } from "util";
-import { number } from "yup";
 
-
-const productLabels = [
-    { key: "product_thumbnail", label: "Hình ảnh" },
-    { key: "product_name", label: "Tên sản phẩm" },
-    { key: "product_price", label: "Giá sản phẩm" },
-    { key: "product_type", label: "Loại sản phẩm" },
-    { key: "product_brand", label: "Thương hiệu" },
-    { key: "product_category", label: "Danh mục" },
-    { key: "product_made", label: "Xuất xứ" },
-    // { key: "product_discount", label: "Có chiết khấu" },
-    { key: "product_discount_start", label: "Thời gian bắt đầu chiết khấu" },
-    { key: "product_discount_end", label: "Thời gian kết thúc chiết khấu" },
-    { key: "product_sold", label: "Số lượng đã bán" },
-    { key: "product_international", label: "Sản phẩm quốc tế" },
-    { key: "product_rate", label: "Đánh giá" },
-    { key: "product_ingredient", label: "Thành phần" },
-];
 
 export type ProductSelected = {
     id: string,
@@ -56,16 +36,14 @@ export type ProductSelected = {
 }
 
 
-
 function ProductPage() {
-
     const router = useRouter()
-    const { products, filters, setFilters } = useProduct()
+    const { products, filters, setFilters, productTypes, brands, params, setParam } = useProduct()
+
+    const [brandData, setBrandData] = useState<ProductBrand[]>([])
+    const [typeData, setTypeData] = useState<ProductType[]>([])
     const [productSelected, setProductSelected] = useState<ProductSelected[]>([])
     const [isDetail, setIsDetail] = useState<boolean>(false)
-    const { data: categories, isLoading, error } = useGetAllCategoryQuery()
-    const { data: productTypes, isLoading: isLoadingTypes, error: errorTypes } = useGetAllTypeQuery()
-    const { data: brands, isLoading: loadingBrand, error: errorBrand } = useGetBrandsQuery()
     const [deleteProduct, { isLoading: isDeleteProduct, error: errorDeleteProduct }] = useDeleteProductMutation()
 
     const handleTextSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,12 +109,36 @@ function ProductPage() {
         router.push("/promotion/manage-promotion");
     };
 
+    const handleLoadMoreBrandAndType = (key: keyof ParamFilter) => {
+        setParam(prev => ({
+            ...prev,
+            [key]: {
+                ...prev[key],
+                limitnumber: prev[key].limitnumber + 5
+            }
+        }));
+    }
+
+    useEffect(() => {
+        if (brands && brands.results) {
+            setBrandData(brands.results)
+        }
+        if (productTypes && brands?.results) {
+            setTypeData(productTypes.results)
+        }
+    }, [productTypes, brands])
+
     const isPrevious = currentPage > 1
     const isNext = currentPage < totalPage
+
     const productsDisplay = products?.results ?? []
+    const isStopLoadMoreType = productTypes?.count === params.type.limitnumber
+    const isStopLoadMoreBrand = brands?.count === params.brand.limitnumber
+
     return (
         <ContainerLayout>
             <Container>
+                <p>{typeData.length.toString()}</p>
                 <div className="grid grid-cols-5 gap-x-4 ">
                     <div className="col-span-1 ">
                         <h2 className="h-20 flex items-center text-2xl font-bold text-text">
@@ -165,8 +167,8 @@ function ProductPage() {
                             <FilterOption
                                 title="Nhóm hàng"
                                 className="p-3 max-h-[300px] overflow-y-scroll">
-                                <div className="mt-2 flex flex-col gap-3">
-                                    {productTypes && productTypes.map(({ id, slug, title }) => (
+                                <div className="mt-2 flex flex-col gap-3 max-h-[200px] scrollbar overflow-y-scroll">
+                                    {typeData && typeData.length > 0 && typeData.map(({ id, slug, title }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
@@ -179,14 +181,15 @@ function ProductPage() {
                                             </span>
                                         </label>
                                     ))}
+                                    {!isStopLoadMoreType && <Button className="bg-transparent !text-pink-600 border-0" label="Xem thêm" onAction={() => handleLoadMoreBrandAndType("type")} />}
                                 </div>
                             </FilterOption>
 
                             <FilterOption
                                 title="Thương hiệu"
-                                className="p-3 max-h-[300px] overflow-y-scroll" >
-                                <div className="mt-2 flex flex-col gap-3">
-                                    {brands && brands.map(({ id, slug, title }) => (
+                                className="p-3 " >
+                                <div className="mt-2 flex flex-col gap-3 max-h-[200px] scrollbar overflow-y-scroll">
+                                    {brandData && brandData.length > 0 && brandData.map(({ id, slug, title }) => (
                                         <label
                                             key={id}
                                             className="flex items-center gap-2 text-text">
@@ -199,6 +202,7 @@ function ProductPage() {
                                             </span>
                                         </label>
                                     ))}
+                                    {!isStopLoadMoreBrand && (<Button className="bg-transparent !text-pink-600 border-0" label="Xem thêm" onAction={() => handleLoadMoreBrandAndType("brand")} />)}
                                 </div>
                             </FilterOption>
                             {/* <FilterOption
@@ -320,7 +324,7 @@ function ProductPage() {
                         )}
                     </div>
                 </div>
-            </Container>
+            </Container >
         </ContainerLayout >
     );
 }

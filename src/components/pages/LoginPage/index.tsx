@@ -48,14 +48,14 @@ const LoginPage = () => {
     return (
         <div className=" flex items-center justify-center w-full h-screen">
             <div className="bg-white h-fit w-[600px] my-0 mx-auto shadow p-4 rounded-md">
-                <div className="flex justify-center">
+                <div className="flex justify-center w-full">
                     <div className="w-full bg-white flex flex-col justify-center">
                         <h1 className="text-2xl font-bold mb-2 uppercase text-center">Đăng nhập</h1>
                         <p className="text-[14px] leading-[17px] font-[500] mb-6 text-center">
                             Hành trình làm đẹp của bạn bắt đầu từ đây
                         </p>
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                            <div className="mb-1 sm:mb-4 relative">
+                            <div className="mb-1 sm:mb-4 relative w-full">
                                 <InputForm
                                     className="!px-1 !py-3 sm:px-3 sm:py-5 border border-color"
                                     placeholder="Nhập email của bạn"
@@ -63,7 +63,7 @@ const LoginPage = () => {
                                     error={errors.username}
                                 />
                             </div>
-                            <div className="mb-1 sm:mb-4 relative">
+                            <div className="mb-1 sm:mb-4 relative w-full">
                                 <InputForm
                                     className="!px-1 !py-3 sm:px-3 sm:py-5 border border-color"
                                     placeholder="Nhập mật khẩu"

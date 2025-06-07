@@ -9,10 +9,12 @@ import {productApi} from "./apis/product.api";
 import {promotionApi} from "./apis/promotion.api";
 import {productTypeApi} from "./apis/typeproduct.api";
 import {authApi} from "./slices/auth.slice";
+import {userApi} from "./apis/manageuser.api";
 
 export const store = configureStore({
     reducer: {
         [manageProductApi.reducerPath]: manageProductApi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
         [orderApi.reducerPath]: orderApi.reducer,
         [promotionApi.reducerPath]: promotionApi.reducer,
         [productTypeApi.reducerPath]: productTypeApi.reducer,
@@ -24,6 +26,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
             orderApi.middleware,
+            userApi.middleware,
             manageProductApi.middleware,
             productTypeApi.middleware,
             promotionApi.middleware,

@@ -16,11 +16,21 @@ export type ProductResponse = {
     count: number;
 };
 
+// Type
 export type ProductType = {
     id: string;
     title: string;
     image: string;
     slug: string;
+};
+
+export type ProductTypeResponse = {
+    results: ProductType[];
+    limitnumber: number;
+    page: number;
+    page_size: number;
+    number_page: number;
+    count: number;
 };
 
 export type Category = {
@@ -148,12 +158,21 @@ export type CategoryProduct = {
     slug: string;
 };
 // BRAND
-export type BranchType = {
+export type BrandType = {
     id: string;
     title: string;
     slug: string;
     image: string;
     specific: boolean;
+};
+
+export type BrandTypeResponse = {
+    results: BrandType[];
+    limitnumber: number;
+    page: number;
+    page_size: number;
+    number_page: number;
+    count: number;
 };
 
 // PROMOTION

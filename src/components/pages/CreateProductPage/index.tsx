@@ -6,10 +6,10 @@ import { MESS_ERROR, MESS_SUCCESSFUL } from "@/config/mess.config";
 import { initProduct } from "@/consts/product";
 import { ImageProduct } from "@/interfaces";
 import { ProductFormData } from "@/interfaces/form.type";
-import { useGetBrandsQuery } from "@/redux/apis/brand.api";
+import { useGetAllBrandQuery, useGetBrandsQuery } from "@/redux/apis/brand.api";
 import { useCreateProductImagesMutation, useCreateProductMutation } from "@/redux/apis/manageproduct.api";
 import { useGetAllPromotionQuery } from "@/redux/apis/promotion.api";
-import { useGetAllTypeQuery } from "@/redux/apis/typeproduct.api";
+import { useGetAllTypeQuery, useGetTypeQuery } from "@/redux/apis/typeproduct.api";
 import { convertEmptyStringToNull } from "@/utils/converStringEmptyToNull";
 import { uploadFile } from "@/utils/uploadFile";
 import Image from "next/image";
@@ -49,7 +49,7 @@ export default function CreateProductPage() {
     const router = useRouter()
 
     const { data: productTypes, isLoading: isLoadingTypes, error: errorTypes } = useGetAllTypeQuery();
-    const { data: brands, isLoading: loadingBrand, error: errorBrand } = useGetBrandsQuery();
+    const { data: brands, isLoading: loadingBrand, error: errorBrand } = useGetAllBrandQuery();
     const { data: promotions, isLoading: loadingPromotion, error: errorPromotion } = useGetAllPromotionQuery();
     const [createProduct, { isLoading: loadingCreateProduct, error }] = useCreateProductMutation()
     const [createProductImage, { isLoading: loadingCreateProductImage, error: errorCreateProductImage }] = useCreateProductImagesMutation()
