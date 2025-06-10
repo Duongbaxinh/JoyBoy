@@ -1,6 +1,5 @@
 "use client";
 import {
-    ImportIcon,
     SearchIcon
 } from "@/assets/icons";
 import Button from "@/components/atoms/Button";
@@ -13,11 +12,9 @@ import ProductTable from "@/components/molecules/ProductTable";
 import { CREATE_PRODUCT_URL } from "@/config/router.config";
 import { priceRanges, productLabels } from "@/consts";
 import { ParamFilter, useProduct } from "@/contexts/product.context";
-import { IProduct, ProductBrand, ProductType, ProductTypeResponse } from "@/interfaces";
+import { IProduct, ProductBrand, ProductType } from "@/interfaces";
 import { FilterProductType } from "@/interfaces/filter.interface";
-import { useGetBrandsQuery } from "@/redux/apis/brand.api";
 import { useDeleteProductMutation } from "@/redux/apis/manageproduct.api";
-import { useGetTypeQuery } from "@/redux/apis/typeproduct.api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -287,9 +284,10 @@ function ProductPage() {
                                     label="Tạo chương trình ưu đãi"
                                     icon={<BiPlus className="w-5 h-5" />}
                                 />
-                                <IconButton
+
+                                {/* <IconButton
                                     icon={<ImportIcon className="w-5 h-5" />}
-                                />
+                                /> */}
 
                             </div>
                         </div>

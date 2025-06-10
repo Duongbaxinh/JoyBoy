@@ -1,4 +1,4 @@
-import PromotionFormPage from '@/components/pages/PromotionFormPage';
+
 import { Props } from '@/interfaces/page.type';
 import React from 'react';
 

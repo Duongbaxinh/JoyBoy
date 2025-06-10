@@ -109,7 +109,7 @@ export default function PromotionPage() {
 
     return (
         <ContainerLayout>
-            <div className="container mx-auto p-4">
+            <div className="w-full p-4">
                 <h1 className="text-2xl font-bold mb-4 text-purple-800">Quản lý chương trình ưu đãi</h1>
 
                 {/* Program List Table */}
